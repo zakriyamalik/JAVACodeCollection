@@ -9,6 +9,7 @@ import lecture4_5c.Student;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+
 import java.util.*;
 
 /**
@@ -20,7 +21,7 @@ public class Lecture4_5C {
     /**
      * @param args the command line arguments
      */
-    
+    public static int counter=0;
     private static void menu()
     {
         System.out.println("1. Student Entry\n2. Course Registration\n3. View Courses\n4. Offer Course");
@@ -39,6 +40,7 @@ public class Lecture4_5C {
         // TODO code application logic here
         ArrayList<Course> offeredCourses = new ArrayList<>();        
         ArrayList<Student> students = new ArrayList<>();
+        
 
         int selection;
         Scanner input = new Scanner(System.in);
@@ -107,6 +109,7 @@ public class Lecture4_5C {
         Scanner input = new Scanner(System.in);
         System.out.println("Enter Roll Number : ");
         String rollNum = input.nextLine();
+      
         for(Student s:sList)
         {
             stdIndex++;
@@ -132,7 +135,7 @@ public class Lecture4_5C {
 
                             s.register(c);
 
-                            studentCourses[stdIndex][stdIndex].=
+                            studentCourses[stdIndex][counter++]=c;
 
                         }
                         break;
