@@ -4,11 +4,23 @@ import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.time.LocalDate;
 import java.util.*;
 
 //import ;
 
 public class Main {
+    public static int menu(int choice)
+    {
+        Scanner scanner1 = new Scanner(System.in);
+        System.out.println("Enter 1 to Create File \nEnter 2 to Write file\nEnter 3 to Read file\nEnter 4 to change Password\nEnter 5 to enter Customer Info\n Enter 6 to add Billing Info");
+        choice = scanner1.nextInt();
+        scanner1.nextLine();
+
+        //scanner1.close();
+
+        return choice;
+    }
     public static int changePassword(String fileName) throws IOException {
         System.out.println("In changePassword function\n");
 
@@ -64,17 +76,7 @@ public class Main {
 
         return 0;
     }
-    public static int menu(int choice)
-    {
-        Scanner scanner1 = new Scanner(System.in);
-        System.out.println("Enter 1 to Create File \nEnter 2 to Write file\nEnter 3 to Read file\nEnter 4 to change Password");
-        choice = scanner1.nextInt();
-        scanner1.nextLine();
 
-        //scanner1.close();
-
-        return choice;
-    }
     public static boolean checkUserName( String fileName,String name) throws FileNotFoundException {
         String line="";
         char character='\u0000';
@@ -197,34 +199,34 @@ public class Main {
         int id=generateCustomerId();
         long cnic=0;
         String address="";
-        int phoneNo=0;
+        long phoneNo=0;
         String cusType="";
         String meterType="";
-        String connectionDate="";
+        LocalDate currentDate = LocalDate.now();
+        String connectionDate = currentDate.toString();
         int regUnitConsumed=0;
         int peakUnitConsumed=0;
         String userInput = "";
 
         System.out.println("Enter 13-digit number without dashes:\n");
         Scanner scanner = new Scanner(System.in);
-        cnic=Integer.parseInt(scanner.nextLine());
+        cnic=Long.parseLong(scanner.nextLine());
         System.out.println("Enter address:\n");
         address=scanner.nextLine();
         System.out.println("Enter Phone no:\n");
-        phoneNo=scanner.nextInt();
-        userInput.equalsIgnoreCase("clear");
+        phoneNo=scanner.nextLong();
+        scanner.nextLine();
         System.out.println("Enter customer type:\n");
         System.out.println("commercial or domestic");
         cusType=scanner.nextLine();
         System.out.println("Enter meter type:\n");
         System.out.println("1-phase or 3-phase");
         meterType=scanner.nextLine();
-        System.out.println("Enter connection Date:\n");
-        connectionDate=scanner.nextLine();
+
 
         try {
             FileWriter myWriter = new FileWriter(fileName, true);
-            if(meterType=="3-phase")
+            if(Objects.equals(meterType, "3-phase"))
             {
                 myWriter.write(id + "," + cnic + "," + address + "," + phoneNo + "," + cusType + "," + meterType + "," + connectionDate + "," + regUnitConsumed + "," + peakUnitConsumed + System.lineSeparator());
 
@@ -242,7 +244,46 @@ public class Main {
             e.printStackTrace();
         }
 
+        return 0;
+    }
 
+
+    public static int billingSystem(String fileName) throws IOException
+    {
+        int id=0;
+        String billingMonth="";
+        long currMeterReadingReg=0;
+        long currMeterReadingPeak=0;
+        String readingEntryDate="";
+        double costOfElectricity=0.0;
+        double salesTaxAmount=0.0;
+        double fixedCharge=0.0;
+        double totalBillingCharge=0.0;
+        String dueDate="";
+        boolean billPaidStatus=false;
+        String billPaymentDate="";
+        String line="";
+
+
+        File file = new File("CustomerInfo.txt");
+        Scanner scanner = new Scanner(file);
+        FileWriter myWriter = new FileWriter(fileName, true);
+
+
+        // Iterate over each line in the file
+        while (scanner.hasNextLine()) {
+            line = scanner.nextLine();
+            String[] userData = line.split(",", 9);
+            id=Integer.parseInt(userData[0]);
+            line = id + "," +billingMonth + "," + currMeterReadingReg + "," + currMeterReadingPeak + "," + readingEntryDate + "," + costOfElectricity + "," + salesTaxAmount + "," + fixedCharge + "," + totalBillingCharge + "," +dueDate + "," +billPaidStatus + "," +billPaymentDate;// Write the line to the file
+            myWriter.write(line+System.lineSeparator());
+            // Close the writer after writing is done
+            myWriter.close();
+            System.out.println("Successfully wrote to the file.");
+            
+        }
+
+        scanner.close();
 
 
 
@@ -296,6 +337,15 @@ public class Main {
                 fileName=scanner.next();
                 customerInfo(fileName);
             }
+            break;
+            case 6:
+            {
+                System.out.println("Enter the name of the file");
+                fileName=scanner.next();
+                billingSystem(fileName);
+
+            }
+            break;
             default:
                 System.out.println("Enter correct name of the file");
         }
