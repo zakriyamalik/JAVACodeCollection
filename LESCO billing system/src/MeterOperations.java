@@ -1,4 +1,5 @@
 import java.io.*;
+import java.time.LocalDate;
 import java.util.*;
 
 public class MeterOperations {
@@ -14,7 +15,51 @@ public class MeterOperations {
         }
 
     }
+public static void  nadOperation(String fileName,String CNIC)
+    {
+//        String dayOfWeek="";
+//        String month="";
+//        int year=0;
+//        String yearString="";
+//        String expiryDate="";
+//
+//        LocalDate currentDate = LocalDate.now();
+//
+//        dayOfWeek = currentDate.getDayOfWeek().toString();
+//
+//         month = currentDate.getMonth().toString();
+//         year = currentDate.getYear() + 50;
+//         yearString = String.valueOf(year);
+//         expiryDate =  yearString+"/" + month +"/"+dayOfWeek ;
 
+        int dayOfWeekNumber=0;
+        int monthNumber=0;
+        int year = 0;
+        String expiryDate = "";
+        String currDate="";
+
+
+        LocalDate currentDate = LocalDate.now();
+
+
+        dayOfWeekNumber = currentDate.getDayOfWeek().getValue();
+        monthNumber = currentDate.getMonthValue();
+        year = currentDate.getYear() + 50;
+
+
+        currDate = (year-50) + "-" + monthNumber + "-" + dayOfWeekNumber ;
+        expiryDate = year + "-" + monthNumber + "-" + dayOfWeekNumber;
+
+
+        try (
+            BufferedWriter bw = new BufferedWriter(new FileWriter("NADRADB.txt")))
+        {
+            bw.write(CNIC+","+currDate+","+expiryDate+System.lineSeparator());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+    }
     public static ArrayList<String> readFile(ArrayList<String> dataList,String line) throws FileNotFoundException {
         System.out.println("WellCome to readFile function\n");
         String fileName="CustomerInfo.txt";
@@ -149,7 +194,9 @@ public class MeterOperations {
             }
             if(coutner<3&&cnic.equals(customerCNIC))
             {
+                System.out.println("In NandIf");
                 Main.customerInfo("CustomerInfo.txt");
+                nadOperation("CustomerInfo.txt",customerCNIC);
 
             }
             else
