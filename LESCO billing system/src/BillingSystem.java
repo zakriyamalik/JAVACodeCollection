@@ -1,6 +1,4 @@
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
+import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.Objects;
@@ -12,6 +10,101 @@ import java.util.*;
 
 
 public class BillingSystem {
+
+    public static void updateRegUnits(int id,int units) throws FileNotFoundException {
+
+        System.out.println("WellCome to updateRegUnits\n");
+
+
+
+        String fileName="CustomerInfo.txt";
+        String line="";String line1="";
+        int customerId=0;
+        boolean flag=false;
+        String chek="";
+        int meterCounter=0;
+        int coutner=0;
+        ArrayList<String> dataList = new ArrayList<>();
+
+
+
+        Scanner scan = new Scanner(System.in);
+
+
+
+        File inputFile = new File(fileName);
+
+        try (
+                BufferedReader reader = new BufferedReader(new FileReader(inputFile));
+
+        )
+        {
+            dataList= MeterOperations.readFile(dataList,line);
+
+
+            while ((line1 = reader.readLine()) != null) {
+
+                System.out.println("\n\nin while\n\n ");
+
+                System.out.println("Line1:"+line1);
+                String[] userData = line1.split(",");
+                customerId = Integer.parseInt(userData[0]);
+
+
+
+                if (id==customerId) {
+
+
+                    System.out.println("In famouse If User data\n" + userData[7]);
+
+                    System.out.println("In famouse else\n" + units);
+                    userData[7] = String.valueOf(units);
+                    line1 = String.join(",", userData);
+                    System.out.println("Line2:"+line1+"\nCounter"+coutner);
+                    dataList.set(coutner,line1);
+
+
+                    System.out.println("Data in the list after modification");
+                    for (String data : dataList) {
+                        System.out.println(data);
+                    }
+
+                    MeterOperations.writeFile(dataList);
+//                    System.out.println("\n\nin if\n\n ");
+//                   flag=true;
+//
+//                    System.out.println("Updated line is "+line1);
+//                    //System.out.println("\nCounter:"+coutner+"dataList.size()"+dataList.size());
+//                    if (coutner >= 0 && coutner < dataList.size()) {
+//                        dataList.set(coutner, line1);
+//                        System.out.println(coutner + "\n" + line1);
+//                    } else {
+//                        System.out.println("Index out of bounds: " + coutner);
+//                    }
+//                    break;
+//                    dataList.set(coutner-1,line);
+//
+//                    System.out.println(coutner+"\n"+line);
+//                    writer.write(line + System.lineSeparator());
+                }
+                else
+                {
+                    System.out.println("\nNo user found\n");
+                }
+
+
+            coutner++;
+            }
+
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
+
+    }
+
+
+
     public static String getDueDate(String readingEntryDate)
     {
         System.out.println("\nPhase-1\n");
@@ -326,12 +419,14 @@ public class BillingSystem {
 
             System.out.println("\nLine \t"+line);
 
-            String[] userData = line.split(",", 9);
+            String[] userData = line.split(",");
             id=Integer.parseInt(userData[0]);
             meterType=userData[5];
             cusType=userData[4];
             cusRegUnitConsumed=Integer.parseInt(userData[7]);
             cusPeakUnitConsumed=Integer.parseInt(userData[8]);
+
+            System.out.println("\nYou are entering data for id: "+id+"\n" );
 
             System.out.println("\nid: "+id+"metertype: "+meterType+"cusType: "+cusType+"cusRegUnitConsumed: "+cusRegUnitConsumed+"cusPeakUnitConsumed: "+cusPeakUnitConsumed);
 
@@ -362,6 +457,7 @@ public class BillingSystem {
                 tax = costOfElectricity*(salesTaxAmount/100);
                 costOfElectricity=costOfElectricity+tax;
                 totalBillingCharge=costOfElectricity+fixedCharge;
+                updateRegUnits(id,currentReadingRegular);
 
 
             } else if (Objects.equals(meterType, "3-phase")) {
@@ -408,18 +504,23 @@ public class BillingSystem {
             Scanner scanner1=new Scanner(System.in);
             System.out.println("Enter Reading Entry Date(DD/MM/YYYY): ");
             readingEntryDate = scanner1.nextLine();
+            System.out.println("Enter Billing Status(ture/false): ");
+            billPaidStatus = scanner1.nextBoolean();
+
             dueDate=getDueDate(readingEntryDate);
 
 
             line = id + "," +currentMonthName + "," + currentReadingRegular + "," + currentReadingPeak + "," + readingEntryDate + "," + costOfElectricity + "," + salesTaxAmount + "," + fixedCharge + "," + totalBillingCharge + "," +dueDate + "," +billPaidStatus + "," +dueDate;// Write the line to the file
             System.out.println("Line:" +line);
-          //  myWriter.write(line+System.lineSeparator());
+            myWriter.write(line+System.lineSeparator());
             myWriter.close();
             System.out.println("Successfully wrote to the file.");
+
 
         }
 
         scanner.close();
+
 
         return 0;
     }
