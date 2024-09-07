@@ -13,7 +13,7 @@ public class Main {
     public static int menu(int choice)
     {
         Scanner scanner1 = new Scanner(System.in);
-        System.out.println("Enter 1 to Create File \nEnter 2 to Write file\nEnter 3 to Read file\nEnter 4 to change Password\nEnter 5 to enter Customer Info\n Enter 6 to add Billing Info");
+        System.out.println("Enter 1 to Create File \nEnter 2 to Write file\nEnter 3 to Read file\nEnter 4 to change Password\nEnter 5 to enter Customer Info\n Enter 6 to add Billing Info\n Enter 7 to add Terrif Info");
         choice = scanner1.nextInt();
         scanner1.nextLine();
 
@@ -280,17 +280,77 @@ public class Main {
             // Close the writer after writing is done
             myWriter.close();
             System.out.println("Successfully wrote to the file.");
-            
+
         }
 
         scanner.close();
 
-
-
         return 0;
     }
 
+    public static void TariffTaxSystem(String fileName) throws IOException {
 
+        String meterType="";
+        int choice=0;
+        int regUnitPrice=0;
+        int peakUnitPrice=0;
+        float taxPercentage=0;
+        int fixedCharge=0;
+
+
+        Scanner scannerInput = new Scanner(System.in);
+        FileWriter myWriter = new FileWriter(fileName, true);
+
+
+        System.out.println("Enter the Meter Type \nClick(1) for 1-Phase\nClick(2) for 3-phase\n");
+        choice=scannerInput.nextInt();
+
+
+        if(choice==1)
+        {
+            meterType="1Phase";
+            regUnitPrice=5;
+            taxPercentage=17;
+            fixedCharge=150;
+            myWriter.write(meterType+","+regUnitPrice+","+peakUnitPrice+","+taxPercentage+","+fixedCharge+System.lineSeparator());
+            System.out.println("Data is:"+meterType+","+regUnitPrice+","+peakUnitPrice+","+taxPercentage+","+fixedCharge);
+            regUnitPrice=15;
+            taxPercentage=20;
+            fixedCharge=250;
+            System.out.println("Data is:"+meterType+","+regUnitPrice+","+peakUnitPrice+","+taxPercentage+","+fixedCharge);
+            myWriter.write(meterType+","+regUnitPrice+","+peakUnitPrice+","+taxPercentage+","+fixedCharge+System.lineSeparator());
+             myWriter.close();
+            System.out.println("Successfully wrote to the file.");
+
+        }
+        else if(choice==2)
+        {
+            meterType="3Phase";
+            regUnitPrice=8;
+            peakUnitPrice=12;
+            taxPercentage=17;
+            fixedCharge=150;
+            myWriter.write(meterType+","+regUnitPrice+","+peakUnitPrice+","+taxPercentage+","+fixedCharge+System.lineSeparator());
+            System.out.println("Data is:"+meterType+","+regUnitPrice+","+peakUnitPrice+","+taxPercentage+","+fixedCharge);
+
+            regUnitPrice=18;
+            peakUnitPrice=25;
+            taxPercentage=20;
+            fixedCharge=250;
+            myWriter.write(meterType+","+regUnitPrice+","+peakUnitPrice+","+taxPercentage+","+fixedCharge+System.lineSeparator());
+            System.out.println("Data is:"+meterType+","+regUnitPrice+","+peakUnitPrice+","+taxPercentage+","+fixedCharge);
+            myWriter.close();
+            System.out.println("Successfully wrote to the file.");
+        }
+        else
+        {
+            System.out.println("Wrong Input\n");
+        }
+
+
+        scannerInput.close();
+
+    }
 
 
 
@@ -344,6 +404,13 @@ public class Main {
                 fileName=scanner.next();
                 billingSystem(fileName);
 
+            }
+            break;
+            case 7:
+            {
+//                System.out.println("Enter the name of the file");
+//                fileName=scanner.next();
+                  TariffTaxSystem("TariffTaxInfo.txt");
             }
             break;
             default:
