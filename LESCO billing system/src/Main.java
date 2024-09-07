@@ -13,7 +13,7 @@ public class Main {
     public static int menu(int choice)
     {
         Scanner scanner1 = new Scanner(System.in);
-        System.out.println("Enter 1 to Create File \nEnter 2 to Write file\nEnter 3 to Read file\nEnter 4 to change Password\nEnter 5 to enter Customer Info\n Enter 6 to add Billing Info\n Enter 7 to add Terrif Info");
+        System.out.println("Enter 1 to Create File \nEnter 2 to Write file\nEnter 3 to Read file\nEnter 4 to change Password\nEnter 5 to enter Customer Info\nEnter 6 to add Billing Info\nEnter 7 to add Terrif Info");
         choice = scanner1.nextInt();
         scanner1.nextLine();
 
@@ -200,6 +200,7 @@ public class Main {
         long cnic=0;
         String address="";
         long phoneNo=0;
+        String name="";
         String cusType="";
         String meterType="";
         LocalDate currentDate = LocalDate.now();
@@ -211,6 +212,8 @@ public class Main {
         System.out.println("Enter 13-digit number without dashes:\n");
         Scanner scanner = new Scanner(System.in);
         cnic=Long.parseLong(scanner.nextLine());
+        System.out.println("Enter Name:\n");
+        address=scanner.nextLine();
         System.out.println("Enter address:\n");
         address=scanner.nextLine();
         System.out.println("Enter Phone no:\n");
@@ -224,15 +227,25 @@ public class Main {
         meterType=scanner.nextLine();
 
 
+
         try {
             FileWriter myWriter = new FileWriter(fileName, true);
             if(Objects.equals(meterType, "3-phase"))
             {
+                System.out.println("Enter Regular Units Consumed:\n");
+                regUnitConsumed=scanner.nextInt();
+                scanner.nextLine();
+                System.out.println("Enter Peak Units Consumed:\n");
+                peakUnitConsumed=scanner.nextInt();
+                scanner.nextLine();
                 myWriter.write(id + "," + cnic + "," + address + "," + phoneNo + "," + cusType + "," + meterType + "," + connectionDate + "," + regUnitConsumed + "," + peakUnitConsumed + System.lineSeparator());
 
             }
             else
             {
+                System.out.println("Enter Regular Units Consumed:\n");
+                regUnitConsumed=scanner.nextInt();
+                scanner.nextLine();
                 peakUnitConsumed=-1;
                 myWriter.write(id + "," + cnic + "," + address + "," + phoneNo + "," + cusType + "," + meterType + "," + connectionDate + "," + regUnitConsumed + "," + peakUnitConsumed + System.lineSeparator());
 
@@ -248,45 +261,7 @@ public class Main {
     }
 
 
-    public static int billingSystem(String fileName) throws IOException
-    {
-        int id=0;
-        String billingMonth="";
-        long currMeterReadingReg=0;
-        long currMeterReadingPeak=0;
-        String readingEntryDate="";
-        double costOfElectricity=0.0;
-        double salesTaxAmount=0.0;
-        double fixedCharge=0.0;
-        double totalBillingCharge=0.0;
-        String dueDate="";
-        boolean billPaidStatus=false;
-        String billPaymentDate="";
-        String line="";
 
-
-        File file = new File("CustomerInfo.txt");
-        Scanner scanner = new Scanner(file);
-        FileWriter myWriter = new FileWriter(fileName, true);
-
-
-        // Iterate over each line in the file
-        while (scanner.hasNextLine()) {
-            line = scanner.nextLine();
-            String[] userData = line.split(",", 9);
-            id=Integer.parseInt(userData[0]);
-            line = id + "," +billingMonth + "," + currMeterReadingReg + "," + currMeterReadingPeak + "," + readingEntryDate + "," + costOfElectricity + "," + salesTaxAmount + "," + fixedCharge + "," + totalBillingCharge + "," +dueDate + "," +billPaidStatus + "," +billPaymentDate;// Write the line to the file
-            myWriter.write(line+System.lineSeparator());
-            // Close the writer after writing is done
-            myWriter.close();
-            System.out.println("Successfully wrote to the file.");
-
-        }
-
-        scanner.close();
-
-        return 0;
-    }
 
     public static void TariffTaxSystem(String fileName) throws IOException {
 
@@ -400,9 +375,10 @@ public class Main {
             break;
             case 6:
             {
-                System.out.println("Enter the name of the file");
-                fileName=scanner.next();
-                billingSystem(fileName);
+//                System.out.println("Enter the name of the file");
+//                fileName=scanner.next();
+
+                BillingSystem.billingSystem("BillingInfo.txt");
 
             }
             break;
