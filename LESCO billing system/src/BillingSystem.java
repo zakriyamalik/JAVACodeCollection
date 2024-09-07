@@ -10,6 +10,65 @@ import java.util.*;
 
 
 public class BillingSystem {
+    public static void viewBill(String fileName) throws FileNotFoundException {
+        String line = "";
+        String name = "";
+        String password = "";
+        boolean userFound = false;
+        String empFileName = "EmployeesData.txt";
+        Scanner scanner1 = new Scanner(System.in);
+        int choice = 0;
+        ArrayList<String> dataList = new ArrayList<>();
+
+
+
+        System.out.println("Enter the userName of the Employee:");
+        name = scanner1.nextLine();
+        System.out.println("Enter the password of the Employee:");
+        password = scanner1.nextLine();
+
+
+        File inputFile = new File(empFileName);
+
+        try (
+                BufferedReader reader = new BufferedReader(new FileReader(inputFile));
+
+        ) {
+
+
+            while ((line = reader.readLine()) != null) {
+
+
+                String[] userData = line.split(",", 2);
+
+
+                if (userData.length == 2 && name.equals(userData[0])) {
+                    if (password.equals(userData[1])) {
+                        userFound = true;
+                    }
+                }
+
+            }
+
+            if (!userFound) {
+                System.out.println("User not found or old password incorrect.");
+            } else {
+                System.out.println("Employee found\n");
+                dataList= MeterOperations.readFile("BillingInfo.txt",dataList,line);
+
+                System.out.println("Data:");
+                for (String data : dataList) {
+                    System.out.println(data);
+                }
+            }
+
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
+
+    }
+
 
     public static void updateRegUnits(int id,int units) throws FileNotFoundException {
 
@@ -39,7 +98,7 @@ public class BillingSystem {
 
         )
         {
-            dataList= MeterOperations.readFile(dataList,line);
+            dataList= MeterOperations.readFile("CustomerInfo.txt",dataList,line);
 
 
             while ((line1 = reader.readLine()) != null) {

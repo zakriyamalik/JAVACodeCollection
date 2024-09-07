@@ -15,6 +15,9 @@ public class MeterOperations {
         }
 
     }
+    public static void  meterReading() throws IOException {
+        BillingSystem.billingSystem("BillingInfo.txt");
+    }
 public static void  nadOperation(String fileName,String CNIC)
     {
 //        String dayOfWeek="";
@@ -60,9 +63,8 @@ public static void  nadOperation(String fileName,String CNIC)
         }
 
     }
-    public static ArrayList<String> readFile(ArrayList<String> dataList,String line) throws FileNotFoundException {
+    public static ArrayList<String> readFile(String fileName,ArrayList<String> dataList,String line) throws FileNotFoundException {
         System.out.println("WellCome to readFile function\n");
-        String fileName="CustomerInfo.txt";
         File inputFile = new File(fileName);
         BufferedReader reader = new BufferedReader(new FileReader(inputFile));
         try {
@@ -73,10 +75,10 @@ public static void  nadOperation(String fileName,String CNIC)
         } catch (IOException e) {
             e.printStackTrace();
         }
-        System.out.println("Data in the list before modification");
-        for (String data : dataList) {
-            System.out.println(data);
-        }
+//        System.out.println("Data in the list before modification");
+//        for (String data : dataList) {
+//            System.out.println(data);
+//        }
 
         return dataList;
 
@@ -128,7 +130,7 @@ public static void  nadOperation(String fileName,String CNIC)
                 Scanner scanner1 = new Scanner(System.in)
         )
         {
-            dataList=readFile(dataList,line);
+            dataList=readFile("CustomerInfo.txt",dataList,line);
 
 
             while ((line1 = reader.readLine()) != null) {
@@ -262,12 +264,14 @@ public static void  nadOperation(String fileName,String CNIC)
             } else {
                 System.out.println("Employee Found");
                // clearScreen();
-                System.out.println("Press (1) to allocate Meter\nPress (2) to view NADRADB file.\nPress (3) to exit");
+                System.out.println("Press (1) to allocate Meter\nPress (2) to view add Meter reading\nPress (3) to exit");
                 choice=scanner1.nextInt();
                 switch (choice) {
                     case 1:
                         allocateMeter();
                     break;
+                    case 2:
+                        meterReading();
                     default:
                     break;
 
