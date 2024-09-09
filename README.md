@@ -1,2 +1,2 @@
 # JAVA-Practice-Part-1
-Java Practice Codes 
+Java Practice Codes and Projects
