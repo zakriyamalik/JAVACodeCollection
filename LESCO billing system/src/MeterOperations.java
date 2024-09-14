@@ -3,9 +3,17 @@ import java.time.LocalDate;
 import java.util.*;
 
 public class MeterOperations {
+   //private final BillingOperations billingSystem=new BillingOperations();
+    private final ShowBill showBill=new ShowBill();
+   private final CustomerOperations customerSystem=new CustomerOperations();
+//    MeterOperations(BillingOperations billingSystem)
+//    {
+//        this.billingSystem=billingSystem;
+//
+//    }
 
 
-    public static void clearScreen() throws InterruptedException {
+    public void clearScreen() throws InterruptedException {
 
 
         Thread.sleep(1900);
@@ -15,10 +23,31 @@ public class MeterOperations {
         }
 
     }
-    public static void  meterReading() throws IOException {
-        BillingSystem.billingSystem("BillingInfo.txt");
+    public void  meterReading() throws IOException {
+        //showBill.billingSystem("BillingInfo.txt");
+        int id=0;
+        long CNIC=0;
+        String meterType = "";
+        System.out.println("Enter your Customer ID:\n");
+        Scanner scanner = new Scanner(System.in);
+        id = scanner.nextInt();
+        scanner.nextLine();
+
+        System.out.println("Enter 13-digit number without dashes:\n");
+        CNIC = Long.parseLong(scanner.nextLine());
+        System.out.println("Enter meter type:\n");
+        meterType = scanner.nextLine();
+
+        if(showBill.customerCheck(id, CNIC,meterType)) {
+            showBill.billingSystem1("BillingInfo.txt",id,meterType);
+       }
+        else {
+            System.out.println("Customer does not exist");
+        }
+
+
     }
-public static void  nadOperation(String fileName,String CNIC)
+public void  nadOperation(String fileName,String CNIC)
     {
 //        String dayOfWeek="";
 //        String month="";
@@ -63,7 +92,7 @@ public static void  nadOperation(String fileName,String CNIC)
         }
 
     }
-    public static ArrayList<String> readFile(String fileName,ArrayList<String> dataList,String line) throws FileNotFoundException {
+    public ArrayList<String> readFile(String fileName,ArrayList<String> dataList,String line) throws FileNotFoundException {
         System.out.println("WellCome to readFile function\n");
         File inputFile = new File(fileName);
         BufferedReader reader = new BufferedReader(new FileReader(inputFile));
@@ -87,9 +116,9 @@ public static void  nadOperation(String fileName,String CNIC)
 
     }
 
-    public static void writeFile(ArrayList<String>dataList)
+    public void writeFile(String fileName,ArrayList<String>dataList)
     {
-        String fileName="CustomerInfo.txt";
+
         try (BufferedWriter bw = new BufferedWriter(new FileWriter(fileName))) {
             for (String line : dataList) {
                 bw.write(line);
@@ -99,7 +128,7 @@ public static void  nadOperation(String fileName,String CNIC)
             e.printStackTrace();
         }
     }
-    public static void allocateMeter() throws FileNotFoundException {
+    public void allocateMeter() throws FileNotFoundException {
 
         System.out.println("WellCome to Meter Allocation department");
 
@@ -197,7 +226,7 @@ public static void  nadOperation(String fileName,String CNIC)
             if(coutner<3&&cnic.equals(customerCNIC))
             {
                 System.out.println("In NandIf");
-                Main.customerInfo("CustomerInfo.txt");
+                customerSystem.customerInfo("CustomerInfo.txt");
                 nadOperation("CustomerInfo.txt",customerCNIC);
 
             }
@@ -215,7 +244,7 @@ public static void  nadOperation(String fileName,String CNIC)
     }
 
 
-    public static void meterOperations() throws IOException, InterruptedException {
+    public void meterOperations() throws IOException, InterruptedException {
 
 
         System.out.println("Welcome to MeterOperations");

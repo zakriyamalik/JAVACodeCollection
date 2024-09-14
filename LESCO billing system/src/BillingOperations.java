@@ -9,8 +9,13 @@ import java.util.*;
 
 
 
-public class BillingSystem {
-    public static void viewBill(String fileName) throws FileNotFoundException {
+public class BillingOperations {
+   private final MeterOperations mt;
+    BillingOperations(MeterOperations mt)
+    {
+        this.mt=mt;
+    }
+    public void viewBill(String fileName) throws FileNotFoundException {
         String line = "";
         String name = "";
         String password = "";
@@ -54,7 +59,8 @@ public class BillingSystem {
                 System.out.println("User not found or old password incorrect.");
             } else {
                 System.out.println("Employee found\n");
-                dataList= MeterOperations.readFile("BillingInfo.txt",dataList,line);
+
+                dataList= mt.readFile("BillingInfo.txt",dataList,line);
 
                 System.out.println("Data:");
                 for (String data : dataList) {
@@ -70,7 +76,7 @@ public class BillingSystem {
     }
 
 
-    public static void updateRegUnits(int id,int units) throws FileNotFoundException {
+    public void updateRegUnits(int id,int units) throws FileNotFoundException {
 
         System.out.println("WellCome to updateRegUnits\n");
 
@@ -98,7 +104,7 @@ public class BillingSystem {
 
         )
         {
-            dataList= MeterOperations.readFile("CustomerInfo.txt",dataList,line);
+            dataList= mt.readFile("CustomerInfo.txt",dataList,line);
 
 
             while ((line1 = reader.readLine()) != null) {
@@ -128,7 +134,7 @@ public class BillingSystem {
                         System.out.println(data);
                     }
 
-                    MeterOperations.writeFile(dataList);
+                    mt.writeFile("CustomerInfo.txt",dataList);
 //                    System.out.println("\n\nin if\n\n ");
 //                   flag=true;
 //
@@ -164,7 +170,7 @@ public class BillingSystem {
 
 
 
-    public static String getDueDate(String readingEntryDate)
+    public  String getDueDate(String readingEntryDate)
     {
         System.out.println("\nPhase-1\n");
 
@@ -203,7 +209,7 @@ public class BillingSystem {
         return dueDate;
     }
 
-    public static float getFixCharges(String cusType,String meterType)
+    public  float getFixCharges(String cusType,String meterType)
     {
 
 
@@ -279,7 +285,7 @@ public class BillingSystem {
 
 
 
-    public static float getSalesTax(String cusType,String meterType)
+    public float getSalesTax(String cusType,String meterType)
     {
 
         String fileName="TariffTaxInfo.txt";
@@ -352,7 +358,7 @@ public class BillingSystem {
         return salesTax;
 
     }
-    public static int getElectricityCost(String cusType, String meterType, Integer RegUnits, Integer PeakUnits) {
+    public int getElectricityCost(String cusType, String meterType, Integer RegUnits, Integer PeakUnits) {
 
         RegUnits = (RegUnits == null) ? 0 : RegUnits;
         PeakUnits = (PeakUnits == null) ? 0 : PeakUnits;
@@ -361,7 +367,7 @@ public class BillingSystem {
     }
 
 
-    public static int calculateCost(String cusType, String meterType,int Regunits,int PeakUnits) {
+    public int calculateCost(String cusType, String meterType,int Regunits,int PeakUnits) {
 
 
         int electricityCost = 0;
@@ -433,154 +439,5 @@ public class BillingSystem {
 
 
     }
-        public static int billingSystem(String fileName) throws IOException
-    {
-        System.out.println("\nIn Billing System\n");
 
-        int id=0;
-        LocalDate currentDate = LocalDate.now();
-        Month currentMonthName = currentDate.getMonth();
-        int currMeterReadingReg=0;
-        int currMeterReadingPeak=0;
-        String readingEntryDate="";
-        double costOfElectricity=0.0;
-        float salesTaxAmount=0;
-        double fixedCharge=0.0;
-        double totalBillingCharge=0.0;
-        String dueDate="";
-        boolean billPaidStatus=false;
-        String billPaymentDate="";
-        String line="";
-        String meterType="";
-        String cusType="";
-        int cusRegUnitConsumed=0;
-        int cusPeakUnitConsumed=0;
-        int currentRegUnits=0;
-        int currentPeakUnits=0;
-        int currentReadingRegular=0;
-        int currentReadingPeak=0;
-        double tax=0;
-
-
-
-
-
-        File file = new File("CustomerInfo.txt");
-        Scanner scanner = new Scanner(file);
-        FileWriter myWriter = new FileWriter(fileName, true);
-
-
-        // Iterate over each line in the file
-        while (scanner.hasNextLine()) {
-
-
-            line = scanner.nextLine();
-
-            System.out.println("\nLine \t"+line);
-
-            String[] userData = line.split(",");
-            id=Integer.parseInt(userData[0]);
-            meterType=userData[5];
-            cusType=userData[4];
-            cusRegUnitConsumed=Integer.parseInt(userData[7]);
-            cusPeakUnitConsumed=Integer.parseInt(userData[8]);
-
-            System.out.println("\nYou are entering data for id: "+id+"\n" );
-
-            System.out.println("\nid: "+id+"metertype: "+meterType+"cusType: "+cusType+"cusRegUnitConsumed: "+cusRegUnitConsumed+"cusPeakUnitConsumed: "+cusPeakUnitConsumed);
-
-            if(Objects.equals(meterType, "1-phase"))
-            {
-
-                Scanner scanner1 = new Scanner(System.in);
-
-
-                System.out.println("\nPhase-1\n");
-
-                System.out.print("Enter Current Meter Reading (Regular): ");
-                 currentReadingRegular = scanner1.nextInt();
-                scanner1.nextLine();
-
-
-                if (currentReadingRegular < 0) {
-                    System.out.println("Meter reading cannot be negative!");
-                } else {
-                    System.out.println("Regular Meter Reading: " + currentReadingRegular);
-                }
-
-
-                currentRegUnits=cusRegUnitConsumed-currentReadingRegular;
-                costOfElectricity=getElectricityCost(cusType,meterType,currentRegUnits,currentPeakUnits);
-                salesTaxAmount=getSalesTax(cusType,meterType);
-                fixedCharge=getFixCharges(cusType,meterType);
-                tax = costOfElectricity*(salesTaxAmount/100);
-                costOfElectricity=costOfElectricity+tax;
-                totalBillingCharge=costOfElectricity+fixedCharge;
-                updateRegUnits(id,currentReadingRegular);
-
-
-            } else if (Objects.equals(meterType, "3-phase")) {
-
-                Scanner scanner1 = new Scanner(System.in);
-
-                System.out.println("\nPhase-3\n");
-
-                System.out.print("Enter Current Meter Reading (Regular): ");
-                 currentReadingRegular = scanner1.nextInt();
-                scanner1.nextLine();
-
-
-                System.out.print("Enter Current Meter Reading (Peak): ");
-                 currentReadingPeak = scanner1.nextInt();
-                scanner1.nextLine();
-
-
-                if (currentReadingRegular < 0 || currentReadingPeak < 0) {
-                    System.out.println("Meter readings cannot be negative!");
-                } else {
-                    System.out.println("Regular Meter Reading: " + currentReadingRegular);
-                    System.out.println("Peak Meter Reading: " + currentReadingPeak);
-                }
-
-
-                currentRegUnits=(cusRegUnitConsumed-currentReadingRegular);
-                costOfElectricity=getElectricityCost(cusType,meterType,currentRegUnits,currentPeakUnits);
-                salesTaxAmount=getSalesTax(cusType,meterType);
-                fixedCharge=getFixCharges(cusType,meterType);
-                tax = costOfElectricity*(salesTaxAmount/100);
-                costOfElectricity=costOfElectricity+tax;
-                totalBillingCharge=costOfElectricity+fixedCharge;
-
-
-            }
-
-
-            else
-            {
-                System.out.println("Wrong Phase:");
-            }
-
-            Scanner scanner1=new Scanner(System.in);
-            System.out.println("Enter Reading Entry Date(DD/MM/YYYY): ");
-            readingEntryDate = scanner1.nextLine();
-            System.out.println("Enter Billing Status(ture/false): ");
-            billPaidStatus = scanner1.nextBoolean();
-
-            dueDate=getDueDate(readingEntryDate);
-
-
-            line = id + "," +currentMonthName + "," + currentReadingRegular + "," + currentReadingPeak + "," + readingEntryDate + "," + costOfElectricity + "," + salesTaxAmount + "," + fixedCharge + "," + totalBillingCharge + "," +dueDate + "," +billPaidStatus + "," +dueDate;// Write the line to the file
-            System.out.println("Line:" +line);
-            myWriter.write(line+System.lineSeparator());
-            myWriter.close();
-            System.out.println("Successfully wrote to the file.");
-
-
-        }
-
-        scanner.close();
-
-
-        return 0;
-    }
 }
