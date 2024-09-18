@@ -1,0 +1,4 @@
+Read Permissions: Ensure that the file proper
+permissions to be read by the program. If
+program doesn't have permission to read file,
+it may not be able to detect have its presence.
