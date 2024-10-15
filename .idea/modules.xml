@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/JAVACodeCollection.iml" filepath="$PROJECT_DIR$/JAVACodeCollection.iml" />
+      <module fileurl="file://$PROJECT_DIR$/LESCO billing system/LESCO billing system.iml" filepath="$PROJECT_DIR$/LESCO billing system/LESCO billing system.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Lab-2/Lab-2.iml" filepath="$PROJECT_DIR$/Lab-2/Lab-2.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Lab-3/Lab-3.iml" filepath="$PROJECT_DIR$/Lab-3/Lab-3.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Lab4-22L-7986/Lab4-22L-7986.iml" filepath="$PROJECT_DIR$/Lab4-22L-7986/Lab4-22L-7986.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Preparation-Quiz-1/Preparation-Quiz-1.iml" filepath="$PROJECT_DIR$/Preparation-Quiz-1/Preparation-Quiz-1.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Preparation-Quiz-1/Student-Registration/Student-Registration.iml" filepath="$PROJECT_DIR$/Preparation-Quiz-1/Student-Registration/Student-Registration.iml" />
+    </modules>
+  </component>
+</project>
