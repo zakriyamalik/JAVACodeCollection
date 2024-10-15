@@ -5,12 +5,12 @@ import java.util.*;
 public class MeterOperations {
    //private final BillingOperations billingSystem=new BillingOperations();
     private final ShowBill showBill=new ShowBill();
-   private final CustomerOperations customerSystem=new CustomerOperations();
-//    MeterOperations(BillingOperations billingSystem)
-//    {
-//        this.billingSystem=billingSystem;
-//
-//    }
+   private final CustomerOperations customerSystem;
+    MeterOperations(CustomerOperations customerSystem)
+    {
+       this.customerSystem=customerSystem;
+
+    }
 
 
     public void clearScreen() throws InterruptedException {
@@ -47,7 +47,7 @@ public class MeterOperations {
 
 
     }
-public void  nadOperation(String fileName,String CNIC)
+public void  nadOperation(String CNIC)
     {
 //        String dayOfWeek="";
 //        String month="";
@@ -84,7 +84,7 @@ public void  nadOperation(String fileName,String CNIC)
 
 
         try (
-            BufferedWriter bw = new BufferedWriter(new FileWriter("NADRADB.txt")))
+            BufferedWriter bw = new BufferedWriter(new FileWriter("NADRADB.txt",true)))
         {
             bw.write(CNIC+","+currDate+","+expiryDate+System.lineSeparator());
         } catch (IOException e) {
@@ -174,7 +174,7 @@ public void  nadOperation(String fileName,String CNIC)
                 if (cnic.equals(customerCNIC)) {
 
                     coutner++;
-
+                    System.out.println("CNIC by cus:"+cnic+"  Cnic by file "+customerCNIC+"\n");
 //                    if(userData.length==9)
 //                    {
 //                        System.out.println("In famouse If User datta\n"+userData[userData.length-1]);
@@ -223,11 +223,12 @@ public void  nadOperation(String fileName,String CNIC)
 
 
             }
-            if(coutner<3&&cnic.equals(customerCNIC))
+            if(coutner<3)
             {
                 System.out.println("In NandIf");
-                customerSystem.customerInfo("CustomerInfo.txt");
-                nadOperation("CustomerInfo.txt",customerCNIC);
+                new CustomerInfoInput();
+                //customerSystem.customerInfo("CustomerInfo.txt");
+                nadOperation(customerCNIC);
 
             }
             else

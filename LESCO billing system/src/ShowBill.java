@@ -9,12 +9,121 @@ import java.util.Objects;
 import java.util.Scanner;
 
 public class ShowBill {
+    int currMeterReadingReg = 0;
+    int currMeterReadingPeak = 0;
+    String readingEntryDate = "";
+    double costOfElectricity = 0.0;
+    float salesTaxAmount = 0;
+    double fixedCharge = 0.0;
+    double totalBillingCharge = 0.0;
+    String dueDate = "";
+    boolean billPaidStatus = false;
+    String billPaymentDate = "";
+    String line = "";
+    String meterType = "";
+
+    public int getCurrMeterReadingReg() {
+        return currMeterReadingReg;
+    }
+
+    public void setCurrMeterReadingReg(int currMeterReadingReg) {
+        this.currMeterReadingReg = currMeterReadingReg;
+    }
+
+    public int getCurrMeterReadingPeak() {
+        return currMeterReadingPeak;
+    }
+
+    public void setCurrMeterReadingPeak(int currMeterReadingPeak) {
+        this.currMeterReadingPeak = currMeterReadingPeak;
+    }
+
+    public String getReadingEntryDate() {
+        return readingEntryDate;
+    }
+
+    public void setReadingEntryDate(String readingEntryDate) {
+        this.readingEntryDate = readingEntryDate;
+    }
+
+    public double getCostOfElectricity() {
+        return costOfElectricity;
+    }
+
+    public void setCostOfElectricity(double costOfElectricity) {
+        this.costOfElectricity = costOfElectricity;
+    }
+
+    public float getSalesTaxAmount() {
+        return salesTaxAmount;
+    }
+
+    public void setSalesTaxAmount(float salesTaxAmount) {
+        this.salesTaxAmount = salesTaxAmount;
+    }
+
+    public double getFixedCharge() {
+        return fixedCharge;
+    }
+
+    public void setFixedCharge(double fixedCharge) {
+        this.fixedCharge = fixedCharge;
+    }
+
+    public double getTotalBillingCharge() {
+        return totalBillingCharge;
+    }
+
+    public void setTotalBillingCharge(double totalBillingCharge) {
+        this.totalBillingCharge = totalBillingCharge;
+    }
+
+    public String getDueDate() {
+        return dueDate;
+    }
+
+    public void setDueDate(String dueDate) {
+        this.dueDate = dueDate;
+    }
+
+    public boolean isBillPaidStatus() {
+        return billPaidStatus;
+    }
+
+    public void setBillPaidStatus(boolean billPaidStatus) {
+        this.billPaidStatus = billPaidStatus;
+    }
+
+    public String getBillPaymentDate() {
+        return billPaymentDate;
+    }
+
+    public void setBillPaymentDate(String billPaymentDate) {
+        this.billPaymentDate = billPaymentDate;
+    }
+
+    public String getLine() {
+        return line;
+    }
+
+    public void setLine(String line) {
+        this.line = line;
+    }
+
+    public String getMeterType() {
+        return meterType;
+    }
+
+    public void setMeterType(String meterType) {
+        this.meterType = meterType;
+    }
+
     ShowBill() {
     }
 
     public int billingSystem(String fileName) throws IOException {
         System.out.println("\nIn Billing System\n");
-        MeterOperations meter = new MeterOperations();
+        MeterOperations meter = new MeterOperations(null);
         BillingOperations billingOperations = new BillingOperations(meter);
         int id = 0;
         LocalDate currentDate = LocalDate.now();
@@ -140,7 +249,7 @@ public class ShowBill {
             dueDate = billingOperations.getDueDate(readingEntryDate);
 
 
-            line = id + "," + currentMonthName + "," + currentReadingRegular + "," + currentReadingPeak + "," + readingEntryDate + "," + costOfElectricity + "," + salesTaxAmount + "," + fixedCharge + "," + totalBillingCharge + "," + dueDate + "," + billPaidStatus + "," + dueDate;// Write the line to the file
+            line = id + "," + currentMonthName + "," + currentReadingRegular + "," + currentReadingPeak + "," + readingEntryDate + "," + costOfElectricity + "," + salesTaxAmount + "," + fixedCharge + "," + totalBillingCharge + "," + dueDate + "," + billPaidStatus ;// Write the line to the file
             System.out.println("Line:" + line);
             myWriter.write(line + System.lineSeparator());
             myWriter.close();
@@ -159,7 +268,7 @@ public class ShowBill {
     public int billingSystem1(String fileName,int Cusid,String cusMeterType) throws IOException {
         System.out.println("\nIn Billing System2\n");
         System.out.println(fileName+" "+Cusid+" "+cusMeterType+" \n");
-        MeterOperations meter = new MeterOperations();
+        MeterOperations meter = new MeterOperations(null);
         BillingOperations billingOperations = new BillingOperations(meter);
         int id = 0;
         LocalDate currentDate = LocalDate.now();
@@ -324,11 +433,11 @@ public class ShowBill {
 
                 String data = myReader.nextLine();
                 userData = data.split(",");
-                System.out.println("Data is:\n");
+              //  System.out.println("Data is:\n");
                 peakUnits = Integer.parseInt(userData[3]);
-                for (int i = 0; i < userData.length; i++) {
-                    System.out.println("userData[" + i + "]=" + userData[i]);
-                }
+//                for (int i = 0; i < userData.length; i++) {
+//                    System.out.println("userData[" + i + "]=" + userData[i]);
+//                }
 
                 if (userData[0].equals(String.valueOf(Id))) {
                     if (peakUnits == 0 && Objects.equals(meterType, "1-phase")) {
@@ -341,6 +450,10 @@ public class ShowBill {
                         return data;
 
 
+                    }
+                    else
+                    {
+                        System.out.println("Record found for no meter\n");
                     }
 
 
@@ -404,7 +517,7 @@ public class ShowBill {
         String meterType = "";
         int currMeterReading = 0;
         String[] userData;
-        String[] taxData;
+        String[] taxData={};
         int fileId = 0;
         long fileCNIC = 0;
         String fileMeterType = "";
@@ -416,6 +529,7 @@ public class ShowBill {
         String dueDate = "";
         String filPhoneNo = "";
         String fileAddress = "";
+        boolean isFound=false;
 
 
         System.out.println("Enter your Customer ID:\n");
@@ -446,54 +560,74 @@ public class ShowBill {
                 fileId = Integer.parseInt(userData[0]);
                 fileCNIC = Long.parseLong(userData[1]);
                 fileMeterType = userData[5];
-                System.out.println("Data is\n");
-                for (int i = 0; i < userData.length; i++) {
-                    System.out.println("userData[" + i + "]=" + userData[i]);
-                }
+//                System.out.println("Data is\n");
+//                for (int i = 0; i < userData.length; i++) {
+//                    System.out.println("userData[" + i + "]=" + userData[i]);
+//                }
 
-                System.out.println(fileId + fileCNIC + fileMeterType + "\n");
-                if ((id == fileId || CNIC == fileCNIC) || meterType.equals(fileMeterType)) {
+  //             System.out.println(fileId + " "+ fileCNIC + "  "+ fileMeterType + "\n");
+                if ((id == fileId && CNIC == fileCNIC) && meterType.equals(fileMeterType)) {
+                    isFound=true;
                     fileCusType = userData[4];
                     fileId = Integer.parseInt(userData[0]);
                     fileCNIC = Long.parseLong(userData[1]);
                     fileMeterType = userData[5];
                     fileAddress = userData[2];
-                    fileAddress = userData[3];
-                    System.out.println("User Found\n");
+                 //   fileAddress = userData[3];
+                   // System.out.println("User Found\n");
                     //System.out.println(line);
+                 //   System.out.println("ID :"+id+" Filde Meter Tpe: "+fileMeterType);
                     line = readBillingFile(id, fileMeterType);
-                    System.out.println("Back in Show Bill\n");
-                    // System.out.println(line);
-                    assert line != null;
-                    taxData = line.split(",");
-                    System.out.println("Tax Data:");
-                    for (int i = 0; i < taxData.length; i++) {
-                        System.out.println("taxData[" + i + "]=" + taxData[i]);
+                  //  System.out.println("Back in Show Bill\n");
+                   //  System.out.println(line);
+                    if(line!=null) {
+                        taxData = line.split(",");
+
+
+//                    System.out.println("Tax Data:");
+//                    for (int i = 0; i < taxData.length; i++) {
+//                        System.out.println("taxData[" + i + "]=" + taxData[i]);
+//                    }
+                   //     System.out.println("\n1\n");
+                        electricityCost = Float.parseFloat(taxData[5]);
+                    //    System.out.println("2\n");
+
+                        tax = Float.parseFloat(taxData[6]);
+                   //     System.out.println("3\n");
+
+                        fixedCharges = Double.parseDouble(taxData[7]);
+                     //   System.out.println("4\n");
+
+                        billStatus = Boolean.parseBoolean(taxData[10]);
+
+                       // System.out.println("5\n");
+
+                        dueDate = taxData[9];
+                      //  System.out.println("6\n");
+
+                        //   line = id + "," +currentMonthName + "," + currentReadingRegular
+                        //   + "," + currentReadingPeak + "," + readingEntryDate + "," + costOfElectricity + "," + salesTaxAmount + "," + fixedCharge + "," + totalBillingCharge + "," +dueDate + "," +billPaidStatus + "," +dueDate;// Write the line to the file
+                        System.out.println("----------- Bill Summary -----------");
+                        System.out.println("ID:                " + id);
+                        System.out.println("CNIC:              " + CNIC);
+                        System.out.println("Address:           " + fileAddress);
+                        System.out.println("User Type:         " + fileCusType);
+                        System.out.println("Meter Type:        " + fileMeterType);
+                        System.out.println("Current Reading:   " + currMeterReading);
+                        System.out.println("Electricity Cost:  " + electricityCost);
+                        System.out.println("Tax:               " + tax);
+                        System.out.println("Fixed Charges:     " + fixedCharges);
+                        System.out.println("Due Date:          " + dueDate);
+                        System.out.println("Bill Status:       " + billStatus);
+                        System.out.println("------------------------------------");
                     }
-                    System.out.println("\n1\n");
-                    electricityCost = Float.parseFloat(taxData[5]);
-                    System.out.println("2\n");
-
-                    tax = Float.parseFloat(taxData[6]);
-                    System.out.println("3\n");
-
-                    fixedCharges = Double.parseDouble(taxData[7]);
-                    System.out.println("4\n");
-
-                    billStatus = Boolean.parseBoolean(taxData[10]);
-
-                    System.out.println("5\n");
-
-                    dueDate = taxData[9];
-                    System.out.println("6\n");
-
-                    //   line = id + "," +currentMonthName + "," + currentReadingRegular
-                    //   + "," + currentReadingPeak + "," + readingEntryDate + "," + costOfElectricity + "," + salesTaxAmount + "," + fixedCharge + "," + totalBillingCharge + "," +dueDate + "," +billPaidStatus + "," +dueDate;// Write the line to the file
-                    System.out.println("Bill:\n");
-                    System.out.println("ID: " + id + " CNIC: " + CNIC + " Address: " + fileAddress + " User Type: " + fileCusType + " Meter Type: " + fileMeterType + " Current Meter Reading: " + currMeterReading + " Electricity Cost: " + electricityCost + " Tax: " + tax + " Fixed-Charges: " + fixedCharges + " Due Date: " + dueDate + " Bill Status: " + billStatus);
-
+                    else
+                    {
+                        System.out.println("Line is null");
+                    }
 
                 }
+
 
 
 //                for(int i=0;i<userData.length;i++)
@@ -501,6 +635,15 @@ public class ShowBill {
 //                    System.out.println("userData["+i+"] "+userData[i]+" ");
 //                }
 
+            }
+
+            if(isFound)
+            {
+                System.out.println("User Found\n");
+            }
+            else
+            {
+                System.out.println("Usre not Found\n");
             }
 
 
@@ -552,10 +695,10 @@ public class ShowBill {
                 fileId = Integer.parseInt(userData[0]);
                 fileCNIC = Long.parseLong(userData[1]);
                 fileMeterType = userData[5];
-                System.out.println("Data is\n");
-                for (int i = 0; i < userData.length; i++) {
-                    System.out.println("userData[" + i + "]=" + userData[i]);
-                }
+//                System.out.println("Data is\n");
+//                for (int i = 0; i < userData.length; i++) {
+//                    System.out.println("userData[" + i + "]=" + userData[i]);
+//                }
 
                 System.out.println(fileId + fileCNIC + fileMeterType + "\n");
                 if ((id == fileId || CNIC == fileCNIC) || meterType.equals(fileMeterType)) {

@@ -1,13 +1,126 @@
+import javax.swing.*;
+import javax.swing.table.DefaultTableModel;
 import java.io.*;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.Objects;
 import java.util.Random;
 import java.util.Scanner;
 
 public class CustomerOperations {
-    CustomerOperations()
-    {}
+    private int Name;
+    private int cusType;
+    private int regularUnits;
+    private int peakUnits;
+    private String customerType;
+    MeterOperations mt=new MeterOperations(null);
+
+    public int getName() {
+        return Name;
+    }
+
+    public void setName(int name) {
+        Name = name;
+    }
+
+    public int getCusType() {
+        return cusType;
+    }
+
+    public void setCusType(int cusType) {
+        this.cusType = cusType;
+    }
+
+    public int getRegularUnits() {
+        return regularUnits;
+    }
+
+    public void setRegularUnits(int regularUnits) {
+        this.regularUnits = regularUnits;
+    }
+
+    public int getPeakUnits() {
+        return peakUnits;
+    }
+
+    public void setPeakUnits(int peakUnits) {
+        this.peakUnits = peakUnits;
+    }
+
+    public String getCustomerType() {
+        return customerType;
+    }
+
+    public void setCustomerType(String customerType) {
+        this.customerType = customerType;
+    }
+
+    public MeterOperations getMt() {
+        return mt;
+    }
+
+    public void setMt(MeterOperations mt) {
+        this.mt = mt;
+    }
+
+    CustomerOperations(MeterOperations mt)
+    {
+
+    }
+
+    void showAllCustomers() throws FileNotFoundException {
+        String fileName = "CustomerInfo.txt";
+        String line = "";
+        ArrayList<String> dataList = new ArrayList<>();
+
+        File inputFile = new File(fileName);
+
+        try (
+                BufferedReader reader = new BufferedReader(new FileReader(inputFile))
+        ) {
+            // Reading data from file and adding to dataList
+            dataList = mt.readFile(fileName, dataList, line);
+
+            // Create a frame for the table
+            JFrame frame = new JFrame("Customer Information");
+            frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+            frame.setSize(800, 400);
+
+            // Updated column names with "Name" before "CNIC"
+            String[] columnNames = {"ID", "Name", "CNIC", "Address", "Phone no", "Customer Type", "Meter Type","Date", "Regular Units","Peak Units"};
+
+            // Create 2D array for table data
+            String[][] tableData = new String[dataList.size()][columnNames.length];
+
+            // Fill the table data by splitting each line
+            for (int i = 0; i < dataList.size(); i++) {
+                String[] rowData = dataList.get(i).split(",");
+                int numberOfColumnsToCopy = Math.min(rowData.length, columnNames.length);
+                System.arraycopy(rowData, 0, tableData[i], 0, numberOfColumnsToCopy);
+            }
+
+            // Create a table model with the extracted data and column names
+            DefaultTableModel tableModel = new DefaultTableModel(tableData, columnNames);
+            JTable table = new JTable(tableModel);
+            table.setPreferredScrollableViewportSize(table.getPreferredSize());
+            table.setFillsViewportHeight(true);
+
+            // Add table to a scroll pane
+            JScrollPane scrollPane = new JScrollPane(table);
+
+            // Add the scroll pane to the frame and display it
+            frame.add(scrollPane);
+            frame.setVisible(true);
+
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+
+
+
     public int changePassword(String fileName) throws IOException {
 
 
@@ -143,16 +256,10 @@ public class CustomerOperations {
     }
 
 
-    public int customerInfo(String fileName) throws FileNotFoundException {
+    public int customerInfo(String cnic,String address,long phoneNo,String name,String cusType,String meterType) throws FileNotFoundException {
 
-
+        String fileName="CustomerInfo.txt";
         int id=generateCustomerId();
-        long cnic=0;
-        String address="";
-        long phoneNo=0;
-        String name="";
-        String cusType="";
-        String meterType="";
         LocalDate currentDate = LocalDate.now();
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 
@@ -162,47 +269,15 @@ public class CustomerOperations {
         int peakUnitConsumed=0;
         String userInput = "";
 
-
-        System.out.println("Enter 13-digit number without dashes:\n");
         Scanner scanner = new Scanner(System.in);
-        cnic=Long.parseLong(scanner.nextLine());
-        System.out.println("Enter Name:\n");
-        address=scanner.nextLine();
-        System.out.println("Enter address:\n");
-        address=scanner.nextLine();
-        System.out.println("Enter Phone no:\n");
-        phoneNo=scanner.nextLong();
-        scanner.nextLine();
-        System.out.println("Enter customer type:\n");
-        System.out.println("Press (1) for Commercial\nPress (2) Domestic");
-        choice=scanner.nextInt();
-        if(choice==1)
+
+        FileOperations.checkCnic(cnic);
+        while (!FileOperations.checkCnic(cnic))
         {
-            cusType="Commercial";
+            System.out.println("Invalid CNIC\n");
+            System.out.println("Enter 13-digit number without dashes:\n");
+            cnic=scanner.nextLine();
         }
-        else if(choice==2)
-        {
-            cusType="Domestic";
-        }
-        else {
-            System.out.println("Invalid choice");
-        }
-        cusType=scanner.nextLine();
-        System.out.println("Enter meter type:\n");
-        System.out.println("Press (1) for 1-Phase\nPress (2) 3-Phase");
-        choice=scanner.nextInt();
-        if(choice==1)
-        {
-            meterType="1-phase";
-        }
-        else if(choice==2)
-        {
-            meterType="3-phase";
-        }
-        else {
-            System.out.println("Invalid choice");
-        }
-        meterType=scanner.nextLine();
 
 
 
@@ -218,21 +293,21 @@ public class CustomerOperations {
                 System.out.println("Enter Peak Units Consumed:\n");
                 peakUnitConsumed=scanner.nextInt();
                 scanner.nextLine();
-                myWriter.write(id + "," + cnic + "," + address + "," + phoneNo + "," + cusType + "," + meterType + "," + formattedDate + "," + regUnitConsumed + "," + peakUnitConsumed + System.lineSeparator());
-
+                System.out.println(id + ","+name+"," + cnic + "," + address + "," + phoneNo + "," + cusType + "," + meterType + "," + formattedDate + "," + regUnitConsumed + "," + peakUnitConsumed+"\n");
+                myWriter.write(id + ","+name+"," + cnic + "," + address + "," + phoneNo + "," + cusType + "," + meterType + "," + formattedDate + "," + regUnitConsumed + "," + peakUnitConsumed + System.lineSeparator());
+                mt.nadOperation(cnic);
             }
             else
             {
 
-                System.out.println("Enter Regular Units Consumed:\n");
-                regUnitConsumed=scanner.nextInt();
-                scanner.nextLine();
                 peakUnitConsumed=-1;
-                myWriter.write(id + "," + cnic + "," + address + "," + phoneNo + "," + cusType + "," + meterType + "," + formattedDate + "," + regUnitConsumed + "," + peakUnitConsumed + System.lineSeparator());
-
+                System.out.println(id + ","+name+"," + cnic + "," + address + "," + phoneNo + "," + cusType + "," + meterType + "," + formattedDate + "," + regUnitConsumed + "," + peakUnitConsumed+"\n");
+                myWriter.write(id + ","+name+"," + cnic + "," + address + "," + phoneNo + "," + cusType + "," + meterType + "," + formattedDate + "," + regUnitConsumed + "," + peakUnitConsumed + System.lineSeparator());
+                mt.nadOperation(cnic);
             }
             myWriter.close();
             System.out.println("Successfully wrote to the file.");
+            showAllCustomers();
 
         }
 

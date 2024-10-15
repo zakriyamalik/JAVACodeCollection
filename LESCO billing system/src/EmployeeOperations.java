@@ -1,3 +1,6 @@
+import javax.swing.*;
+import javax.swing.table.DefaultTableModel;
+import java.awt.*;
 import java.io.*;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -7,14 +10,243 @@ import java.util.Date;
 import java.util.Scanner;
 
 public class EmployeeOperations {
-    public MeterOperations mt;
-    EmployeeOperations(MeterOperations mt)
-    {
-        this.mt=mt;
+    public MeterOperations mt=new MeterOperations(null);
 
+    void showExpiringEmpCNIC(ArrayList<String> dataList)
+    {
+        JFrame frame = new JFrame("Data List Table");
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setBounds(0,0,500, 400);
+        // id + "," + currentMonthName + "," + currentReadingRegular + "," + currentReadingPeak + "," + readingEntryDate + "," + costOfElectricity + "," + salesTaxAmount + "," + fixedCharge + "," + totalBillingCharge + "," + dueDate + "," + billPaidStatus + "," + dueDate;// Write the line to the file
+        // Column headers for the table
+        String[] columnNames = {"CNIC","Allotment Date","Expiry Date"};
+
+        // Convert ArrayList to 2D Object array for JTable
+        String[][] data = new String[dataList.size()][];
+        for (int i = 0; i < dataList.size(); i++) {
+            data[i] = dataList.get(i).split(",");
+        }
+
+        // Table model
+        DefaultTableModel tableModel = new DefaultTableModel(data, columnNames);
+        JTable table = new JTable(tableModel);
+        table.setPreferredScrollableViewportSize(new Dimension(450, 300));
+        table.setFillsViewportHeight(true);
+
+        // Add the table to a scroll pane (so it is scrollable)
+        JScrollPane scrollPane = new JScrollPane(table);
+
+        // Add the scroll pane to the frame
+        frame.add(scrollPane, BorderLayout.CENTER);
+        frame.setVisible(true);
 
     }
-    public void updateExpiry()
+
+
+
+    void showAllBill(ArrayList<String> dataList)
+    {
+        JFrame frame = new JFrame("Data List Table");
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setBounds(0,500,500, 400);
+        // id + "," + currentMonthName + "," + currentReadingRegular + "," + currentReadingPeak + "," + readingEntryDate + "," + costOfElectricity + "," + salesTaxAmount + "," + fixedCharge + "," + totalBillingCharge + "," + dueDate + "," + billPaidStatus + "," + dueDate;// Write the line to the file
+        // Column headers for the table
+        String[] columnNames = {"ID", "Month","Regular Units","Peak Units","Entry Date","costOfElectricity","Sales Tax","fixed Charge","Total","Due Date","Status"};
+
+        // Convert ArrayList to 2D Object array for JTable
+        String[][] data = new String[dataList.size()][];
+        for (int i = 0; i < dataList.size(); i++) {
+            data[i] = dataList.get(i).split(",");
+        }
+
+        // Table model
+        DefaultTableModel tableModel = new DefaultTableModel(data, columnNames);
+        JTable table = new JTable(tableModel);
+        table.setPreferredScrollableViewportSize(new Dimension(450, 300));
+        table.setFillsViewportHeight(true);
+
+        // Add the table to a scroll pane (so it is scrollable)
+        JScrollPane scrollPane = new JScrollPane(table);
+
+        // Add the scroll pane to the frame
+        frame.add(scrollPane, BorderLayout.CENTER);
+        frame.setVisible(true);
+
+    }
+
+    void showAllPaid(ArrayList<String> dataList)
+    {
+        JFrame frame = new JFrame("Data List Table");
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setBounds(0,0,500, 400);
+       // id + "," + currentMonthName + "," + currentReadingRegular + "," + currentReadingPeak + "," + readingEntryDate + "," + costOfElectricity + "," + salesTaxAmount + "," + fixedCharge + "," + totalBillingCharge + "," + dueDate + "," + billPaidStatus + "," + dueDate;// Write the line to the file
+        // Column headers for the table
+        String[] columnNames = {"ID", "Month","Regular Units","Peak Units","Entry Date","costOfElectricity","Sales Tax","fixed Charge","Total","Due Date","Status"};
+
+        // Convert ArrayList to 2D Object array for JTable
+        String[][] data = new String[dataList.size()][];
+        for (int i = 0; i < dataList.size(); i++) {
+            data[i] = dataList.get(i).split(",");
+        }
+
+        // Table model
+        DefaultTableModel tableModel = new DefaultTableModel(data, columnNames);
+        JTable table = new JTable(tableModel);
+        table.setPreferredScrollableViewportSize(new Dimension(450, 300));
+        table.setFillsViewportHeight(true);
+
+        // Add the table to a scroll pane (so it is scrollable)
+        JScrollPane scrollPane = new JScrollPane(table);
+
+        // Add the scroll pane to the frame
+        frame.add(scrollPane, BorderLayout.CENTER);
+        frame.setVisible(true);
+
+    }
+
+    void showAllUnPaid(ArrayList<String> dataList)
+    {
+        JFrame frame = new JFrame("Data List Table");
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setBounds(600,0,500, 400);
+        // id + "," + currentMonthName + "," + currentReadingRegular + "," + currentReadingPeak + "," + readingEntryDate + "," + costOfElectricity + "," + salesTaxAmount + "," + fixedCharge + "," + totalBillingCharge + "," + dueDate + "," + billPaidStatus + "," + dueDate;// Write the line to the file
+        // Column headers for the table
+        String[] columnNames = {"ID", "Month","Regular Units","Peak Units","Entry Date","costOfElectricity","Sales Tax","fixed Charge","Total","Due Date","Status"};
+
+        // Convert ArrayList to 2D Object array for JTable
+        String[][] data = new String[dataList.size()][];
+        for (int i = 0; i < dataList.size(); i++) {
+            data[i] = dataList.get(i).split(",");
+        }
+
+        // Table model
+        DefaultTableModel tableModel = new DefaultTableModel(data, columnNames);
+        JTable table = new JTable(tableModel);
+        table.setPreferredScrollableViewportSize(new Dimension(450, 300));
+        table.setFillsViewportHeight(true);
+
+        // Add the table to a scroll pane (so it is scrollable)
+        JScrollPane scrollPane = new JScrollPane(table);
+
+        // Add the scroll pane to the frame
+        frame.add(scrollPane, BorderLayout.CENTER);
+        frame.setVisible(true);
+
+    }
+
+
+    void showALlEmployees(ArrayList<String> dataList)
+    {
+        // Frame for the table
+        JFrame frame = new JFrame("Data List Table");
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setSize(500, 400);
+
+        // Column headers for the table
+        String[] columnNames = {"Name", "Passwrod"};
+
+        // Convert ArrayList to 2D Object array for JTable
+        String[][] data = new String[dataList.size()][];
+        for (int i = 0; i < dataList.size(); i++) {
+            data[i] = dataList.get(i).split(",");
+        }
+
+        // Table model
+        DefaultTableModel tableModel = new DefaultTableModel(data, columnNames);
+        JTable table = new JTable(tableModel);
+        table.setPreferredScrollableViewportSize(new Dimension(450, 300));
+        table.setFillsViewportHeight(true);
+
+        // Add the table to a scroll pane (so it is scrollable)
+        JScrollPane scrollPane = new JScrollPane(table);
+
+        // Add the scroll pane to the frame
+        frame.add(scrollPane, BorderLayout.CENTER);
+        frame.setVisible(true);
+    }
+    void showExpiryDateTable( ArrayList<String> dataList)
+    {
+        // Frame for the table
+        JFrame frame = new JFrame("Data List Table");
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setSize(500, 400);
+
+        // Column headers for the table
+        String[] columnNames = {"CNIC", "Start Date", "Expiry Date"};
+
+        // Convert ArrayList to 2D Object array for JTable
+        String[][] data = new String[dataList.size()][];
+        for (int i = 0; i < dataList.size(); i++) {
+            data[i] = dataList.get(i).split(",");
+        }
+
+        // Table model
+        DefaultTableModel tableModel = new DefaultTableModel(data, columnNames);
+        JTable table = new JTable(tableModel);
+        table.setPreferredScrollableViewportSize(new Dimension(450, 300));
+        table.setFillsViewportHeight(true);
+
+        // Add the table to a scroll pane (so it is scrollable)
+        JScrollPane scrollPane = new JScrollPane(table);
+
+        // Add the scroll pane to the frame
+        frame.add(scrollPane, BorderLayout.CENTER);
+        frame.setVisible(true);
+    }
+
+    public void addEmployee(String name,String password) throws FileNotFoundException {
+        String employeeFile="EmployeesData.txt";
+        System.out.println("Add New Employee");
+
+        Scanner scanner = new Scanner(System.in);
+
+        // Get employee name and password from user input
+//        System.out.println("Enter Employee Name:");
+//        String name = scanner.nextLine();
+//
+//        System.out.println("Enter Employee Password:");
+//        String password = scanner.nextLine();
+
+        // Construct the employee data in the required format (comma-separated)
+        String employeeInfo = name + "," + password;
+
+        // Read the existing file to check for duplicate name
+        boolean isEmployeeExist = false;
+        try (BufferedReader reader = new BufferedReader(new FileReader(employeeFile))) {
+            String line;
+            while ((line = reader.readLine()) != null) {
+                String[] existingEmployeeData = line.split(",", 2);
+                if (existingEmployeeData.length > 1 && existingEmployeeData[0].equals(name)) {
+                    isEmployeeExist = true;
+                    break;
+                }
+            }
+        } catch (IOException e) {
+            System.out.println("Error reading the employee file: " + e.getMessage());
+        }
+
+        // If the employee exists, ask the user if they still want to add
+
+        // Add the new employee to the file
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(employeeFile, true))) {
+            writer.write(employeeInfo);
+            writer.newLine();
+            System.out.println("Employee added successfully!");
+        } catch (IOException e) {
+            System.out.println("Error writing to the employee file: " + e.getMessage());
+        }
+        ArrayList<String> dataList=new ArrayList<>();
+        String line="";
+        dataList=mt.readFile("EmployeesData.txt",dataList,line);
+        System.out.println("Data in Employee File\n");
+        for(String s:dataList)
+        {
+            System.out.println(s+"\n");
+        }
+        showALlEmployees(dataList);
+    }
+
+    public void updateExpiry(String cnic,String expiryDate)
     {
 
         System.out.println("WellCome to Update Expiry");
@@ -24,15 +256,16 @@ public class EmployeeOperations {
         String line1="";
         String customerCNIC="";
         ArrayList<String> dataList = new ArrayList<>();
-        String expiryDate="";
+       // String expiryDate="";
 
 
         Scanner scan = new Scanner(System.in);
-        System.out.println("Enter CNIC");
-        String cnic = scan.nextLine();
+       // System.out.println("Enter CNIC");
+      //  String cnic = scan.nextLine();
+        boolean isUserFound=false;
 
         File inputFile = new File(fileName);
-        File tempFile = new File("temp_" + fileName);
+       // File tempFile = new File("temp_" + fileName);
         //BufferedWriter writer = new BufferedWriter(new FileWriter(tempFile));
 
         try (
@@ -47,9 +280,9 @@ public class EmployeeOperations {
                 String[] userData = line1.split(",");
                 customerCNIC = userData[1];
 
-
+               // System.out.println("data\t"+customerCNIC+"\n");
                 if (cnic.equals(customerCNIC)) {
-
+                    isUserFound=true;
                     System.out.println("User Found\n");
 
 
@@ -58,6 +291,7 @@ public class EmployeeOperations {
                             BufferedReader readerBill = new BufferedReader(new FileReader("NADRADB.txt"));
 
                     ) {
+
 
                         while ((line = readerBill.readLine()) != null) {
 
@@ -68,19 +302,23 @@ public class EmployeeOperations {
 //                                    System.out.println("dateData["+i+"] : "+dateData[i]);
 //                                }
                             customerCNIC=dateData[0];
+
                             if (cnic.equals(customerCNIC))
                             {
 
-                              //  System.out.println("CNIC Found\n");
-                                expiryDate=dateData[2];
+                                System.out.println("CNIC Found\n");
+                               // expiryDate=dateData[2];
+                                System.out.println("CNIC:"+customerCNIC+" UpdatedDate: "+expiryDate+"\n");
+
                               //  System.out.println("Expiry Date : "+expiryDate);
                                 Scanner scanner1 = new Scanner(System.in);
-                                System.out.println("Enter updated Expiry Date(YYYY-MM-DD)\n");
-                                expiryDate=scanner1.nextLine();
+//                                System.out.println("Enter updated Expiry Date(YYYY-MM-DD)\n");
+//                                expiryDate=scanner1.nextLine();
 
                                 dateData[dateData.length-1]= String.valueOf(expiryDate);
                               //  System.out.println("dateData["+dateData.length+"] : "+dateData[dateData.length-1]);
                                 line = String.join(",", dateData);
+                                System.out.println("Update Record:\n"+line);
                                // System.out.println("line:\t"+line);
                                 dataList.add(line);
                             }
@@ -92,7 +330,7 @@ public class EmployeeOperations {
                             }
 
                         }
-
+                        showExpiryDateTable(dataList);
                        for(int i=0;i<dataList.size();i++)
                        {
                            System.out.println("DataList["+i+"] "+dataList.get(i));
@@ -160,6 +398,15 @@ public class EmployeeOperations {
 
 
             }
+            if(isUserFound)
+            {
+                System.out.println("User found\n");
+
+            }
+            else
+            {
+                System.out.println("User not Found");
+            }
 
         } catch (IOException e) {
             throw new RuntimeException(e);
@@ -167,12 +414,9 @@ public class EmployeeOperations {
 
 }
 
-    public void paidUnpaidreport(String inputFile) {
+    public void paidUnpaidreport() {
         System.out.println("Paid Unpaid Report");
 
-
-        String name = "";
-        String password = "";
         boolean status = false;
         String line;
         boolean userFound = false;
@@ -181,81 +425,41 @@ public class EmployeeOperations {
         ArrayList<String> totalBills=new ArrayList<>();
 
 
-        try (
-                BufferedReader reader = new BufferedReader(new FileReader(inputFile));
-                Scanner scanner1 = new Scanner(System.in)
-        ) {
+            try (
+                    BufferedReader readerBill = new BufferedReader(new FileReader("BillingInfo.txt"));
+                    Scanner scannerBill = new Scanner(System.in)
+            ) {
+
+                while ((line = readerBill.readLine()) != null) {
+                    totalBills.add(line);
 
 
-            System.out.println("Enter the userName of the Employee:");
-            name = scanner1.nextLine();
-            System.out.println("Enter the password of the Employee:");
-            password = scanner1.nextLine();
-
-
-            while ((line = reader.readLine()) != null) {
-
-
-                String[] userData = line.split(",", 2);
-
-
-                if (userData.length == 2 && name.equals(userData[0])) {
-                    if (password.equals(userData[1])) {
-                        System.out.println("User Found\n");
-
-
-                        try (
-                                BufferedReader readerBill = new BufferedReader(new FileReader("BillingInfo.txt"));
-                                Scanner scannerBill = new Scanner(System.in)
-                        ) {
-
-                            while ((line = readerBill.readLine()) != null) {
-                                totalBills.add(line);
-
-
-                                String[] dbData = line.split(",");
-                                System.out.println("Data is :\n");
-                                for(int i=0; i<dbData.length; i++) {
-                                    System.out.println("dbData["+i+"] : "+dbData[i]);
-                                }
-                                status=Boolean.parseBoolean(dbData[10]);
-                                if (status) {
-                                    paid.add(line);
-                                }
-                                else if(status==false)
-                                {
-                                    unPaid.add(line);
-                                }
-                                else
-                                {
-                                    System.out.println("In else\n");
-                                }
-
-
-                            }
-
-
-                        } catch (IOException e) {
-                            throw new RuntimeException(e);
-                        }
-
-
-
-
-
-
-
-
-                        userFound = true;
+                    String[] dbData = line.split(",");
+                    System.out.println("Data is :\n");
+                    for(int i=0; i<dbData.length; i++) {
+                        System.out.println("dbData["+i+"] : "+dbData[i]);
                     }
+                    status=Boolean.parseBoolean(dbData[10]);
+                    if (status) {
+                        paid.add(line);
+                    }
+                    else if(status==false)
+                    {
+                        unPaid.add(line);
+                    }
+                    else
+                    {
+                        System.out.println("In else\n");
+                    }
+
+
                 }
 
 
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
 
-            }
-            if (!userFound) {
-                System.out.println("User not found or Password incorrect.");
-            }
             if(totalBills.isEmpty())
             {
                 System.out.println("No Bill");
@@ -266,6 +470,7 @@ public class EmployeeOperations {
                 {
                     System.out.println(totalBills.get(i));
                 }
+                showAllBill(totalBills);
             }
 
             if(paid.isEmpty())
@@ -278,6 +483,8 @@ public class EmployeeOperations {
                 {
                     System.out.println(paid.get(i));
                 }
+                showAllPaid(paid);
+
             }
             if(unPaid.isEmpty())
             {
@@ -289,16 +496,12 @@ public class EmployeeOperations {
                 {
                     System.out.println(unPaid.get(i));
                 }
+                showAllUnPaid(unPaid);
             }
 
-
-
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
     }
 
-    public void viewExpiringCNIC(String inputFile) throws ParseException {
+    public void viewExpiringCNIC() throws ParseException {
         System.out.println("In view Expiring CNIC");
 
 
@@ -312,6 +515,8 @@ public class EmployeeOperations {
         Date d1 = null;
         Date d2 = null;
         Date d3 = null;
+        boolean flage=false;
+        ArrayList<String> datalist=new ArrayList<>();
 
 
 
@@ -330,25 +535,6 @@ public class EmployeeOperations {
 
 
 
-        try (
-                BufferedReader reader = new BufferedReader(new FileReader(inputFile));
-                Scanner scanner1 = new Scanner(System.in)
-        ) {
-
-
-            System.out.println("Enter the userName of the Employee:");
-            name = scanner1.nextLine();
-            System.out.println("Enter the password of the Employee:");
-            password = scanner1.nextLine();
-
-
-            while ((line = reader.readLine()) != null) {
-
-                String[] userData = line.split(",", 2);
-
-                if (userData.length == 2 && name.equals(userData[0])) {
-                    if (password.equals(userData[1])) {
-                        System.out.println("User Found\n");
 
                         try (
                                 BufferedReader readerBill = new BufferedReader(new FileReader("NADRADB.txt"));
@@ -357,20 +543,27 @@ public class EmployeeOperations {
                             while ((line = readerBill.readLine()) != null) {
 
                                 String[] dbData = line.split(",");
-//                                System.out.println("Data is :\n");
-//                                for(int i=0; i<dbData.length; i++) {
-//                                    System.out.println("dbData["+i+"] : "+dbData[i]);
-//                                }
                                 expiryDate=dbData[2];
                                 d3=sdf.parse(expiryDate);
 //
-                                if (d2.compareTo(d3) > 0)
+                                if (d2.compareTo(d3) > 0 && d1.compareTo(d3) < 0)
                                 {
+                                    flage=true;
                                    // System.out.println(sdf.format(d2) + " (d1 + 30 days) is after " + expiryDate);
                                     System.out.println(line);
+                                    datalist.add(line);
                                 }
 
 
+                            }
+                            if(flage==false)
+                            {
+                                System.out.println("No User Found\n");
+                                JOptionPane.showMessageDialog(null,"No User Found");
+                            }
+                            else
+                            {
+                                showExpiringEmpCNIC(datalist);
                             }
 
                         } catch (IOException e) {
@@ -379,18 +572,4 @@ public class EmployeeOperations {
 
                         userFound = true;
                     }
-                }
-
-            }
-            if (!userFound) {
-                System.out.println("User not found or Password incorrect.");
-            }
-
-
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-
-
-    }
 }

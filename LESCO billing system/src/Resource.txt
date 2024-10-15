@@ -1,0 +1,54 @@
+public static int getSalesTax(String cusType,String meterType)
+    {
+        String fileName="";
+
+        try {
+            List<String> lines = Files.readAllLines(Paths.get(fileName));
+
+            if (Objects.equals(meterType, "1-phase")) {
+
+                if (Objects.equals(cusType, "Domestic")) {
+
+
+                }
+
+                else if (Objects.equals(cusType, "Commercial")) {
+
+                }
+
+                else {
+                    System.out.println("Wrong Customer Type");
+                }
+            }
+
+
+            else if (Objects.equals(meterType, "3-phase")) {
+
+                if (Objects.equals(cusType, "Domestic")) {
+
+                }
+
+                else if (Objects.equals(cusType, "Commercial")) {
+
+                }
+
+                else {
+                    System.out.println("Wrong Customer Type");
+                }
+
+            }
+
+
+            else
+            {
+                System.out.println("Wrong Phase");
+            }
+        }
+
+        catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
+
+        return 0;
+    }
