@@ -6,8 +6,49 @@ import java.util.Objects;
 import java.util.Scanner;
 
 public class FileOperations {
-    public CustomerOperations customerOperations = new CustomerOperations();
-    FileOperations() {}
+    private boolean flage;
+    private String filename;
+
+    public boolean isFlage() {
+        return flage;
+    }
+
+    public void setFlage(boolean flage) {
+        this.flage = flage;
+    }
+
+//    public String getFilename() {
+//        return filename;
+//    }
+//
+//    public void setFilename(String filename) {
+//        this.filename = filename;
+//    }
+
+    public CustomerOperations getCustomerOperations() {
+        return customerOperations;
+    }
+
+    public void setCustomerOperations(CustomerOperations customerOperations) {
+        this.customerOperations = customerOperations;
+    }
+
+    public CustomerOperations customerOperations ;
+    FileOperations(CustomerOperations customerOperations) {
+        this.customerOperations = customerOperations;
+    }
+    public static boolean checkCnic(String cnic) {
+        boolean flage=false;
+        if(cnic.length()==13)
+        {
+            flage=true;
+        }
+        else
+        {
+            flage=false;
+        }
+        return flage;
+    }
     public void createFile(String filename)
     {
 

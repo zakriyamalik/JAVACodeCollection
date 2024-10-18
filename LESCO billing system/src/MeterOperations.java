@@ -1,16 +1,18 @@
+import javax.swing.*;
 import java.io.*;
 import java.time.LocalDate;
 import java.util.*;
 
-public class MeterOperations {
+public class MeterOperations extends JFrame{
    //private final BillingOperations billingSystem=new BillingOperations();
     private final ShowBill showBill=new ShowBill();
-   private final CustomerOperations customerSystem=new CustomerOperations();
-//    MeterOperations(BillingOperations billingSystem)
-//    {
-//        this.billingSystem=billingSystem;
-//
-//    }
+   private final CustomerOperations customerSystem;
+    MeterOperations(CustomerOperations customerSystem)
+    {
+       this.customerSystem=customerSystem;
+
+    }
+
 
 
     public void clearScreen() throws InterruptedException {
@@ -23,23 +25,62 @@ public class MeterOperations {
         }
 
     }
-    public void  meterReading() throws IOException {
+    public void  meterReading(int id,long CNIC,String meterType,int peakUnits,int regularUnits,String date,boolean statusDate) throws IOException {
         //showBill.billingSystem("BillingInfo.txt");
-        int id=0;
-        long CNIC=0;
-        String meterType = "";
-        System.out.println("Enter your Customer ID:\n");
-        Scanner scanner = new Scanner(System.in);
-        id = scanner.nextInt();
-        scanner.nextLine();
-
-        System.out.println("Enter 13-digit number without dashes:\n");
-        CNIC = Long.parseLong(scanner.nextLine());
-        System.out.println("Enter meter type:\n");
-        meterType = scanner.nextLine();
+//        int id=0;
+//        long CNIC=0;
+//        String meterType = "";
+//        System.out.println("Enter your Customer ID:\n");
+//        Scanner scanner = new Scanner(System.in);
+//        id = scanner.nextInt();
+//        scanner.nextLine();
+//
+//        System.out.println("Enter 13-digit number without dashes:\n");
+//        CNIC = Long.parseLong(scanner.nextLine());
+//        System.out.println("Enter meter type:\n");
+//        meterType = scanner.nextLine();
 
         if(showBill.customerCheck(id, CNIC,meterType)) {
-            showBill.billingSystem1("BillingInfo.txt",id,meterType);
+            System.out.println("In ifcv\n"+meterType);
+            if(Objects.equals(meterType, "1-phase"))
+            {
+                dispose();
+                if(true) {
+                    int regUnits = regularUnits;
+                    String entryDate = date;
+                    boolean status = statusDate;
+
+                    showBill.billingSystem1( id,meterType, regUnits, -1,entryDate,status);
+
+                }
+                else
+                {
+                    System.out.println("Not submitted\n");
+                }
+
+
+
+
+            }
+            else if(Objects.equals(meterType,"3-phase"))
+            {
+                dispose();
+                    int regUnits = regularUnits;
+                    String entryDate = date;
+                    boolean status = statusDate;
+                    int currpeakUnits=peakUnits;
+
+                    System.out.println("Before show Bill");
+                    showBill.billingSystem1( id,meterType, regUnits, currpeakUnits,entryDate,status);
+
+
+
+            }
+            else
+            {
+                System.out.println("Wrong Meter\n");
+            }
+            //showBill.billingSystem1(id,meterType);
        }
         else {
             System.out.println("Customer does not exist");
@@ -47,7 +88,7 @@ public class MeterOperations {
 
 
     }
-public void  nadOperation(String fileName,String CNIC)
+public void  nadOperation(String CNIC)
     {
 //        String dayOfWeek="";
 //        String month="";
@@ -84,7 +125,7 @@ public void  nadOperation(String fileName,String CNIC)
 
 
         try (
-            BufferedWriter bw = new BufferedWriter(new FileWriter("NADRADB.txt")))
+            BufferedWriter bw = new BufferedWriter(new FileWriter("NADRADB.txt",true)))
         {
             bw.write(CNIC+","+currDate+","+expiryDate+System.lineSeparator());
         } catch (IOException e) {
@@ -128,7 +169,7 @@ public void  nadOperation(String fileName,String CNIC)
             e.printStackTrace();
         }
     }
-    public void allocateMeter() throws FileNotFoundException {
+    public void allocateMeter(String cnic) throws FileNotFoundException {
 
         System.out.println("WellCome to Meter Allocation department");
 
@@ -147,8 +188,8 @@ public void  nadOperation(String fileName,String CNIC)
 
         Scanner scan = new Scanner(System.in);
 
-        System.out.println("Enter CNIC");
-        String cnic = scan.nextLine();
+//        System.out.println("Enter CNIC");
+//        String cnic = scan.nextLine();
 
         File inputFile = new File(fileName);
         File tempFile = new File("temp_" + fileName);
@@ -174,7 +215,7 @@ public void  nadOperation(String fileName,String CNIC)
                 if (cnic.equals(customerCNIC)) {
 
                     coutner++;
-
+                    System.out.println("CNIC by cus:"+cnic+"  Cnic by file "+customerCNIC+"\n");
 //                    if(userData.length==9)
 //                    {
 //                        System.out.println("In famouse If User datta\n"+userData[userData.length-1]);
@@ -223,16 +264,18 @@ public void  nadOperation(String fileName,String CNIC)
 
 
             }
-            if(coutner<3&&cnic.equals(customerCNIC))
+            if(coutner<3)
             {
                 System.out.println("In NandIf");
-                customerSystem.customerInfo("CustomerInfo.txt");
-                nadOperation("CustomerInfo.txt",customerCNIC);
+                new CustomerInfoInput();
+                //customerSystem.customerInfo("CustomerInfo.txt");
+                nadOperation(customerCNIC);
 
             }
             else
             {
-                System.out.println("\"Not Allowed! Maximum 3 meters allowed per CNIC\n");
+                JOptionPane.showMessageDialog(null, "Not Allowed! Maximum 3 meters allowed per CNIC " );
+               // System.out.println("\"Not Allowed! Maximum 3 meters allowed per CNIC\n");
             }
 
 
@@ -297,10 +340,10 @@ public void  nadOperation(String fileName,String CNIC)
                 choice=scanner1.nextInt();
                 switch (choice) {
                     case 1:
-                        allocateMeter();
+                      //  allocateMeter();
                     break;
                     case 2:
-                        meterReading();
+                     //   meterReading();
                     default:
                     break;
 

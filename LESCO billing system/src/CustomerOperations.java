@@ -1,16 +1,241 @@
+import javax.swing.*;
+import javax.swing.table.DefaultTableModel;
 import java.io.*;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.Objects;
 import java.util.Random;
 import java.util.Scanner;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 public class CustomerOperations {
-    CustomerOperations()
-    {}
-    public int changePassword(String fileName) throws IOException {
+    private int Name;
+    private int cusType;
+    private int regularUnits;
+    private int peakUnits;
+    private String customerType;
+    MeterOperations mt=new MeterOperations(null);
+
+    public int getName() {
+        return Name;
+    }
+
+    public void setName(int name) {
+        Name = name;
+    }
+
+    public int getCusType() {
+        return cusType;
+    }
+
+    public void setCusType(int cusType) {
+        this.cusType = cusType;
+    }
+
+    public int getRegularUnits() {
+        return regularUnits;
+    }
+
+    public void setRegularUnits(int regularUnits) {
+        this.regularUnits = regularUnits;
+    }
+
+    public int getPeakUnits() {
+        return peakUnits;
+    }
+
+    public void setPeakUnits(int peakUnits) {
+        this.peakUnits = peakUnits;
+    }
+
+    public String getCustomerType() {
+        return customerType;
+    }
+
+    public void setCustomerType(String customerType) {
+        this.customerType = customerType;
+    }
+
+    public MeterOperations getMt() {
+        return mt;
+    }
+
+    public void setMt(MeterOperations mt) {
+        this.mt = mt;
+    }
+
+    CustomerOperations(MeterOperations mt)
+    {
+
+    }
+
+    public void showAllCustomers() throws FileNotFoundException {
+        String fileName = "CustomerInfo.txt";
+        String line = "";
+        ArrayList<String[]> dataList = new ArrayList<>();
+        File inputFile = new File(fileName);
+
+        try (BufferedReader reader = new BufferedReader(new FileReader(inputFile))) {
+            // Reading data from file and adding to dataList
+            dataList = readFile(fileName, dataList, line);
+
+            // Create a frame for the table
+            JFrame frame = new JFrame("Customer Information");
+            frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+            frame.setSize(800, 400);
+
+            // Column names
+            String[] columnNames = {"ID", "CNIC", "Address", "Phone no", "Customer Type", "Meter Type", "Date", "Regular Units", "Peak Units", "Update", "Delete", "Save"};
+
+            // Create 2D array for table data
+            String[][] tableData = new String[dataList.size()][columnNames.length];
+
+            // Fill the table data by splitting each line
+            for (int i = 0; i < dataList.size(); i++) {
+                String[] rowData = dataList.get(i);
+                int numberOfColumnsToCopy = Math.min(rowData.length, columnNames.length - 3);
+                System.arraycopy(rowData, 0, tableData[i], 0, numberOfColumnsToCopy);
+                tableData[i][9] = "Update"; // Update button column
+                tableData[i][10] = "Delete"; // Delete button column
+                tableData[i][11] = "Save";   // Save button column
+            }
+
+            // Create a table model with the extracted data and column names
+            DefaultTableModel tableModel = new DefaultTableModel(tableData, columnNames);
+            JTable table = new JTable(tableModel);
+
+            // Set preferred size for the table
+            table.setPreferredScrollableViewportSize(new Dimension(750, 300));
+            table.setFillsViewportHeight(true);
+
+            // Make the table cells editable only when "Update" is clicked
+            table.setDefaultEditor(Object.class, null); // Disable default editing for all cells
+
+            // Add update button functionality
+            table.getColumn("Update").setCellEditor(new DefaultCellEditor(new JCheckBox()) {
+                @Override
+                public Component getTableCellEditorComponent(JTable table, Object value, boolean isSelected, int row, int column) {
+                    JButton updateButton = new JButton("Update");
+
+                    updateButton.addActionListener(new ActionListener() {
+                        @Override
+                        public void actionPerformed(ActionEvent e) {
+                            System.out.println("Update clicked for row: " + row);
+
+                            // Enable editing for the entire row
+                            for (int col = 0; col < 9; col++) {
+                                table.getColumnModel().getColumn(col).setCellEditor(new DefaultCellEditor(new JTextField()));
+                            }
+
+                            // Show the Save button after enabling editing
+                            tableModel.setValueAt("Save", row, 11);
+                        }
+                    });
+                    return updateButton;
+                }
+            });
+
+            // Add delete button functionality
+            ArrayList<String[]> finalDataList = dataList;
+            table.getColumn("Delete").setCellEditor(new DefaultCellEditor(new JCheckBox()) {
+                @Override
+                public Component getTableCellEditorComponent(JTable table, Object value, boolean isSelected, int row, int column) {
+                    JButton deleteButton = new JButton("Delete");
+
+                    deleteButton.addActionListener(new ActionListener() {
+                        @Override
+                        public void actionPerformed(ActionEvent e) {
+                            System.out.println("Delete clicked for row: " + row);
+
+                            // Remove the row from dataList and the table
+                            finalDataList.remove(row);
+                            tableModel.removeRow(row);
+
+                            // Write updated data to the temporary file
+                            writeDataListToTempFile(finalDataList);
+                        }
+                    });
+                    return deleteButton;
+                }
+            });
+
+            // Add save button functionality
+            ArrayList<String[]> finalDataList1 = dataList;
+            table.getColumn("Save").setCellEditor(new DefaultCellEditor(new JCheckBox()) {
+                @Override
+                public Component getTableCellEditorComponent(JTable table, Object value, boolean isSelected, int row, int column) {
+                    JButton saveButton = new JButton("Save");
+
+                    saveButton.addActionListener(new ActionListener() {
+                        @Override
+                        public void actionPerformed(ActionEvent e) {
+                            // After editing, save the data to dataList
+                            for (int col = 0; col < 9; col++) {
+                                finalDataList1.get(row)[col] = tableModel.getValueAt(row, col).toString();
+                            }
+
+                            System.out.println("Saved changes for row: " + row);
+
+                            // Write updated data to the temporary file
+                            writeDataListToTempFile(finalDataList1);
+
+                            // Make the row non-editable again after saving
+                            table.setDefaultEditor(Object.class, null);
+                        }
+                    });
+                    return saveButton;
+                }
+            });
+
+            // Add table to a scroll pane
+            JScrollPane scrollPane = new JScrollPane(table);
+
+            // Add the scroll pane to the frame and display it
+            frame.add(scrollPane);
+            frame.setVisible(true);
+
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
 
 
+
+    private static void writeDataListToTempFile(ArrayList<String[]> dataList) {
+        try {
+            // Create a temporary file
+            File tempFile = new File("CustomerInfo.txt");
+
+            // Write dataList to the file
+            FileWriter writer = new FileWriter(tempFile, false);
+            for (String[] data : dataList) {
+                writer.write(String.join(",", data) + "\n");
+            }
+
+            // Close the writer
+            writer.close();
+
+            // Print the path of the temp file
+            System.out.println("Data written to temp file: " + tempFile.getAbsolutePath());
+
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
+    }
+    private ArrayList<String[]> readFile(String fileName, ArrayList<String[]> dataList, String line) throws IOException {
+        try (BufferedReader reader = new BufferedReader(new FileReader(fileName))) {
+            while ((line = reader.readLine()) != null) {
+                dataList.add(line.split(","));
+            }
+        }
+        return dataList;
+    }
+    public int changePassword(String name,String oldPassword,String newPassword) throws IOException {
+
+        String fileName="EmployeesData.txt";
         System.out.println("In changePassword function\n");
 
 
@@ -25,17 +250,17 @@ public class CustomerOperations {
         )
         {
 
-            String name = "";
-            String password = "";
-            String newPassword = "";
+//            String name = "";
+//            String password = "";
+//            String newPassword = "";
             String line;
             boolean userFound = false;
 
 
-            System.out.println("Enter the userName of the Employee:");
-            name = scanner1.nextLine();
-            System.out.println("Enter the password of the Employee:");
-            password = scanner1.nextLine();
+//            System.out.println("Enter the userName of the Employee:");
+//            name = scanner1.nextLine();
+//            System.out.println("Enter the password of the Employee:");
+//            oldPassword = scanner1.nextLine();
 
 
             while ((line = reader.readLine()) != null) {
@@ -45,10 +270,12 @@ public class CustomerOperations {
 
 
                 if (userData.length == 2 && name.equals(userData[0])) {
-                    if (password.equals(userData[1])) {
-                        System.out.println("Enter New password of the Employee:");
-                        newPassword = scanner1.nextLine();
+                    if (oldPassword.equals(userData[1])) {
+//                        System.out.println("Enter New Password of the Employee:");
+//                        newPassword = scanner1.nextLine();
+
                         line = name + "," + newPassword;
+                        System.out.println(line);
                         userFound = true;
                     }
                 }
@@ -61,8 +288,12 @@ public class CustomerOperations {
 
             if (!userFound) {
                 System.out.println("User not found or old password incorrect.");
-            } else {
+                JOptionPane.showMessageDialog(null, "User not found or old password incorrect.");
+            }
+            else {
                 System.out.println("Password updated successfully.");
+                JOptionPane.showMessageDialog(null, "Password updated successfully.");
+
             }
 
 
@@ -143,16 +374,10 @@ public class CustomerOperations {
     }
 
 
-    public int customerInfo(String fileName) throws FileNotFoundException {
+    public int customerInfo(String cnic,String address,long phoneNo,String cusType,String meterType) throws FileNotFoundException {
 
-
+        String fileName="CustomerInfo.txt";
         int id=generateCustomerId();
-        long cnic=0;
-        String address="";
-        long phoneNo=0;
-        String name="";
-        String cusType="";
-        String meterType="";
         LocalDate currentDate = LocalDate.now();
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 
@@ -162,47 +387,15 @@ public class CustomerOperations {
         int peakUnitConsumed=0;
         String userInput = "";
 
-
-        System.out.println("Enter 13-digit number without dashes:\n");
         Scanner scanner = new Scanner(System.in);
-        cnic=Long.parseLong(scanner.nextLine());
-        System.out.println("Enter Name:\n");
-        address=scanner.nextLine();
-        System.out.println("Enter address:\n");
-        address=scanner.nextLine();
-        System.out.println("Enter Phone no:\n");
-        phoneNo=scanner.nextLong();
-        scanner.nextLine();
-        System.out.println("Enter customer type:\n");
-        System.out.println("Press (1) for Commercial\nPress (2) Domestic");
-        choice=scanner.nextInt();
-        if(choice==1)
+
+        FileOperations.checkCnic(cnic);
+        while (!FileOperations.checkCnic(cnic))
         {
-            cusType="Commercial";
+            System.out.println("Invalid CNIC\n");
+            System.out.println("Enter 13-digit number without dashes:\n");
+            cnic=scanner.nextLine();
         }
-        else if(choice==2)
-        {
-            cusType="Domestic";
-        }
-        else {
-            System.out.println("Invalid choice");
-        }
-        cusType=scanner.nextLine();
-        System.out.println("Enter meter type:\n");
-        System.out.println("Press (1) for 1-Phase\nPress (2) 3-Phase");
-        choice=scanner.nextInt();
-        if(choice==1)
-        {
-            meterType="1-phase";
-        }
-        else if(choice==2)
-        {
-            meterType="3-phase";
-        }
-        else {
-            System.out.println("Invalid choice");
-        }
-        meterType=scanner.nextLine();
 
 
 
@@ -218,21 +411,21 @@ public class CustomerOperations {
                 System.out.println("Enter Peak Units Consumed:\n");
                 peakUnitConsumed=scanner.nextInt();
                 scanner.nextLine();
+                System.out.println(id + "," + cnic + "," + address + "," + phoneNo + "," + cusType + "," + meterType + "," + formattedDate + "," + regUnitConsumed + "," + peakUnitConsumed+"\n");
                 myWriter.write(id + "," + cnic + "," + address + "," + phoneNo + "," + cusType + "," + meterType + "," + formattedDate + "," + regUnitConsumed + "," + peakUnitConsumed + System.lineSeparator());
-
+                mt.nadOperation(cnic);
             }
             else
             {
 
-                System.out.println("Enter Regular Units Consumed:\n");
-                regUnitConsumed=scanner.nextInt();
-                scanner.nextLine();
                 peakUnitConsumed=-1;
-                myWriter.write(id + "," + cnic + "," + address + "," + phoneNo + "," + cusType + "," + meterType + "," + formattedDate + "," + regUnitConsumed + "," + peakUnitConsumed + System.lineSeparator());
-
+                System.out.println(id + "," + cnic + "," + address + "," + phoneNo + "," + cusType + "," + meterType + "," + formattedDate + "," + regUnitConsumed + "," + peakUnitConsumed+"\n");
+                myWriter.write(id +"," + cnic + "," + address + "," + phoneNo + "," + cusType + "," + meterType + "," + formattedDate + "," + regUnitConsumed + "," + peakUnitConsumed + System.lineSeparator());
+                mt.nadOperation(cnic);
             }
             myWriter.close();
             System.out.println("Successfully wrote to the file.");
+            showAllCustomers();
 
         }
 
@@ -244,6 +437,13 @@ public class CustomerOperations {
         return 0;
     }
 
+public static void main(String[] args) throws FileNotFoundException {
+        CustomerOperations cs=new CustomerOperations(null);
+        cs.showAllCustomers();
 
 
 }
+
+}
+
+

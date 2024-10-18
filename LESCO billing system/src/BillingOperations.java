@@ -22,7 +22,8 @@ public class BillingOperations {
         boolean userFound = false;
         String empFileName = "EmployeesData.txt";
         Scanner scanner1 = new Scanner(System.in);
-        int choice = 0;
+        int fileId = 0;
+        int id=0;
         ArrayList<String> dataList = new ArrayList<>();
 
 
@@ -59,13 +60,28 @@ public class BillingOperations {
                 System.out.println("User not found or old password incorrect.");
             } else {
                 System.out.println("Employee found\n");
+                Scanner scanner2 = new Scanner(System.in);
+                System.out.println("Enter User ID:\n");
+                id=scanner2.nextInt(); 
+                scanner2.nextLine();
 
                 dataList= mt.readFile("BillingInfo.txt",dataList,line);
-
-                System.out.println("Data:");
-                for (String data : dataList) {
-                    System.out.println(data);
+                for (String s : dataList) {
+                    
+                    assert false;
+                    String[] userData = s.split(",");
+                    fileId = Integer.parseInt(userData[0]);
+                    if (id == fileId) {
+                        System.out.println("Id found\n");
+                        System.out.println(s+"\n");
+                    }
+                    else
+                    {
+                        System.out.println("ID not found\n");
+                    }
                 }
+
+
             }
 
         } catch (IOException e) {
@@ -173,7 +189,7 @@ public class BillingOperations {
     public  String getDueDate(String readingEntryDate)
     {
         System.out.println("\nPhase-1\n");
-
+        System.out.println(readingEntryDate);
         String[] dateEntries = readingEntryDate.split("/", 3);
         int day = Integer.parseInt(dateEntries[0]);
         int month = Integer.parseInt(dateEntries[1]);
