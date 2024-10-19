@@ -69,6 +69,17 @@ public class CustomerInfoInput extends JFrame {
         RoundedField textField1 = new RoundedField(1);
         textField1.setBounds(370, 50, 300, 40); // Placed next to label
 
+<<<<<<< HEAD
+=======
+        RoundedLabel inputLabel2 = new RoundedLabel("Name:", Color.WHITE, 20, 20);
+        inputLabel2.setBounds(50, 120, 300, 40); // Increased width to match text field
+        inputLabel2.setFont(new Font("Arial", Font.PLAIN, 24));
+        inputLabel2.setForeground(customColor);
+
+        RoundedField textField2 = new RoundedField(1);
+        textField2.setBounds(370, 120, 300, 40); // Placed next to label
+
+>>>>>>> 1e6e73842a9a5b62a4432e7fea8310d4a71d6b3b
         RoundedLabel inputLabel3 = new RoundedLabel("Address:", Color.WHITE, 20, 20);
         inputLabel3.setBounds(50, 190, 300, 40); // Increased width to match text field
         inputLabel3.setFont(new Font("Arial", Font.PLAIN, 24));
@@ -113,17 +124,31 @@ public class CustomerInfoInput extends JFrame {
                 String cnic="";
                 String address="";
                 Long phoneNo= Long.valueOf(0);
+<<<<<<< HEAD
 
                 String cusType="";
                 String meterType="";
                 cnic=textField1.getText();
+=======
+                String name="";
+                String cusType="";
+                String meterType="";
+                cnic=textField1.getText();
+                name=textField2.getText();
+>>>>>>> 1e6e73842a9a5b62a4432e7fea8310d4a71d6b3b
                 address=textField3.getText();
                 phoneNo= Long.parseLong(textField4.getText());
                 cusType=textField5.getText();
                 meterType=textField6.getText();
+<<<<<<< HEAD
                 System.out.println("Cnic\t"+cnic+" "+" "+address+" "+phoneNo+" "+cusType+" "+meterType+"\n");
                 try {
                     co.customerInfo(cnic,address, phoneNo,cusType,meterType);
+=======
+                System.out.println("Cnic\t"+cnic+" "+name+" "+address+" "+phoneNo+" "+cusType+" "+meterType+"\n");
+                try {
+                    co.customerInfo(cnic,address, phoneNo,name,cusType,meterType);
+>>>>>>> 1e6e73842a9a5b62a4432e7fea8310d4a71d6b3b
                 } catch (FileNotFoundException ex) {
                     throw new RuntimeException(ex);
                 }
@@ -154,6 +179,11 @@ public class CustomerInfoInput extends JFrame {
         // Add components to panels
         pt1.add(inputLabel1);
         pt1.add(textField1);
+<<<<<<< HEAD
+=======
+        pt1.add(inputLabel2);
+        pt1.add(textField2);
+>>>>>>> 1e6e73842a9a5b62a4432e7fea8310d4a71d6b3b
         pt1.add(inputLabel3);
         pt1.add(textField3);
         pt1.add(inputLabel4);

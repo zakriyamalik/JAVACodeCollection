@@ -4,7 +4,10 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.geom.RoundRectangle2D;
 import java.io.FileNotFoundException;
+<<<<<<< HEAD
 import java.io.IOException;
+=======
+>>>>>>> 1e6e73842a9a5b62a4432e7fea8310d4a71d6b3b
 
 public class EmployeeOperation1 extends JFrame {
     EmployeeOperations employeeOperations=new EmployeeOperations();
@@ -73,7 +76,11 @@ public class EmployeeOperation1 extends JFrame {
         textField1.setBounds(50, 100, 410, 40);
         textField1.setFont(new Font("Arial", Font.PLAIN, 18));
 
+<<<<<<< HEAD
         RoundedLabel inputLabel2 = new RoundedLabel("Old Password: ", Color.WHITE, 20, 20);
+=======
+        RoundedLabel inputLabel2 = new RoundedLabel("Password: ", Color.WHITE, 20, 20);
+>>>>>>> 1e6e73842a9a5b62a4432e7fea8310d4a71d6b3b
         inputLabel2.setBounds(50, 150, 410, 40);
         inputLabel2.setFont(new Font("Arial", Font.PLAIN, 24));
         inputLabel2.setForeground(customColor);
@@ -84,6 +91,7 @@ public class EmployeeOperation1 extends JFrame {
         textField2.setFont(new Font("Arial", Font.PLAIN, 18));
 
 
+<<<<<<< HEAD
         RoundedLabel inputLabel3 = new RoundedLabel("New Password: ", Color.WHITE, 20, 20);
         inputLabel3.setBounds(50, 250, 410, 40);
         inputLabel3.setFont(new Font("Arial", Font.PLAIN, 24));
@@ -95,12 +103,15 @@ public class EmployeeOperation1 extends JFrame {
         textField3.setFont(new Font("Arial", Font.PLAIN, 18));
 
 
+=======
+>>>>>>> 1e6e73842a9a5b62a4432e7fea8310d4a71d6b3b
         // Submit button
         RoundedButton submitButton = new RoundedButton("Submit");
         submitButton.setBounds(370, 300, 110, 40);
         submitButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+<<<<<<< HEAD
                 CustomerOperations cs=new CustomerOperations(null);
                 String name = "";
                 String password = "";
@@ -116,6 +127,11 @@ public class EmployeeOperation1 extends JFrame {
                 JOptionPane.showMessageDialog(null, "Submitted: " + name + " - " + password+" - "+newPassword
                 );
 
+=======
+                String name = textField1.getText();
+                String id = textField2.getText();
+                JOptionPane.showMessageDialog(null, "Submitted: " + name + " - " + id);
+>>>>>>> 1e6e73842a9a5b62a4432e7fea8310d4a71d6b3b
 
             }
         });
@@ -142,8 +158,11 @@ public class EmployeeOperation1 extends JFrame {
         pt1.add(textField1);
         pt1.add(inputLabel2);
         pt1.add(textField2);
+<<<<<<< HEAD
         pt1.add(inputLabel3);
         pt1.add(textField3);
+=======
+>>>>>>> 1e6e73842a9a5b62a4432e7fea8310d4a71d6b3b
         pt1.add(submitButton);
         pt1.add(backButton);
         pt1.add(backgroundLabel1); // Add background to pt1

@@ -1,8 +1,11 @@
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import java.awt.*;
+<<<<<<< HEAD
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+=======
+>>>>>>> 1e6e73842a9a5b62a4432e7fea8310d4a71d6b3b
 import java.io.*;
 import java.util.Objects;
 import java.util.Scanner;
@@ -54,6 +57,7 @@ public class TeriffInfo {
     {
 
     }
+<<<<<<< HEAD
     public void showAllTerrifRecord(String[] dataList) {
         JFrame frame = new JFrame("Terrif Records Table");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -195,6 +199,28 @@ public class TeriffInfo {
 
 
 
+=======
+    public void showAllTerrifRecord(String [] dataList)
+    {
+        JFrame frame = new JFrame("Data List Table");
+        frame.setDefaultCloseOperation(3);
+        frame.setSize(500, 400);
+        String[] columnNames = new String[]{"Meter type", "Regular unit price", "Peak unit price","Tax percentage", "Fixed charges"};
+        String[][] data = new String[dataList.length][];
+
+        for(int i = 0; i < dataList.length; ++i) {
+            data[i] = (dataList[i]).split(",");
+        }
+
+        DefaultTableModel tableModel = new DefaultTableModel(data, columnNames);
+        JTable table = new JTable(tableModel);
+        table.setPreferredScrollableViewportSize(new Dimension(450, 300));
+        table.setFillsViewportHeight(true);
+        JScrollPane scrollPane = new JScrollPane(table);
+        frame.add(scrollPane, "Center");
+        frame.setVisible(true);
+    }
+>>>>>>> 1e6e73842a9a5b62a4432e7fea8310d4a71d6b3b
     public void  writeFile(String fileName,String [] lines,int index)
     {
         BufferedWriter writer = null;
@@ -751,7 +777,11 @@ public class TeriffInfo {
         }
     }
     public boolean TariffTaxUpdate(String name,String password) {
+<<<<<<< HEAD
         String fileName="TarifTaxInfo.txt";
+=======
+        String fileName="TarrifTaxInfo.txt";
+>>>>>>> 1e6e73842a9a5b62a4432e7fea8310d4a71d6b3b
         String line = "";
 
         boolean userFound = false;
@@ -890,10 +920,13 @@ public class TeriffInfo {
 
 
 
+<<<<<<< HEAD
     }
 
     public static void main(String[] args) throws IOException {
         TariffTaxSystem("TarifTaxInfo.txt");
+=======
+>>>>>>> 1e6e73842a9a5b62a4432e7fea8310d4a71d6b3b
     }
 
 }

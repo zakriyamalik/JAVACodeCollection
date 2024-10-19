@@ -3,12 +3,17 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.geom.RoundRectangle2D;
+<<<<<<< HEAD
 import java.io.IOException;
 
 public class EmployeeOperation3_2 extends JFrame {
     MeterOperations mt = new MeterOperations(null);
     private JComboBox<String> meterTypeDropdown;
 
+=======
+
+public class EmployeeOperation3_2 extends JFrame {
+>>>>>>> 1e6e73842a9a5b62a4432e7fea8310d4a71d6b3b
     public EmployeeOperation3_2() {
         // Setup second frame
         setTitle("Employee Desktop");
@@ -64,19 +69,31 @@ public class EmployeeOperation3_2 extends JFrame {
 
         // Labels and text fields for input (6 pairs)
         RoundedLabel inputLabel1 = new RoundedLabel("Customer ID:", Color.WHITE, 20, 20);
+<<<<<<< HEAD
         inputLabel1.setBounds(50, 50, 200, 40); // Adjusted width
+=======
+        inputLabel1.setBounds(50, 50, 300, 40); // Increased width to match text field
+>>>>>>> 1e6e73842a9a5b62a4432e7fea8310d4a71d6b3b
         inputLabel1.setFont(new Font("Arial", Font.PLAIN, 24));
         inputLabel1.setForeground(customColor);
 
         RoundedField textField1 = new RoundedField(1);
+<<<<<<< HEAD
         textField1.setBounds(270, 50, 300, 40); // Adjusted to match label
 
         RoundedLabel inputLabel2 = new RoundedLabel("Customer CNIC:", Color.WHITE, 20, 20);
         inputLabel2.setBounds(50, 120, 200, 40); // Adjusted width
+=======
+        textField1.setBounds(370, 50, 300, 40); // Placed next to label
+
+        RoundedLabel inputLabel2 = new RoundedLabel("Customer CNIC:", Color.WHITE, 20, 20);
+        inputLabel2.setBounds(50, 120, 300, 40); // Increased width to match text field
+>>>>>>> 1e6e73842a9a5b62a4432e7fea8310d4a71d6b3b
         inputLabel2.setFont(new Font("Arial", Font.PLAIN, 24));
         inputLabel2.setForeground(customColor);
 
         RoundedField textField2 = new RoundedField(1);
+<<<<<<< HEAD
         textField2.setBounds(270, 120, 300, 40);
 
         String[] meterTypes = {"1-phase", "3-phase"};
@@ -170,6 +187,42 @@ public class EmployeeOperation3_2 extends JFrame {
                                 "\nRegular Units: " + regularUnits +
                                 "\nDate: " + date +
                                 "\nStatus Date: " + statusDate);
+=======
+        textField2.setBounds(370, 120, 300, 40); // Placed next to label
+
+        RoundedLabel inputLabel3 = new RoundedLabel("Meter type:", Color.WHITE, 20, 20);
+        inputLabel3.setBounds(50, 190, 300, 40); // Increased width to match text field
+        inputLabel3.setFont(new Font("Arial", Font.PLAIN, 24));
+        inputLabel3.setForeground(customColor);
+
+        RoundedField textField3 = new RoundedField(1);
+        textField3.setBounds(370, 190, 300, 40); // Placed next to label
+
+        RoundedLabel inputLabel4 = new RoundedLabel("Reading Entry Date(DD/MM/YYYY):", Color.WHITE, 20, 20);
+        inputLabel4.setBounds(50, 260, 300, 40); // Increased width to match text field
+        inputLabel4.setFont(new Font("Arial", Font.PLAIN, 24));
+        inputLabel4.setForeground(customColor);
+
+        RoundedField textField4 = new RoundedField(1);
+        textField4.setBounds(370, 260, 300, 40); // Placed next to label
+
+        RoundedLabel inputLabel5 = new RoundedLabel("Status(true/false)", Color.WHITE, 20, 20);
+        inputLabel5.setBounds(50, 330, 300, 40); // Increased width to match text field
+        inputLabel5.setFont(new Font("Arial", Font.PLAIN, 24));
+        inputLabel5.setForeground(customColor);
+
+        RoundedField textField5 = new RoundedField(1);
+        textField5.setBounds(370, 330, 300, 40); // Placed next to label
+        // Submit button
+        RoundedButton submitButton = new RoundedButton("Submit");
+        submitButton.setBounds(470, 500, 100, 40);
+        submitButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                String name = textField1.getText();
+                String expiry = textField2.getText();
+                JOptionPane.showMessageDialog(null, "Submitted: " + name + " - " + expiry);
+>>>>>>> 1e6e73842a9a5b62a4432e7fea8310d4a71d6b3b
             }
         });
         submitButton.setBackground(customColor);
@@ -178,7 +231,11 @@ public class EmployeeOperation3_2 extends JFrame {
 
         // Back button
         RoundedButton backButton = new RoundedButton("Back");
+<<<<<<< HEAD
         backButton.setBounds(50, 450, 100, 40);
+=======
+        backButton.setBounds(50, 500, 100, 40);
+>>>>>>> 1e6e73842a9a5b62a4432e7fea8310d4a71d6b3b
         backButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -190,11 +247,16 @@ public class EmployeeOperation3_2 extends JFrame {
         backButton.setForeground(Color.WHITE);
         backButton.setFont(new Font("Impact", Font.PLAIN, 16));
 
+<<<<<<< HEAD
         // Add components to pt1
+=======
+        // Add components to panels
+>>>>>>> 1e6e73842a9a5b62a4432e7fea8310d4a71d6b3b
         pt1.add(inputLabel1);
         pt1.add(textField1);
         pt1.add(inputLabel2);
         pt1.add(textField2);
+<<<<<<< HEAD
         pt1.add(MeterLabel);
         pt1.add(meterTypeDropdown);
         pt1.add(peakUnitsLabel);
@@ -213,12 +275,39 @@ public class EmployeeOperation3_2 extends JFrame {
         mainPanel.add(pt1);
         mainPanel.add(backgroundLabel);
 
+=======
+        pt1.add(inputLabel3);
+        pt1.add(textField3);
+        pt1.add(inputLabel4);
+        pt1.add(textField4);
+        pt1.add(inputLabel5);
+        pt1.add(textField5);
+        pt1.add(submitButton);
+        pt1.add(backButton);
+        pt1.add(backgroundLabel1); // Add background to pt1
+
+        // Add components to the main panel
+        mainPanel.add(titleLabel);
+        mainPanel.add(pt1); // Add rounded panel
+        mainPanel.add(backgroundLabel); // Full background
+
+        // Revalidate and repaint to ensure proper component visibility
+        mainPanel.revalidate();
+        mainPanel.repaint();
+
+        // Add main panel to the frame
+>>>>>>> 1e6e73842a9a5b62a4432e7fea8310d4a71d6b3b
         add(mainPanel);
         setVisible(true);
     }
 
+<<<<<<< HEAD
 
 public static void main(String[] args) {
         new EmployeeOperation3_2();
+=======
+    public static void main(String[] args) {
+        new ViewIndividualBill();
+>>>>>>> 1e6e73842a9a5b62a4432e7fea8310d4a71d6b3b
     }
 }

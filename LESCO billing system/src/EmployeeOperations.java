@@ -1,8 +1,11 @@
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import java.awt.*;
+<<<<<<< HEAD
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+=======
+>>>>>>> 1e6e73842a9a5b62a4432e7fea8310d4a71d6b3b
 import java.io.*;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -14,10 +17,40 @@ import java.util.Scanner;
 public class EmployeeOperations {
     public MeterOperations mt=new MeterOperations(null);
 
+<<<<<<< HEAD
     public static void showExpiringEmpCNIC(ArrayList<String> expiringCNICList) {
         JFrame frame = new JFrame("Expiring CNIC List");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setBounds(0, 0, 700, 400);
+=======
+    void showExpiringEmpCNIC(ArrayList<String> dataList)
+    {
+        JFrame frame = new JFrame("Data List Table");
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setBounds(0,0,500, 400);
+        // id + "," + currentMonthName + "," + currentReadingRegular + "," + currentReadingPeak + "," + readingEntryDate + "," + costOfElectricity + "," + salesTaxAmount + "," + fixedCharge + "," + totalBillingCharge + "," + dueDate + "," + billPaidStatus + "," + dueDate;// Write the line to the file
+        // Column headers for the table
+        String[] columnNames = {"CNIC","Allotment Date","Expiry Date"};
+
+        // Convert ArrayList to 2D Object array for JTable
+        String[][] data = new String[dataList.size()][];
+        for (int i = 0; i < dataList.size(); i++) {
+            data[i] = dataList.get(i).split(",");
+        }
+
+        // Table model
+        DefaultTableModel tableModel = new DefaultTableModel(data, columnNames);
+        JTable table = new JTable(tableModel);
+        table.setPreferredScrollableViewportSize(new Dimension(450, 300));
+        table.setFillsViewportHeight(true);
+
+        // Add the table to a scroll pane (so it is scrollable)
+        JScrollPane scrollPane = new JScrollPane(table);
+
+        // Add the scroll pane to the frame
+        frame.add(scrollPane, BorderLayout.CENTER);
+        frame.setVisible(true);
+>>>>>>> 1e6e73842a9a5b62a4432e7fea8310d4a71d6b3b
 
         // Column headers for the table
         String[] columnNames = {"CNIC", "Allotment Date", "Expiry Date", "Update", "Save", "Delete"};
@@ -129,6 +162,7 @@ public class EmployeeOperations {
         frame.setVisible(true);
     }
 
+<<<<<<< HEAD
     // Helper method to write expiringCNICList to file
     public static void writeExpiringCNICListToFile(ArrayList<String> expiringCNICList) {
         String fileName = "TempExpiringCNICInfo.txt";
@@ -537,11 +571,29 @@ public class EmployeeOperations {
             data[i][2] = "Update";  // Update button
             data[i][3] = "Save";    // Save button
             data[i][4] = "Delete";  // Delete button
+=======
+
+
+    void showAllBill(ArrayList<String> dataList)
+    {
+        JFrame frame = new JFrame("Data List Table");
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setBounds(0,500,500, 400);
+        // id + "," + currentMonthName + "," + currentReadingRegular + "," + currentReadingPeak + "," + readingEntryDate + "," + costOfElectricity + "," + salesTaxAmount + "," + fixedCharge + "," + totalBillingCharge + "," + dueDate + "," + billPaidStatus + "," + dueDate;// Write the line to the file
+        // Column headers for the table
+        String[] columnNames = {"ID", "Month","Regular Units","Peak Units","Entry Date","costOfElectricity","Sales Tax","fixed Charge","Total","Due Date","Status"};
+
+        // Convert ArrayList to 2D Object array for JTable
+        String[][] data = new String[dataList.size()][];
+        for (int i = 0; i < dataList.size(); i++) {
+            data[i] = dataList.get(i).split(",");
+>>>>>>> 1e6e73842a9a5b62a4432e7fea8310d4a71d6b3b
         }
 
         // Table model
         DefaultTableModel tableModel = new DefaultTableModel(data, columnNames);
         JTable table = new JTable(tableModel);
+<<<<<<< HEAD
         table.setPreferredScrollableViewportSize(new Dimension(550, 300));
         table.setFillsViewportHeight(true);
 
@@ -625,6 +677,102 @@ public class EmployeeOperations {
                 return deleteButton;
             }
         });
+=======
+        table.setPreferredScrollableViewportSize(new Dimension(450, 300));
+        table.setFillsViewportHeight(true);
+
+        // Add the table to a scroll pane (so it is scrollable)
+        JScrollPane scrollPane = new JScrollPane(table);
+
+        // Add the scroll pane to the frame
+        frame.add(scrollPane, BorderLayout.CENTER);
+        frame.setVisible(true);
+
+    }
+
+    void showAllPaid(ArrayList<String> dataList)
+    {
+        JFrame frame = new JFrame("Data List Table");
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setBounds(0,0,500, 400);
+       // id + "," + currentMonthName + "," + currentReadingRegular + "," + currentReadingPeak + "," + readingEntryDate + "," + costOfElectricity + "," + salesTaxAmount + "," + fixedCharge + "," + totalBillingCharge + "," + dueDate + "," + billPaidStatus + "," + dueDate;// Write the line to the file
+        // Column headers for the table
+        String[] columnNames = {"ID", "Month","Regular Units","Peak Units","Entry Date","costOfElectricity","Sales Tax","fixed Charge","Total","Due Date","Status"};
+
+        // Convert ArrayList to 2D Object array for JTable
+        String[][] data = new String[dataList.size()][];
+        for (int i = 0; i < dataList.size(); i++) {
+            data[i] = dataList.get(i).split(",");
+        }
+
+        // Table model
+        DefaultTableModel tableModel = new DefaultTableModel(data, columnNames);
+        JTable table = new JTable(tableModel);
+        table.setPreferredScrollableViewportSize(new Dimension(450, 300));
+        table.setFillsViewportHeight(true);
+
+        // Add the table to a scroll pane (so it is scrollable)
+        JScrollPane scrollPane = new JScrollPane(table);
+
+        // Add the scroll pane to the frame
+        frame.add(scrollPane, BorderLayout.CENTER);
+        frame.setVisible(true);
+
+    }
+
+    void showAllUnPaid(ArrayList<String> dataList)
+    {
+        JFrame frame = new JFrame("Data List Table");
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setBounds(600,0,500, 400);
+        // id + "," + currentMonthName + "," + currentReadingRegular + "," + currentReadingPeak + "," + readingEntryDate + "," + costOfElectricity + "," + salesTaxAmount + "," + fixedCharge + "," + totalBillingCharge + "," + dueDate + "," + billPaidStatus + "," + dueDate;// Write the line to the file
+        // Column headers for the table
+        String[] columnNames = {"ID", "Month","Regular Units","Peak Units","Entry Date","costOfElectricity","Sales Tax","fixed Charge","Total","Due Date","Status"};
+
+        // Convert ArrayList to 2D Object array for JTable
+        String[][] data = new String[dataList.size()][];
+        for (int i = 0; i < dataList.size(); i++) {
+            data[i] = dataList.get(i).split(",");
+        }
+
+        // Table model
+        DefaultTableModel tableModel = new DefaultTableModel(data, columnNames);
+        JTable table = new JTable(tableModel);
+        table.setPreferredScrollableViewportSize(new Dimension(450, 300));
+        table.setFillsViewportHeight(true);
+
+        // Add the table to a scroll pane (so it is scrollable)
+        JScrollPane scrollPane = new JScrollPane(table);
+
+        // Add the scroll pane to the frame
+        frame.add(scrollPane, BorderLayout.CENTER);
+        frame.setVisible(true);
+
+    }
+
+
+    void showALlEmployees(ArrayList<String> dataList)
+    {
+        // Frame for the table
+        JFrame frame = new JFrame("Data List Table");
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setSize(500, 400);
+
+        // Column headers for the table
+        String[] columnNames = {"Name", "Passwrod"};
+
+        // Convert ArrayList to 2D Object array for JTable
+        String[][] data = new String[dataList.size()][];
+        for (int i = 0; i < dataList.size(); i++) {
+            data[i] = dataList.get(i).split(",");
+        }
+
+        // Table model
+        DefaultTableModel tableModel = new DefaultTableModel(data, columnNames);
+        JTable table = new JTable(tableModel);
+        table.setPreferredScrollableViewportSize(new Dimension(450, 300));
+        table.setFillsViewportHeight(true);
+>>>>>>> 1e6e73842a9a5b62a4432e7fea8310d4a71d6b3b
 
         // Add the table to a scroll pane (so it is scrollable)
         JScrollPane scrollPane = new JScrollPane(table);
@@ -633,6 +781,7 @@ public class EmployeeOperations {
         frame.add(scrollPane, BorderLayout.CENTER);
         frame.setVisible(true);
     }
+<<<<<<< HEAD
 
     // Helper method to write data to a file
     public static void writeEmployeeDataToFile(ArrayList<String> dataList, String fileName) {
@@ -681,6 +830,37 @@ public class EmployeeOperations {
 
 
 
+=======
+    void showExpiryDateTable( ArrayList<String> dataList)
+    {
+        // Frame for the table
+        JFrame frame = new JFrame("Data List Table");
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setSize(500, 400);
+
+        // Column headers for the table
+        String[] columnNames = {"CNIC", "Start Date", "Expiry Date"};
+
+        // Convert ArrayList to 2D Object array for JTable
+        String[][] data = new String[dataList.size()][];
+        for (int i = 0; i < dataList.size(); i++) {
+            data[i] = dataList.get(i).split(",");
+        }
+
+        // Table model
+        DefaultTableModel tableModel = new DefaultTableModel(data, columnNames);
+        JTable table = new JTable(tableModel);
+        table.setPreferredScrollableViewportSize(new Dimension(450, 300));
+        table.setFillsViewportHeight(true);
+
+        // Add the table to a scroll pane (so it is scrollable)
+        JScrollPane scrollPane = new JScrollPane(table);
+
+        // Add the scroll pane to the frame
+        frame.add(scrollPane, BorderLayout.CENTER);
+        frame.setVisible(true);
+    }
+>>>>>>> 1e6e73842a9a5b62a4432e7fea8310d4a71d6b3b
 
     public void addEmployee(String name,String password) throws FileNotFoundException {
         String employeeFile="EmployeesData.txt";
@@ -731,7 +911,11 @@ public class EmployeeOperations {
         {
             System.out.println(s+"\n");
         }
+<<<<<<< HEAD
         showAllEmployees(dataList);
+=======
+        showALlEmployees(dataList);
+>>>>>>> 1e6e73842a9a5b62a4432e7fea8310d4a71d6b3b
     }
 
     public void updateExpiry(String cnic,String expiryDate)
@@ -818,7 +1002,11 @@ public class EmployeeOperations {
                             }
 
                         }
+<<<<<<< HEAD
                         showExpiringEmpCNIC(dataList);
+=======
+                        showExpiryDateTable(dataList);
+>>>>>>> 1e6e73842a9a5b62a4432e7fea8310d4a71d6b3b
                        for(int i=0;i<dataList.size();i++)
                        {
                            System.out.println("DataList["+i+"] "+dataList.get(i));
@@ -1060,9 +1248,12 @@ public class EmployeeOperations {
 
                         userFound = true;
                     }
+<<<<<<< HEAD
 
     public static void main(String[] args) throws ParseException {
         EmployeeOperations em=new EmployeeOperations();
        // em.showAllEmployees();
     }
+=======
+>>>>>>> 1e6e73842a9a5b62a4432e7fea8310d4a71d6b3b
 }

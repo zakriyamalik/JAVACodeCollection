@@ -79,7 +79,11 @@ public class EmployeeOperation3 extends JFrame {
         pt1.setBackground(new Color(255, 255, 255));
 
         // Create rounded labels
+<<<<<<< HEAD
         RoundedLabel titleLabel1 = new RoundedLabel("Click here to allocate meter", new Color(34, 34, 59), 50, 50);
+=======
+        RoundedLabel titleLabel1 = new RoundedLabel("Click here to see the bills", new Color(34, 34, 59), 50, 50);
+>>>>>>> 1e6e73842a9a5b62a4432e7fea8310d4a71d6b3b
         titleLabel1.setBounds(70, 50, 500, 250);
         titleLabel1.setFont(new Font("Arial", Font.PLAIN, 24));
         titleLabel1.setForeground(customColor); // Set the font color
@@ -95,12 +99,20 @@ public class EmployeeOperation3 extends JFrame {
             @Override
             public void mouseClicked(MouseEvent e) {
                 dispose();
+<<<<<<< HEAD
                 new EmployeeOperation3_1();
+=======
+                new EmployeeOperation3_2();
+>>>>>>> 1e6e73842a9a5b62a4432e7fea8310d4a71d6b3b
             }
         });
 
 
+<<<<<<< HEAD
         RoundedLabel titleLabel2 = new RoundedLabel("Click here to add meter reading", new Color(34, 34, 59), 50, 50);
+=======
+        RoundedLabel titleLabel2 = new RoundedLabel("Click here to update expiry date", new Color(34, 34, 59), 50, 50);
+>>>>>>> 1e6e73842a9a5b62a4432e7fea8310d4a71d6b3b
         titleLabel2.setBounds(650, 50, 500, 250);
         titleLabel2.setFont(new Font("Arial", Font.PLAIN, 24));
         titleLabel2.setForeground(customColor);
@@ -136,7 +148,11 @@ public class EmployeeOperation3 extends JFrame {
             @Override
             public void mouseClicked(MouseEvent e) {
                 dispose();
+<<<<<<< HEAD
                 new ViewIndividualBill();
+=======
+                new EmployeeOperation3_2();
+>>>>>>> 1e6e73842a9a5b62a4432e7fea8310d4a71d6b3b
             }
         });
 

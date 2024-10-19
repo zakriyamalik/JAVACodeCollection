@@ -1,8 +1,16 @@
 ali,ali
+<<<<<<< HEAD
 you,you
 you,were
+=======
+you,they
+you,wert
+>>>>>>> 1e6e73842a9a5b62a4432e7fea8310d4a71d6b3b
 yui,yui
 qw,qw
 qw,qw
 ty,ty
+<<<<<<< HEAD
 asa,asa
+=======
+>>>>>>> 1e6e73842a9a5b62a4432e7fea8310d4a71d6b3b
