@@ -18,6 +18,7 @@ public class Input {
         Scanner scanner=new Scanner(System.in);
         System.out.println("Press 1 for Login\nPress 2 for Signup\n");
         int choice=scanner.nextInt();
+        scanner.nextLine();
         if(choice==1)
         {
             System.out.println("Login\n");
