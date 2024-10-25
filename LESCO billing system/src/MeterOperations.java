@@ -12,10 +12,7 @@ public class MeterOperations extends JFrame{
        this.customerSystem=customerSystem;
 
     }
-<<<<<<< HEAD
 
-=======
->>>>>>> 1e6e73842a9a5b62a4432e7fea8310d4a71d6b3b
 
 
     public void clearScreen() throws InterruptedException {

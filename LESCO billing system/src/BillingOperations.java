@@ -62,19 +62,12 @@ public class BillingOperations {
                 System.out.println("Employee found\n");
                 Scanner scanner2 = new Scanner(System.in);
                 System.out.println("Enter User ID:\n");
-<<<<<<< HEAD
                 id=scanner2.nextInt(); 
-=======
-                id=scanner2.nextInt();
->>>>>>> 1e6e73842a9a5b62a4432e7fea8310d4a71d6b3b
                 scanner2.nextLine();
 
                 dataList= mt.readFile("BillingInfo.txt",dataList,line);
                 for (String s : dataList) {
-<<<<<<< HEAD
                     
-=======
->>>>>>> 1e6e73842a9a5b62a4432e7fea8310d4a71d6b3b
                     assert false;
                     String[] userData = s.split(",");
                     fileId = Integer.parseInt(userData[0]);

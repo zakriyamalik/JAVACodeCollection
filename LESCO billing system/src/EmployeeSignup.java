@@ -7,7 +7,7 @@ class EmployeeSignup extends JFrame {
     public EmployeeSignup() {
         // Setup second frame
         setTitle("Signup Page");
-        setBounds(20,20,800,700);
+        setBounds(20, 20, 800, 600);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
 
@@ -16,11 +16,9 @@ class EmployeeSignup extends JFrame {
 
         JLabel titleLabel = new JLabel("Signup");
         titleLabel.setBounds(379, 100, 300, 40); // Set position and size
-        titleLabel.setFont(new Font("Impact",Font.PLAIN, 24));
+        titleLabel.setFont(new Font("Impact", Font.PLAIN, 24));
         Color customColor = new Color(121, 87, 87); // RGB for #795757
-        titleLabel.setForeground(customColor);// Set font, style, and size
-
-
+        titleLabel.setForeground(customColor); // Set font, style, and size
 
         ImageIcon originalIcon = new ImageIcon("src/resources/bulb-icon.png");
         Image scaledImage = originalIcon.getImage().getScaledInstance(30, 30, Image.SCALE_SMOOTH);
@@ -30,22 +28,13 @@ class EmployeeSignup extends JFrame {
         titleLabel.setHorizontalTextPosition(SwingConstants.RIGHT);
         titleLabel.setHorizontalAlignment(SwingConstants.CENTER);
 
-
-
-
-
-
-        ImageIcon bk=new ImageIcon("src/resources/bulb.jpg");
+        ImageIcon bk = new ImageIcon("src/resources/bulb.jpg");
         Image scaledImage2 = bk.getImage().getScaledInstance(800, 800, Image.SCALE_SMOOTH);
         ImageIcon scaledIcon2 = new ImageIcon(scaledImage2);
         JLabel backgroundLabel = new JLabel(scaledIcon2);
         backgroundLabel.setBounds(0, 0, 800, 800);
 
-
-
-
-
-        JPanel pt1=new JPanel() {
+        JPanel pt1 = new JPanel() {
             @Override
             protected void paintComponent(Graphics g) {
                 super.paintComponent(g);
@@ -59,76 +48,60 @@ class EmployeeSignup extends JFrame {
             }
         };
         pt1.setLayout(null);
-        pt1.setBounds(120,70,550,520);
+        pt1.setBounds(120, 70, 550, 420);
         pt1.setOpaque(false);
 
-
-
-
-        ImageIcon bk1=new ImageIcon("src/resources/bulb3.jpg");
-        Image scaledImage1 = bk1.getImage().getScaledInstance(270, 800, Image.SCALE_SMOOTH);
+        ImageIcon bk1 = new ImageIcon("src/resources/bulb3.jpg");
+        Image scaledImage1 = bk1.getImage().getScaledInstance(270, 600, Image.SCALE_SMOOTH);
         ImageIcon scaledIcon1 = new ImageIcon(scaledImage1);
         JLabel backgroundLabel1 = new JLabel(scaledIcon1);
-        backgroundLabel1.setBounds(0, 0, 270, 800);
+        backgroundLabel1.setBounds(0, 0, 270, 600);
 
+        // Create a JLabel for Employee ID
+        JLabel employeeIdLabel = new JLabel("Name");
+        employeeIdLabel.setFont(new Font("Arial", Font.PLAIN, 16)); // Set font style and size
+        employeeIdLabel.setForeground(Color.BLACK); // Set text color
+        employeeIdLabel.setBounds(439, 150, 100, 30); // Set position and size
 
+        // Create the JTextField for Employee ID input
+        final JTextField employeeIdField = new JTextField();
+        employeeIdField.setBounds(439, 180, 150, 30);
+        employeeIdField.setForeground(Color.GRAY);
+        employeeIdField.setText("Enter Employee Name"); // Placeholder text
 
-
-
-
-        // Create a JLabel for Full Name
-        JLabel customerIdLabel = new JLabel("Customer ID");
-        customerIdLabel.setFont(new Font("Arial", Font.PLAIN, 16)); // Set font style and size
-        customerIdLabel.setForeground(Color.BLACK); // Set text color
-        customerIdLabel.setBounds(439, 150, 100, 30); // Set position and size
-
-// Create the JTextField for Full Name input
-        final JTextField customerIdField = new JTextField();
-        customerIdField.setBounds(439, 180, 150, 30);
-        customerIdField.setForeground(Color.GRAY);
-        customerIdField.setText("Enter Customer ID"); // Placeholder text
-
-// Create a JLabel for Phone
+        // Create a JLabel for Password
         JLabel passwordLabel = new JLabel("Password");
         passwordLabel.setFont(new Font("Arial", Font.PLAIN, 16)); // Set font style and size
         passwordLabel.setForeground(Color.BLACK); // Set text color
         passwordLabel.setBounds(439, 210, 150, 30); // Set position and size
 
-// Create the JTextField for Phone input
+        // Create the JPasswordField for password input
         final JPasswordField passwordField = new JPasswordField();
         passwordField.setBounds(439, 240, 150, 32);
         passwordField.setForeground(Color.GRAY);
         passwordField.setText("Enter Password"); // Placeholder text
 
+        // Create a JLabel for displaying error messages
+        final JLabel errorLabel = new JLabel("");
+        errorLabel.setBounds(439, 360, 300, 30); // Adjust position and size
+        errorLabel.setFont(new Font("Arial", Font.BOLD, 14));
+        errorLabel.setForeground(Color.RED);
 
-        // Create a JLabel for Phone
-        JLabel CpasswordLabel = new JLabel("Confirm Password");
-        CpasswordLabel.setFont(new Font("Arial", Font.PLAIN, 16)); // Set font style and size
-        CpasswordLabel.setForeground(Color.BLACK); // Set text color
-        CpasswordLabel.setBounds(439, 280, 150, 30); // Set position and size
-
-// Create the JTextField for Phone input
-        final JPasswordField CpasswordField = new JPasswordField();
-        CpasswordField.setBounds(439, 310, 150, 32);
-        CpasswordField.setForeground(Color.GRAY);
-        CpasswordField.setText("Enter Confirm Password"); // Placeholder text
-
-
-// Add focus listeners for placeholders
-        customerIdField.addFocusListener(new FocusAdapter() {
+        // Add focus listeners for placeholders
+        employeeIdField.addFocusListener(new FocusAdapter() {
             @Override
             public void focusGained(FocusEvent e) {
-                if (customerIdField.getText().equals("Enter Customer ID")) {
-                    customerIdField.setText("");
-                    customerIdField.setForeground(Color.BLACK);
+                if (employeeIdField.getText().equals("Enter Employee Name")) {
+                    employeeIdField.setText("");
+                    employeeIdField.setForeground(Color.BLACK);
                 }
             }
 
             @Override
             public void focusLost(FocusEvent e) {
-                if (customerIdField.getText().isEmpty()) {
-                    customerIdField.setText("Enter Customer ID");
-                    customerIdField.setForeground(Color.GRAY);
+                if (employeeIdField.getText().isEmpty()) {
+                    employeeIdField.setText("Enter Employee Name");
+                    employeeIdField.setForeground(Color.GRAY);
                 }
             }
         });
@@ -136,7 +109,7 @@ class EmployeeSignup extends JFrame {
         passwordField.addFocusListener(new FocusAdapter() {
             @Override
             public void focusGained(FocusEvent e) {
-                if (passwordField.getText().equals("Enter Customer CNIC")) {
+                if (passwordField.getText().equals("Enter Password")) {
                     passwordField.setText("");
                     passwordField.setForeground(Color.BLACK);
                 }
@@ -145,79 +118,91 @@ class EmployeeSignup extends JFrame {
             @Override
             public void focusLost(FocusEvent e) {
                 if (passwordField.getText().isEmpty()) {
-                    passwordField.setText("Enter Customer CNIC");
+                    passwordField.setText("Enter Password");
                     passwordField.setForeground(Color.GRAY);
                 }
             }
-
         });
 
-
+        // Create a "Submit" button
         RoundedButton openFPage = new RoundedButton("Submit");
-        openFPage.setBounds(439, 340, 110, 32);
+        openFPage.setBounds(546, 300, 110, 32);
         openFPage.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                String userName = employeeIdField.getText();
+                String password = new String(passwordField.getPassword());
+                EmployeeOperations eo=new EmployeeOperations();
 
-                new EmployeeOperation3();
-                dispose();
+
+                // Clear previous error messages
+                errorLabel.setText("");
+               // EmployeeOperations eo=new EmployeeOperations();
+
+
+                if (userName.equals("Enter Employee ID") || userName.isEmpty()) {
+                    errorLabel.setText("Employee ID cannot be empty.");
+                } else if (password.isEmpty() || password.equals("Enter Password")) {
+                    errorLabel.setText("Password cannot be empty.");
+                }
+                else if(!eo.validateLogin(userName,password)){
+                    errorLabel.setText("Wrong Name/Password");
+                }
+                else
+                {
+                    new EmployeeDesktop();
+                    dispose();
+                }
             }
         });
 
         openFPage.setBackground(customColor);
         openFPage.setForeground(Color.WHITE);
         openFPage.setFont(new Font("Impact", Font.PLAIN, 16));
-        // openFPage.setBorder(BorderFactory.createLineBorder(Color.YELLOW, 2));
-        openFPage.setToolTipText("Click here to perform an action!");
 
-
-
-
-
+        // Create a "Back" button
         RoundedButton openLoginPage = new RoundedButton("Back");
-        openLoginPage.setBounds(300, 340, 110, 32);
+        openLoginPage.setBounds(416, 300, 110, 32);
         openLoginPage.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                dispose();
-                new Main();
+                String userName = employeeIdField.getText();
+                String password = new String(passwordField.getPassword());
+                EmployeeOperations em = new EmployeeOperations();
+                if (em.validateLogin(userName, password)) {
+                  //  JOptionPane.showMessageDialog(null, "Matched");
+                    dispose();
+                    new UserSelectionScreen();
+                } else {
+                    errorLabel.setText("Not Matched. Please try again.");
+                }
             }
         });
 
         openLoginPage.setBackground(customColor);
         openLoginPage.setForeground(Color.WHITE);
         openLoginPage.setFont(new Font("Impact", Font.PLAIN, 16));
-        openLoginPage.setToolTipText("Click here to perform an action!");
 
-
-        // Add button to the main frame
-
-
-        mainPanel.add(customerIdLabel);
-        mainPanel.add(customerIdField);
+        // Add components to the main panel
+        mainPanel.add(employeeIdLabel);
+        mainPanel.add(employeeIdField);
         mainPanel.add(passwordLabel);
         mainPanel.add(passwordField);
-        mainPanel.add(CpasswordLabel);
-        mainPanel.add(CpasswordField);
+        mainPanel.add(errorLabel);
+        mainPanel.add(openFPage);
+        mainPanel.add(openLoginPage);
         mainPanel.add(titleLabel);
         mainPanel.add(pt1); // Add rounded panel
-        pt1.add(openLoginPage); // Add the button inside pt1
-        pt1.add(openFPage); // Add the login button inside pt1
-
         pt1.add(backgroundLabel1); // Add background to pt1
 
-// Add the labels and text fields to the main panel
-
-
-        // Add full background to the main panel
-        mainPanel.add(backgroundLabel);
-
-        // Revalidate and repaint to ensure proper component visibility
-        mainPanel.revalidate();
-        mainPanel.repaint();
+        mainPanel.add(backgroundLabel); // Add full background
 
         // Add main panel to the frame
         add(mainPanel);
         setVisible(true);
+    }
+
+    public static void main(String[] args) {
+        EmployeeSignup employeeSignup=new EmployeeSignup();
     }
 }

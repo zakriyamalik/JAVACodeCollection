@@ -226,11 +226,7 @@ public class Main1 {
                 case 1: {
                     System.out.println("Enter the name of the file");
                     fileName = scanner.next();
-<<<<<<< HEAD
                    // customerOperations.changePassword();
-=======
-                    customerOperations.changePassword(fileName);
->>>>>>> 1e6e73842a9a5b62a4432e7fea8310d4a71d6b3b
                 }
                 break;
                 case 2: {

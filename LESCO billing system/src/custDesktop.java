@@ -77,14 +77,17 @@ public class custDesktop extends JFrame {
         pt1.setLayout(null);
         pt1.setBounds(10, 60, 1400, 590); // Adjusted size and position
         pt1.setBackground(new Color(255, 255, 255));
+        ImageIcon originalIcon1 = new ImageIcon("src/resources/click7.png");
+        Image scaledImage1 = originalIcon1.getImage().getScaledInstance(30, 30, Image.SCALE_SMOOTH); // Larger size for better visibility
+        ImageIcon scaledOriginalIcon1 = new ImageIcon(scaledImage1);
 
         // Create rounded labels
-        RoundedLabel titleLabel1 = new RoundedLabel("Click here to see the bills", new Color(34, 34, 59), 50, 50);
+        RoundedLabel titleLabel1 = new RoundedLabel(scaledOriginalIcon1,"Click here to see the bills", new Color(34, 34, 59), 50, 50);
         titleLabel1.setBounds(70, 50, 500, 250);
         titleLabel1.setFont(new Font("Arial", Font.PLAIN, 24));
         titleLabel1.setForeground(customColor); // Set the font color
 
-        RoundedLabel titleLabel1_1 = new RoundedLabel("Show Bill", new Color(34, 34, 59), 50, 50);
+        RoundedLabel titleLabel1_1 = new RoundedLabel("  Show Bill", new Color(34, 34, 59), 50, 50);
         titleLabel1_1.setBounds(9,0,390,40);
         titleLabel1_1.setFont(new Font("Impact", Font.PLAIN, 24));
         titleLabel1_1.setForeground(customColor);
@@ -100,13 +103,13 @@ public class custDesktop extends JFrame {
         });
 
 
-        RoundedLabel titleLabel2 = new RoundedLabel("Click here to update expiry date", new Color(34, 34, 59), 50, 50);
+        RoundedLabel titleLabel2 = new RoundedLabel(scaledOriginalIcon1,"Click here to update expiry date", new Color(34, 34, 59), 50, 50);
         titleLabel2.setBounds(650, 50, 500, 250);
         titleLabel2.setFont(new Font("Arial", Font.PLAIN, 24));
         titleLabel2.setForeground(customColor);
 
 
-        RoundedLabel titleLabel2_1 = new RoundedLabel("Update Expiry Date", new Color(34, 34, 59), 50, 50);
+        RoundedLabel titleLabel2_1 = new RoundedLabel("  Update Expiry Date", new Color(34, 34, 59), 50, 50);
         titleLabel2_1.setBounds(9,0,390,40);
         titleLabel2_1.setFont(new Font("Impact", Font.PLAIN, 24));
         titleLabel2_1.setForeground(customColor);
@@ -122,11 +125,11 @@ public class custDesktop extends JFrame {
 
 
 
-        RoundedLabel titleLabel3 = new RoundedLabel("Click here to add New Customer", new Color(34, 34, 59), 50, 50);
+        RoundedLabel titleLabel3 = new RoundedLabel(scaledOriginalIcon1,"Click here to add New Customer", new Color(34, 34, 59), 50, 50);
         titleLabel3.setBounds(70, 330, 500, 250);
         titleLabel3.setFont(new Font("Arial", Font.PLAIN, 24));
         titleLabel3.setForeground(customColor); // Set the font color
-        RoundedLabel titleLabel3_1 = new RoundedLabel("Add New Customer", new Color(34, 34, 59), 50, 50);
+        RoundedLabel titleLabel3_1 = new RoundedLabel("  Add New Customer", new Color(34, 34, 59), 50, 50);
         titleLabel3_1.setBounds(9,0,390,40);
         titleLabel3_1.setFont(new Font("Impact", Font.PLAIN, 24));
         titleLabel3_1.setForeground(customColor);
@@ -141,11 +144,11 @@ public class custDesktop extends JFrame {
         });
 
 
-        RoundedLabel titleLabel4 = new RoundedLabel("Click here to perform other actions", new Color(34, 34, 59), 50, 50);
+        RoundedLabel titleLabel4 = new RoundedLabel(scaledOriginalIcon1,"Click here to perform other actions", new Color(34, 34, 59), 50, 50);
         titleLabel4.setBounds(650, 330, 500, 250);
         titleLabel4.setFont(new Font("Arial", Font.PLAIN, 24));
         titleLabel4.setForeground(customColor);
-        RoundedLabel titleLabel4_1 = new RoundedLabel("Other actions", new Color(34, 34, 59), 50, 50);
+        RoundedLabel titleLabel4_1 = new RoundedLabel("  Other actions", new Color(34, 34, 59), 50, 50);
         titleLabel4_1.setBounds(9,0,390,40);
         titleLabel4_1.setFont(new Font("Impact", Font.PLAIN, 24));
         titleLabel4_1.setForeground(customColor);

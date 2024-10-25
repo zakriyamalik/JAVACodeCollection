@@ -6,6 +6,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.geom.RoundRectangle2D;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.text.ParseException;
 
@@ -26,10 +27,6 @@ public class EmployeeDesktop extends JFrame {
         JPanel headerPanel = new JPanel(new FlowLayout(FlowLayout.LEFT, 30, 10));
         headerPanel.setBounds(0, 0, 1400, 50); // Full width header
         headerPanel.setBackground(new Color(20, 33, 61)); // Customize background color
-        //  JLabel headerTitle = new JLabel("Dashboard");
-        // headerTitle.setFont(new Font("Impact", Font.PLAIN, 30));
-        //  headerTitle.setForeground(Color.WHITE);
-        //  headerPanel.add(headerTitle);
 
         JLabel headerlabel0 = new JLabel("Desktop");
         JLabel headerlabel1=new JLabel("Search");
@@ -66,13 +63,6 @@ public class EmployeeDesktop extends JFrame {
         backgroundLabel.setBounds(0, 0, 1400, 700);
 
 
-
-
-
-
-
-
-
 // Create rounded panel with GridLayout to organize 3 cards per row
         JPanel pt1 = new JPanel(new GridLayout(0, 3, 30, 30)) { // 3 columns, dynamic row count
             @Override
@@ -93,22 +83,28 @@ public class EmployeeDesktop extends JFrame {
 
 // Common properties for labels
         Font labelFont = new Font("Arial", Font.PLAIN, 18); // Further reduced font size
-        Color textColor = customColor; // Set your custom color
 
-// Create individual action labels (smaller dimensions)
 
-// Employee Details
-        RoundedLabel changePassword = new RoundedLabel("Click Here!",  new Color(34, 34, 59), 20, 20);
+
+
+        ImageIcon originalIcon1 = new ImageIcon("src/resources/click7.png");
+        Image scaledImage1 = originalIcon1.getImage().getScaledInstance(30, 30, Image.SCALE_SMOOTH); // Larger size for better visibility
+        ImageIcon scaledOriginalIcon1 = new ImageIcon(scaledImage1);
+        RoundedLabel changePassword = new RoundedLabel(scaledOriginalIcon1, "Click Here", new Color(34, 34, 59), 20, 20);
         changePassword.setPreferredSize(new Dimension(150, 75)); // Reduced size
         changePassword.setFont(labelFont);
-        changePassword.setForeground(textColor);
-        pt1.add(changePassword);
+        changePassword.setForeground(customColor);
 
-        RoundedLabel titleLabel1_1 = new RoundedLabel("Change Password",  new Color(34, 34, 59), 50, 50);
+        RoundedLabel titleLabel1_1 = new RoundedLabel("  Change Password",  new Color(34, 34, 59), 50, 50);
         titleLabel1_1.setBounds(4,0,390,40);
         titleLabel1_1.setFont(new Font("Impact", Font.PLAIN, 24));
         titleLabel1_1.setForeground(customColor);
         changePassword.add(titleLabel1_1);
+        pt1.add(changePassword);
+
+
+
+
 
         changePassword.addMouseListener(new MouseAdapter() {
             @Override
@@ -121,15 +117,15 @@ public class EmployeeDesktop extends JFrame {
 
 
 // Update Address
-        RoundedLabel updateTerrifLabel = new RoundedLabel("Click Here!",  new Color(34, 34, 59), 20, 20);
+        RoundedLabel updateTerrifLabel = new RoundedLabel(scaledOriginalIcon1,"Click Here!",  new Color(34, 34, 59), 20, 20);
         updateTerrifLabel.setPreferredSize(new Dimension(150, 75)); // Reduced size
         updateTerrifLabel.setFont(labelFont);
-        updateTerrifLabel.setForeground(textColor);
+        updateTerrifLabel.setForeground(customColor);
         pt1.add(updateTerrifLabel);
 
 
 
-        RoundedLabel titleLabel2_1 = new RoundedLabel("Update Tariff Info",  new Color(34, 34, 59), 50, 50);
+        RoundedLabel titleLabel2_1 = new RoundedLabel("  Update Tariff Info",  new Color(34, 34, 59), 50, 50);
         titleLabel2_1.setBounds(4,0,390,40);
         titleLabel2_1.setFont(new Font("Impact", Font.PLAIN, 24));
         titleLabel2_1.setForeground(customColor);
@@ -140,18 +136,22 @@ public class EmployeeDesktop extends JFrame {
             @Override
             public void mouseClicked(MouseEvent e) {
                 dispose();
-                new EmployeeOperation2();
+                try {
+                    tf.editTerrifFile();
+                } catch (FileNotFoundException ex) {
+                    throw new RuntimeException(ex);
+                }
+
             }
         });
 
 
 // Update Contact
-        RoundedLabel meterOperations = new RoundedLabel("Click Here!",  new Color(34, 34, 59), 20, 20);
-        meterOperations.setPreferredSize(new Dimension(150, 75)); // Reduced size
+        RoundedLabel meterOperations = new RoundedLabel(scaledOriginalIcon1,"Click Here!",  new Color(34, 34, 59), 20, 20);meterOperations.setPreferredSize(new Dimension(150, 75)); // Reduced size
         meterOperations.setFont(labelFont);
-        meterOperations.setForeground(textColor);
+        meterOperations.setForeground(customColor);
         pt1.add(meterOperations);
-        RoundedLabel titleLabel3_1 = new RoundedLabel("Meter Operations",  new Color(34, 34, 59), 50, 50);
+        RoundedLabel titleLabel3_1 = new RoundedLabel("  Meter Operations",  new Color(34, 34, 59), 50, 50);
         titleLabel3_1.setBounds(4,0,390,40);
         titleLabel3_1.setFont(new Font("Impact", Font.PLAIN, 24));
         titleLabel3_1.setForeground(customColor);
@@ -167,12 +167,11 @@ public class EmployeeDesktop extends JFrame {
 
 
 // View Timesheet
-        RoundedLabel viewTimesheetLabel = new RoundedLabel("Click Here!",  new Color(34, 34, 59), 20, 20);
-        viewTimesheetLabel.setPreferredSize(new Dimension(150, 75)); // Reduced size
+        RoundedLabel viewTimesheetLabel = new RoundedLabel(scaledOriginalIcon1,"Click Here!",  new Color(34, 34, 59), 20, 20);viewTimesheetLabel.setPreferredSize(new Dimension(150, 75)); // Reduced size
         viewTimesheetLabel.setFont(labelFont);
-        viewTimesheetLabel.setForeground(textColor);
+        viewTimesheetLabel.setForeground(customColor);
         pt1.add(viewTimesheetLabel);
-        RoundedLabel titleLabel4_1 = new RoundedLabel("View Paid/Unpaid Bills",  new Color(34, 34, 59), 50, 50);
+        RoundedLabel titleLabel4_1 = new RoundedLabel("  View Paid/Unpaid Bills",  new Color(34, 34, 59), 50, 50);
         titleLabel4_1.setBounds(4,0,390,40);
         titleLabel4_1.setFont(new Font("Impact", Font.PLAIN, 24));
         titleLabel4_1.setForeground(customColor);
@@ -186,12 +185,11 @@ public class EmployeeDesktop extends JFrame {
 
 
 // Assign Tasks
-        RoundedLabel assignTasksLabel = new RoundedLabel("Click Here!",  new Color(34, 34, 59), 20, 20);
-        assignTasksLabel.setPreferredSize(new Dimension(150, 75)); // Reduced size
+        RoundedLabel assignTasksLabel =  new RoundedLabel(scaledOriginalIcon1,"Click Here!",  new Color(34, 34, 59), 20, 20);assignTasksLabel.setPreferredSize(new Dimension(150, 75)); // Reduced size
         assignTasksLabel.setFont(labelFont);
-        assignTasksLabel.setForeground(textColor);
+        assignTasksLabel.setForeground(customColor);
         pt1.add(assignTasksLabel);
-        RoundedLabel titleLabel5_1 = new RoundedLabel("View Expiring CNIC",  new Color(34, 34, 59), 50, 50);
+        RoundedLabel titleLabel5_1 = new RoundedLabel("  View Expiring CNIC",  new Color(34, 34, 59), 50, 50);
         titleLabel5_1.setBounds(4,0,390,40);
         titleLabel5_1.setFont(new Font("Impact", Font.PLAIN, 24));
         titleLabel5_1.setForeground(customColor);
@@ -209,12 +207,11 @@ public class EmployeeDesktop extends JFrame {
 
 
 // Manage Leave
-        RoundedLabel resetTerrifLabel = new RoundedLabel("Click Here!",  new Color(34, 34, 59), 20, 20);
-        resetTerrifLabel.setPreferredSize(new Dimension(150, 75)); // Reduced size
+        RoundedLabel resetTerrifLabel =  new RoundedLabel(scaledOriginalIcon1,"Click Here!",  new Color(34, 34, 59), 20, 20);resetTerrifLabel.setPreferredSize(new Dimension(150, 75)); // Reduced size
         resetTerrifLabel.setFont(labelFont);
-        resetTerrifLabel.setForeground(textColor);
+        resetTerrifLabel.setForeground(customColor);
         pt1.add(resetTerrifLabel);
-        RoundedLabel titleLabel7_1 = new RoundedLabel("Reset Terrif data",  new Color(34, 34, 59), 50, 50);
+        RoundedLabel titleLabel7_1 = new RoundedLabel("  Reset Terrif data",  new Color(34, 34, 59), 50, 50);
         titleLabel7_1.setBounds(4,0,390,40);
         titleLabel7_1.setFont(new Font("Impact", Font.PLAIN, 24));
         titleLabel7_1.setForeground(customColor);
@@ -233,12 +230,11 @@ public class EmployeeDesktop extends JFrame {
 
 
 // Generate Payroll
-        RoundedLabel viewParticularBill = new RoundedLabel("Click Here!",  new Color(34, 34, 59), 20, 20);
-        viewParticularBill.setPreferredSize(new Dimension(150, 75)); // Reduced size
+        RoundedLabel viewParticularBill =  new RoundedLabel(scaledOriginalIcon1,"Click Here!",  new Color(34, 34, 59), 20, 20); viewParticularBill.setPreferredSize(new Dimension(150, 75)); // Reduced size
         viewParticularBill.setFont(labelFont);
-        viewParticularBill.setForeground(textColor);
+        viewParticularBill.setForeground(customColor);
         pt1.add(viewParticularBill);
-        RoundedLabel titleLabel8_1 = new RoundedLabel("View any particular Bill",  new Color(34, 34, 59), 50, 50);
+        RoundedLabel titleLabel8_1 = new RoundedLabel("  View any particular Bill",  new Color(34, 34, 59), 50, 50);
         titleLabel8_1.setBounds(4,0,390,40);
         titleLabel8_1.setFont(new Font("Impact", Font.PLAIN, 24));
         titleLabel8_1.setForeground(customColor);
@@ -253,12 +249,11 @@ public class EmployeeDesktop extends JFrame {
         });
 
 // Request Assistance
-        RoundedLabel addEmployeeLabel = new RoundedLabel("Click Here!",  new Color(34, 34, 59), 20, 20);
-        addEmployeeLabel.setPreferredSize(new Dimension(150, 75)); // Reduced size
+        RoundedLabel addEmployeeLabel =  new RoundedLabel(scaledOriginalIcon1,"Click Here!",  new Color(34, 34, 59), 20, 20);addEmployeeLabel.setPreferredSize(new Dimension(150, 75)); // Reduced size
         addEmployeeLabel.setFont(labelFont);
-        addEmployeeLabel.setForeground(textColor);
+        addEmployeeLabel.setForeground(customColor);
         pt1.add(addEmployeeLabel);
-        RoundedLabel titleLabel9_1 = new RoundedLabel("Add Employee",  new Color(34, 34, 59), 50, 50);
+        RoundedLabel titleLabel9_1 = new RoundedLabel("  Add Employee",  new Color(34, 34, 59), 50, 50);
         titleLabel9_1.setBounds(4,0,390,40);
         titleLabel9_1.setFont(new Font("Impact", Font.PLAIN, 24));
         titleLabel9_1.setForeground(customColor);
@@ -274,17 +269,24 @@ public class EmployeeDesktop extends JFrame {
         });
 
 // Submit Feedback
-        RoundedLabel submitFeedbackLabel = new RoundedLabel("Click Here!",  new Color(34, 34, 59), 20, 20);
-        submitFeedbackLabel.setPreferredSize(new Dimension(150, 75)); // Reduced size
+        RoundedLabel submitFeedbackLabel =  new RoundedLabel(scaledOriginalIcon1,"Click Here!",  new Color(34, 34, 59), 20, 20);submitFeedbackLabel.setPreferredSize(new Dimension(150, 75)); // Reduced size
         submitFeedbackLabel.setFont(labelFont);
-        submitFeedbackLabel.setForeground(textColor);
+        submitFeedbackLabel.setForeground(customColor);
         pt1.add(submitFeedbackLabel);
-        RoundedLabel titleLabel10_1 = new RoundedLabel("Show All Bills",  new Color(34, 34, 59), 50, 50);
+        RoundedLabel titleLabel10_1 = new RoundedLabel("  Show All Bills",  new Color(34, 34, 59), 50, 50);
         titleLabel10_1.setBounds(4,0,390,40);
         titleLabel10_1.setFont(new Font("Impact", Font.PLAIN, 24));
         titleLabel10_1.setForeground(customColor);
         submitFeedbackLabel.add(titleLabel10_1);
 
+        submitFeedbackLabel.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                dispose();
+                em.AllBillSHowingFUnctionality();
+
+            }
+        });
 
 
 
@@ -302,7 +304,7 @@ public class EmployeeDesktop extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 dispose();
-                new Main();
+                new EmployeeSignup();
             }
         });
         openFirstPageButton.setBackground(customColor);
@@ -346,3 +348,186 @@ public class EmployeeDesktop extends JFrame {
         new EmployeeDesktop();
     }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//
+//import javax.swing.*;
+//import javax.swing.border.LineBorder;
+//import java.awt.*;
+//import java.awt.event.MouseAdapter;
+//import java.awt.event.MouseEvent;
+//import java.awt.geom.RoundRectangle2D;
+//import java.io.IOException;
+//import java.text.ParseException;
+//
+//public class EmployeeDesktop extends JFrame {
+//    TeriffInfo tf = new TeriffInfo();
+//    EmployeeOperations em = new EmployeeOperations();
+//
+//    public EmployeeDesktop() {
+//        // Setup frame
+//        setTitle("Desktop Page");
+//        setBounds(20, 20, 1400, 800);
+//        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+//        setLocationRelativeTo(null);
+//
+//        JPanel mainPanel = new JPanel();
+//        mainPanel.setLayout(null);
+//
+//        // Header Panel
+//        JPanel headerPanel = new JPanel(new FlowLayout(FlowLayout.LEFT, 30, 10));
+//        headerPanel.setBounds(0, 0, 1400, 50);
+//        headerPanel.setBackground(new Color(20, 33, 61));
+//
+//        JLabel headerlabel0 = new JLabel("Desktop");
+//        JLabel headerlabel1 = new JLabel("Search");
+//        JLabel headerlabel2 = new JLabel("About Us");
+//        JLabel headerlabel3 = new JLabel("Log out");
+//
+//        headerlabel0.setFont(new Font("Impact", Font.PLAIN, 24));
+//        headerlabel0.setForeground(new Color(121, 87, 87));
+//        headerlabel1.setFont(new Font("Impact", Font.PLAIN, 24));
+//        headerlabel2.setFont(new Font("Impact", Font.PLAIN, 24));
+//        headerlabel3.setFont(new Font("Impact", Font.PLAIN, 24));
+//        Color customColor = new Color(121, 87, 87);
+//
+//        headerlabel1.setForeground(customColor);
+//        headerlabel2.setForeground(customColor);
+//        headerlabel3.setForeground(customColor);
+//
+//        // Load background image
+//        ImageIcon bk = new ImageIcon("src/resources/bulb.jpg");
+//        Image scaledImage2 = bk.getImage().getScaledInstance(1400, 700, Image.SCALE_SMOOTH);
+//        ImageIcon scaledIcon2 = new ImageIcon(scaledImage2);
+//        JLabel backgroundLabel = new JLabel(scaledIcon2);
+//        backgroundLabel.setBounds(0, 0, 1400, 700);
+//
+//        // Create panel with GridLayout to organize cards
+//        JPanel pt1 = new JPanel(new GridLayout(0, 3, 30, 30)) {
+//            @Override
+//            protected void paintComponent(Graphics g) {
+//                super.paintComponent(g);
+//                Graphics2D g2 = (Graphics2D) g.create();
+//                g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+//                RoundRectangle2D roundedRectangle = new RoundRectangle2D.Double(0, 0, getWidth(), getHeight(), 50, 50);
+//                g2.setColor(getBackground());
+//                g2.fill(roundedRectangle);
+//                g2.dispose();
+//            }
+//        };
+//        pt1.setBackground(new Color(250, 247, 240));
+//        pt1.setBounds(0, 50, 1360, 600);
+//        pt1.setBorder(new LineBorder(Color.WHITE, 16));
+//
+//        Font labelFont = new Font("Arial", Font.PLAIN, 18);
+//        Color textColor = customColor;
+//
+//        // Icons for labels
+//        ImageIcon changePasswordIcon = new ImageIcon(new ImageIcon("src/resources/click4.png").getImage().getScaledInstance(30, 30, Image.SCALE_SMOOTH));
+//        ImageIcon updateTariffIcon = new ImageIcon(new ImageIcon("src/resources/click2.png").getImage().getScaledInstance(30, 30, Image.SCALE_SMOOTH));
+//        ImageIcon meterOperationsIcon = new ImageIcon(new ImageIcon("src/resources/click3.png").getImage().getScaledInstance(30, 30, Image.SCALE_SMOOTH));
+//        ImageIcon viewTimesheetIcon = new ImageIcon(new ImageIcon("src/resources/click4.png").getImage().getScaledInstance(30, 30, Image.SCALE_SMOOTH));
+//        ImageIcon assignTasksIcon = new ImageIcon(new ImageIcon("src/resources/assign_tasks.png").getImage().getScaledInstance(30, 30, Image.SCALE_SMOOTH));
+//        ImageIcon resetTariffIcon = new ImageIcon(new ImageIcon("src/resources/reset_tariff.png").getImage().getScaledInstance(30, 30, Image.SCALE_SMOOTH));
+//        ImageIcon viewBillIcon = new ImageIcon(new ImageIcon("src/resources/view_bill.png").getImage().getScaledInstance(30, 30, Image.SCALE_SMOOTH));
+//        ImageIcon addEmployeeIcon = new ImageIcon(new ImageIcon("src/resources/add_employee.png").getImage().getScaledInstance(30, 30, Image.SCALE_SMOOTH));
+//        ImageIcon showBillsIcon = new ImageIcon(new ImageIcon("src/resources/show_bills.png").getImage().getScaledInstance(30, 30, Image.SCALE_SMOOTH));
+//
+//        // Employee Details (Change Password)
+//        RoundedLabel changePassword = new RoundedLabel(changePasswordIcon, new Color(34, 34, 59), 20, 20);
+//        changePassword.setFont(labelFont);
+//        changePassword.setForeground(textColor);
+//        pt1.add(changePassword);
+//
+//        RoundedLabel titleLabel1_1 = new RoundedLabel("Change Password", new Color(34, 34, 59), 50, 50);
+//        titleLabel1_1.setFont(new Font("Impact", Font.PLAIN, 24));
+//        titleLabel1_1.setForeground(customColor);
+//        changePassword.add(titleLabel1_1);
+//
+//        changePassword.addMouseListener(new MouseAdapter() {
+//            @Override
+//            public void mouseClicked(MouseEvent e) {
+//                dispose();
+//                new EmployeeOperation1();
+//            }
+//        });
+//
+//        // Update Tariff Info
+//        RoundedLabel updateTerrifLabel = new RoundedLabel(updateTariffIcon, new Color(34, 34, 59), 20, 20);
+//        updateTerrifLabel.setFont(labelFont);
+//        updateTerrifLabel.setForeground(textColor);
+//        pt1.add(updateTerrifLabel);
+//
+//        RoundedLabel titleLabel2_1 = new RoundedLabel("Update Tariff Info", new Color(34, 34, 59), 50, 50);
+//        titleLabel2_1.setFont(new Font("Impact", Font.PLAIN, 24));
+//        titleLabel2_1.setForeground(customColor);
+//        updateTerrifLabel.add(titleLabel2_1);
+//
+//        updateTerrifLabel.addMouseListener(new MouseAdapter() {
+//            @Override
+//            public void mouseClicked(MouseEvent e) {
+//                dispose();
+//                new EmployeeOperation2();
+//            }
+//        });
+//
+//        // Additional labels with icons follow the same pattern
+//        // Meter Operations
+//        RoundedLabel meterOperations = new RoundedLabel(meterOperationsIcon, new Color(34, 34, 59), 20, 20);
+//        meterOperations.setFont(labelFont);
+//        meterOperations.setForeground(textColor);
+//        pt1.add(meterOperations);
+//        RoundedLabel titleLabel3_1 = new RoundedLabel("Meter Operations", new Color(34, 34, 59), 50, 50);
+//        titleLabel3_1.setFont(new Font("Impact", Font.PLAIN, 24));
+//        titleLabel3_1.setForeground(customColor);
+//        meterOperations.add(titleLabel3_1);
+//
+//        meterOperations.addMouseListener(new MouseAdapter() {
+//            @Override
+//            public void mouseClicked(MouseEvent e) {
+//                dispose();
+//                new EmployeeOperation3();
+//            }
+//        });
+//
+//        // Back button and other settings remain unchanged...
+//
+//        mainPanel.add(headerPanel);
+//        headerPanel.add(headerlabel0);
+//        headerPanel.add(headerlabel1);
+//        headerPanel.add(headerlabel2);
+//        headerPanel.add(headerlabel3);
+//
+//        mainPanel.add(pt1);
+//        mainPanel.add(backgroundLabel);
+//
+//        add(mainPanel);
+//        setVisible(true);
+//    }
+//
+//    public static void main(String[] args) {
+//        new EmployeeDesktop();
+//    }
+//}

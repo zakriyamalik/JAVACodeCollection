@@ -72,7 +72,6 @@ public class CustomerOperations {
 
     }
 
-<<<<<<< HEAD
     public void showAllCustomers() throws FileNotFoundException {
         String fileName = "CustomerInfo.txt";
         String line = "";
@@ -82,57 +81,31 @@ public class CustomerOperations {
         try (BufferedReader reader = new BufferedReader(new FileReader(inputFile))) {
             // Reading data from file and adding to dataList
             dataList = readFile(fileName, dataList, line);
-=======
-    void showAllCustomers() throws FileNotFoundException {
-        String fileName = "CustomerInfo.txt";
-        String line = "";
-        ArrayList<String> dataList = new ArrayList<>();
-
-        File inputFile = new File(fileName);
-
-        try (
-                BufferedReader reader = new BufferedReader(new FileReader(inputFile))
-        ) {
-            // Reading data from file and adding to dataList
-            dataList = mt.readFile(fileName, dataList, line);
->>>>>>> 1e6e73842a9a5b62a4432e7fea8310d4a71d6b3b
 
             // Create a frame for the table
             JFrame frame = new JFrame("Customer Information");
             frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
             frame.setSize(800, 400);
 
-<<<<<<< HEAD
             // Column names
             String[] columnNames = {"ID", "CNIC", "Address", "Phone no", "Customer Type", "Meter Type", "Date", "Regular Units", "Peak Units", "Update", "Delete", "Save"};
-=======
-            // Updated column names with "Name" before "CNIC"
-            String[] columnNames = {"ID", "Name", "CNIC", "Address", "Phone no", "Customer Type", "Meter Type","Date", "Regular Units","Peak Units"};
->>>>>>> 1e6e73842a9a5b62a4432e7fea8310d4a71d6b3b
 
             // Create 2D array for table data
             String[][] tableData = new String[dataList.size()][columnNames.length];
 
             // Fill the table data by splitting each line
             for (int i = 0; i < dataList.size(); i++) {
-<<<<<<< HEAD
                 String[] rowData = dataList.get(i);
                 int numberOfColumnsToCopy = Math.min(rowData.length, columnNames.length - 3);
                 System.arraycopy(rowData, 0, tableData[i], 0, numberOfColumnsToCopy);
                 tableData[i][9] = "Update"; // Update button column
                 tableData[i][10] = "Delete"; // Delete button column
                 tableData[i][11] = "Save";   // Save button column
-=======
-                String[] rowData = dataList.get(i).split(",");
-                int numberOfColumnsToCopy = Math.min(rowData.length, columnNames.length);
-                System.arraycopy(rowData, 0, tableData[i], 0, numberOfColumnsToCopy);
->>>>>>> 1e6e73842a9a5b62a4432e7fea8310d4a71d6b3b
             }
 
             // Create a table model with the extracted data and column names
             DefaultTableModel tableModel = new DefaultTableModel(tableData, columnNames);
             JTable table = new JTable(tableModel);
-<<<<<<< HEAD
 
             // Set preferred size for the table
             table.setPreferredScrollableViewportSize(new Dimension(750, 300));
@@ -217,11 +190,6 @@ public class CustomerOperations {
                 }
             });
 
-=======
-            table.setPreferredScrollableViewportSize(table.getPreferredSize());
-            table.setFillsViewportHeight(true);
-
->>>>>>> 1e6e73842a9a5b62a4432e7fea8310d4a71d6b3b
             // Add table to a scroll pane
             JScrollPane scrollPane = new JScrollPane(table);
 
@@ -233,14 +201,6 @@ public class CustomerOperations {
             throw new RuntimeException(e);
         }
     }
-<<<<<<< HEAD
-=======
-
-
-
-
-    public int changePassword(String fileName) throws IOException {
->>>>>>> 1e6e73842a9a5b62a4432e7fea8310d4a71d6b3b
 
 
 
@@ -414,11 +374,7 @@ public class CustomerOperations {
     }
 
 
-<<<<<<< HEAD
     public int customerInfo(String cnic,String address,long phoneNo,String cusType,String meterType) throws FileNotFoundException {
-=======
-    public int customerInfo(String cnic,String address,long phoneNo,String name,String cusType,String meterType) throws FileNotFoundException {
->>>>>>> 1e6e73842a9a5b62a4432e7fea8310d4a71d6b3b
 
         String fileName="CustomerInfo.txt";
         int id=generateCustomerId();
@@ -455,26 +411,16 @@ public class CustomerOperations {
                 System.out.println("Enter Peak Units Consumed:\n");
                 peakUnitConsumed=scanner.nextInt();
                 scanner.nextLine();
-<<<<<<< HEAD
                 System.out.println(id + "," + cnic + "," + address + "," + phoneNo + "," + cusType + "," + meterType + "," + formattedDate + "," + regUnitConsumed + "," + peakUnitConsumed+"\n");
                 myWriter.write(id + "," + cnic + "," + address + "," + phoneNo + "," + cusType + "," + meterType + "," + formattedDate + "," + regUnitConsumed + "," + peakUnitConsumed + System.lineSeparator());
-=======
-                System.out.println(id + ","+name+"," + cnic + "," + address + "," + phoneNo + "," + cusType + "," + meterType + "," + formattedDate + "," + regUnitConsumed + "," + peakUnitConsumed+"\n");
-                myWriter.write(id + ","+name+"," + cnic + "," + address + "," + phoneNo + "," + cusType + "," + meterType + "," + formattedDate + "," + regUnitConsumed + "," + peakUnitConsumed + System.lineSeparator());
->>>>>>> 1e6e73842a9a5b62a4432e7fea8310d4a71d6b3b
                 mt.nadOperation(cnic);
             }
             else
             {
 
                 peakUnitConsumed=-1;
-<<<<<<< HEAD
                 System.out.println(id + "," + cnic + "," + address + "," + phoneNo + "," + cusType + "," + meterType + "," + formattedDate + "," + regUnitConsumed + "," + peakUnitConsumed+"\n");
                 myWriter.write(id +"," + cnic + "," + address + "," + phoneNo + "," + cusType + "," + meterType + "," + formattedDate + "," + regUnitConsumed + "," + peakUnitConsumed + System.lineSeparator());
-=======
-                System.out.println(id + ","+name+"," + cnic + "," + address + "," + phoneNo + "," + cusType + "," + meterType + "," + formattedDate + "," + regUnitConsumed + "," + peakUnitConsumed+"\n");
-                myWriter.write(id + ","+name+"," + cnic + "," + address + "," + phoneNo + "," + cusType + "," + meterType + "," + formattedDate + "," + regUnitConsumed + "," + peakUnitConsumed + System.lineSeparator());
->>>>>>> 1e6e73842a9a5b62a4432e7fea8310d4a71d6b3b
                 mt.nadOperation(cnic);
             }
             myWriter.close();
@@ -489,6 +435,29 @@ public class CustomerOperations {
         }
 
         return 0;
+    }
+    public boolean validateCustomerLogin(String customerId, String customerCNIC) {
+        String filePath = "CustomerInfo.txt";  // Replace with the correct file path
+
+        try (BufferedReader reader = new BufferedReader(new FileReader(filePath))) {
+            String line;
+            while ((line = reader.readLine()) != null) {
+                String[] customerData = line.split(",");
+
+                if (customerData.length >= 2) {
+                    String fileId = customerData[0].trim();
+                    String fileCnic = customerData[1].trim();
+
+                    if (fileId.equals(customerId) && fileCnic.equals(customerCNIC)) {
+                        return true;
+                    }
+                }
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        return false;
     }
 
 public static void main(String[] args) throws FileNotFoundException {

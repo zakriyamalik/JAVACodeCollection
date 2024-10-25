@@ -1,12 +1,10 @@
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import java.awt.*;
-<<<<<<< HEAD
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-=======
->>>>>>> 1e6e73842a9a5b62a4432e7fea8310d4a71d6b3b
 import java.io.*;
+import java.util.ArrayList;
 import java.util.Objects;
 import java.util.Scanner;
 
@@ -57,27 +55,23 @@ public class TeriffInfo {
     {
 
     }
-<<<<<<< HEAD
+
     public void showAllTerrifRecord(String[] dataList) {
         JFrame frame = new JFrame("Terrif Records Table");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setSize(600, 400);
 
-        // Wrapping dataList inside a final array to bypass the "final" requirement
-        final String[] finalDataList = dataList;
-
         // Column headers for the table
-        String[] columnNames = {"Meter type", "Regular unit price", "Peak unit price", "Tax percentage", "Fixed charges", "Update", "Save", "Delete"};
+        String[] columnNames = {"Meter type", "Regular unit price", "Peak unit price", "Tax percentage", "Fixed charges", "Update", "Save"};
 
         // Convert String array to 2D Object array for JTable
         String[][] data = new String[dataList.length][columnNames.length];
         for (int i = 0; i < dataList.length; i++) {
             String[] rowData = dataList[i].split(",");
-            int numberOfColumnsToCopy = Math.min(rowData.length, columnNames.length - 3); // Reserve 3 columns for buttons
+            int numberOfColumnsToCopy = Math.min(rowData.length, columnNames.length - 2); // Reserve 2 columns for buttons
             System.arraycopy(rowData, 0, data[i], 0, numberOfColumnsToCopy);
             data[i][5] = "Update";  // Update button
             data[i][6] = "Save";    // Save button
-            data[i][7] = "Delete";  // Delete button
         }
 
         // Table model
@@ -122,56 +116,25 @@ public class TeriffInfo {
                 saveButton.addActionListener(new ActionListener() {
                     @Override
                     public void actionPerformed(ActionEvent e) {
-                        // Save the changes to the finalDataList
+                        // Save the changes to the dataList
                         StringBuilder updatedRow = new StringBuilder();
                         for (int col = 0; col < 5; col++) {
                             updatedRow.append(tableModel.getValueAt(row, col).toString()).append(",");
                         }
 
-                        // Update the corresponding row in the finalDataList
-                        finalDataList[row] = updatedRow.toString();
+                        // Update the corresponding row in the dataList
+                        dataList[row] = updatedRow.toString();
 
                         System.out.println("Saved changes for row: " + row);
 
-                        // Write updated finalDataList to file
-                        writeTerrifDataToFile(finalDataList, "TerrifData.txt");
+                        // Write updated dataList to file
+                        writeTerrifDataToFile(dataList, "TariffTaxInfo.txt");
 
                         // Make the row non-editable again after saving
                         table.setDefaultEditor(Object.class, null);
                     }
                 });
                 return saveButton;
-            }
-        });
-
-        // Add delete button functionality
-        table.getColumn("Delete").setCellEditor(new DefaultCellEditor(new JCheckBox()) {
-            @Override
-            public Component getTableCellEditorComponent(JTable table, Object value, boolean isSelected, int row, int column) {
-                JButton deleteButton = new JButton("Delete");
-
-                deleteButton.addActionListener(new ActionListener() {
-                    @Override
-                    public void actionPerformed(ActionEvent e) {
-                        System.out.println("Delete clicked for row: " + row);
-
-                        // Remove the row from finalDataList and the table
-                        String[] newDataList = new String[finalDataList.length - 1];
-                        for (int i = 0, j = 0; i < finalDataList.length; i++) {
-                            if (i != row) {
-                                newDataList[j++] = finalDataList[i];
-                            }
-                        }
-                        tableModel.removeRow(row);
-
-                        // Update the finalDataList reference
-                        System.arraycopy(newDataList, 0, finalDataList, 0, newDataList.length);
-
-                        // Write updated finalDataList to file
-                        writeTerrifDataToFile(finalDataList, "Temp-TerrifData.txt");
-                    }
-                });
-                return deleteButton;
             }
         });
 
@@ -199,28 +162,6 @@ public class TeriffInfo {
 
 
 
-=======
-    public void showAllTerrifRecord(String [] dataList)
-    {
-        JFrame frame = new JFrame("Data List Table");
-        frame.setDefaultCloseOperation(3);
-        frame.setSize(500, 400);
-        String[] columnNames = new String[]{"Meter type", "Regular unit price", "Peak unit price","Tax percentage", "Fixed charges"};
-        String[][] data = new String[dataList.length][];
-
-        for(int i = 0; i < dataList.length; ++i) {
-            data[i] = (dataList[i]).split(",");
-        }
-
-        DefaultTableModel tableModel = new DefaultTableModel(data, columnNames);
-        JTable table = new JTable(tableModel);
-        table.setPreferredScrollableViewportSize(new Dimension(450, 300));
-        table.setFillsViewportHeight(true);
-        JScrollPane scrollPane = new JScrollPane(table);
-        frame.add(scrollPane, "Center");
-        frame.setVisible(true);
-    }
->>>>>>> 1e6e73842a9a5b62a4432e7fea8310d4a71d6b3b
     public void  writeFile(String fileName,String [] lines,int index)
     {
         BufferedWriter writer = null;
@@ -257,7 +198,6 @@ public class TeriffInfo {
             }
         }
         showAllTerrifRecord(lines);
-
 
     }
     public void processData(String meterType,String customerType,int regUnitPrice,int peakUnitPrice,float taxPercentage,int fixedCharge) throws IOException {
@@ -731,57 +671,29 @@ public class TeriffInfo {
         scannerInput.close();
 
     }
-    public void editTerrifFile(String fileName)
-    {
+    public void editTerrifFile() throws FileNotFoundException {
+        String fileName="TariffTaxInfo.txt";
+        Scanner sc=new Scanner(new File(fileName));
         String line="";
+        String[] datalist=new String[4];
         int counter=0;
-        System.out.println("filename:"+fileName+"\n");
 
-//        try (BufferedWriter bw = new BufferedWriter(new FileWriter(fileName)))
-//        {
-//            //bw.write(CNIC+","+currDate+","+expiryDate+System.lineSeparator());
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        }
-        try
+        while(sc.hasNextLine())
         {
-            BufferedReader br = new BufferedReader(new FileReader(fileName));
-            Scanner sc = new Scanner(br);
-            System.out.println("sc"+sc+"\n");
-
-            while((line=br.readLine())!=null)
-            {
-               // System.out.println("Counter:"+counter+"\n");
-                counter++;
-
-            }
-            if(counter==4)
-            {
-               // System.out.println("Lines are "+counter);
-
-            FileOperations.readFile(fileName);
-           // processData();
-
-            }
-            else
-            {
-                System.out.println("Lines have to be 4 but they are "+counter+"\nFirst fill it or remove it!!!");
-            }
-
+            line=sc.nextLine();
+            datalist[counter]=line;
+            counter++;
         }
-        catch (FileNotFoundException e)
+        System.out.println("Data in edit terrif is\n");
+        for(String data: datalist)
         {
-            e.printStackTrace();
-        } catch (IOException e) {
-            throw new RuntimeException(e);
+            System.out.println(data);
         }
+        showAllTerrifRecord(datalist);
+
     }
     public boolean TariffTaxUpdate(String name,String password) {
-<<<<<<< HEAD
-        String fileName="TarifTaxInfo.txt";
-=======
-        String fileName="TarrifTaxInfo.txt";
->>>>>>> 1e6e73842a9a5b62a4432e7fea8310d4a71d6b3b
+        String fileName="TariffTaxInfo.txt";
         String line = "";
 
         boolean userFound = false;
@@ -920,13 +832,12 @@ public class TeriffInfo {
 
 
 
-<<<<<<< HEAD
     }
 
     public static void main(String[] args) throws IOException {
-        TariffTaxSystem("TarifTaxInfo.txt");
-=======
->>>>>>> 1e6e73842a9a5b62a4432e7fea8310d4a71d6b3b
+       // TariffTaxSystem("TariffTaxInfo.txt");
+        TeriffInfo tf=new TeriffInfo();
+        tf.editTerrifFile();
     }
 
 }
