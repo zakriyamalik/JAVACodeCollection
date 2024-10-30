@@ -201,7 +201,7 @@ public class Main1 {
                 }
                 break;
                 case 2: {
-                    showBill.showBill();
+                //    showBill.showBill();
                 }
                 break;
                 case 3: {
@@ -252,7 +252,7 @@ public class Main1 {
                 break;
                 case 7:
                 {
-                    showBill.showBill();
+                  //  showBill.showBill();
                 }
                 break;
                 case 8:

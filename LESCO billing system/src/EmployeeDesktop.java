@@ -16,7 +16,7 @@ public class EmployeeDesktop extends JFrame {
     public EmployeeDesktop() {
         // Setup second frame
         setTitle("Desktop Page");
-        setBounds(20, 20, 1400, 800);
+        setBounds(0, 20, 1400, 800);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
 
@@ -64,7 +64,7 @@ public class EmployeeDesktop extends JFrame {
 
 
 // Create rounded panel with GridLayout to organize 3 cards per row
-        JPanel pt1 = new JPanel(new GridLayout(0, 3, 30, 30)) { // 3 columns, dynamic row count
+        JPanel pt1 = new JPanel(new GridLayout(4, 3, 20, 20)) { // 3 columns, dynamic row count
             @Override
             protected void paintComponent(Graphics g) {
                 super.paintComponent(g);
@@ -78,8 +78,9 @@ public class EmployeeDesktop extends JFrame {
         };
 
         pt1.setBackground(new Color(250, 247, 240));
-        pt1.setBounds(0, 50, 1360, 600); // Adjust panel size as needed
+        pt1.setBounds(0, 50, 1400, 800); // Adjust panel size as needed
         pt1.setBorder(new LineBorder(Color.WHITE, 16)); // Black border with thickness of 2 pixels
+
 
 // Common properties for labels
         Font labelFont = new Font("Arial", Font.PLAIN, 18); // Further reduced font size
@@ -96,7 +97,7 @@ public class EmployeeDesktop extends JFrame {
         changePassword.setForeground(customColor);
 
         RoundedLabel titleLabel1_1 = new RoundedLabel("  Change Password",  new Color(34, 34, 59), 50, 50);
-        titleLabel1_1.setBounds(4,0,390,40);
+        titleLabel1_1.setBounds(4,0,200,40);
         titleLabel1_1.setFont(new Font("Impact", Font.PLAIN, 24));
         titleLabel1_1.setForeground(customColor);
         changePassword.add(titleLabel1_1);
@@ -126,7 +127,7 @@ public class EmployeeDesktop extends JFrame {
 
 
         RoundedLabel titleLabel2_1 = new RoundedLabel("  Update Tariff Info",  new Color(34, 34, 59), 50, 50);
-        titleLabel2_1.setBounds(4,0,390,40);
+        titleLabel2_1.setBounds(4,0,200,40);
         titleLabel2_1.setFont(new Font("Impact", Font.PLAIN, 24));
         titleLabel2_1.setForeground(customColor);
         updateTerrifLabel.add(titleLabel2_1);
@@ -152,7 +153,7 @@ public class EmployeeDesktop extends JFrame {
         meterOperations.setForeground(customColor);
         pt1.add(meterOperations);
         RoundedLabel titleLabel3_1 = new RoundedLabel("  Meter Operations",  new Color(34, 34, 59), 50, 50);
-        titleLabel3_1.setBounds(4,0,390,40);
+        titleLabel3_1.setBounds(4,0,200,40);
         titleLabel3_1.setFont(new Font("Impact", Font.PLAIN, 24));
         titleLabel3_1.setForeground(customColor);
         meterOperations.add(titleLabel3_1);
@@ -172,7 +173,7 @@ public class EmployeeDesktop extends JFrame {
         viewTimesheetLabel.setForeground(customColor);
         pt1.add(viewTimesheetLabel);
         RoundedLabel titleLabel4_1 = new RoundedLabel("  View Paid/Unpaid Bills",  new Color(34, 34, 59), 50, 50);
-        titleLabel4_1.setBounds(4,0,390,40);
+        titleLabel4_1.setBounds(4,0,200,40);
         titleLabel4_1.setFont(new Font("Impact", Font.PLAIN, 24));
         titleLabel4_1.setForeground(customColor);
         viewTimesheetLabel.add(titleLabel4_1);
@@ -190,7 +191,7 @@ public class EmployeeDesktop extends JFrame {
         assignTasksLabel.setForeground(customColor);
         pt1.add(assignTasksLabel);
         RoundedLabel titleLabel5_1 = new RoundedLabel("  View Expiring CNIC",  new Color(34, 34, 59), 50, 50);
-        titleLabel5_1.setBounds(4,0,390,40);
+        titleLabel5_1.setBounds(4,0,200,40);
         titleLabel5_1.setFont(new Font("Impact", Font.PLAIN, 24));
         titleLabel5_1.setForeground(customColor);
         assignTasksLabel.add(titleLabel5_1);
@@ -212,7 +213,7 @@ public class EmployeeDesktop extends JFrame {
         resetTerrifLabel.setForeground(customColor);
         pt1.add(resetTerrifLabel);
         RoundedLabel titleLabel7_1 = new RoundedLabel("  Reset Terrif data",  new Color(34, 34, 59), 50, 50);
-        titleLabel7_1.setBounds(4,0,390,40);
+        titleLabel7_1.setBounds(4,0,200,40);
         titleLabel7_1.setFont(new Font("Impact", Font.PLAIN, 24));
         titleLabel7_1.setForeground(customColor);
         resetTerrifLabel.add(titleLabel7_1);
@@ -235,7 +236,7 @@ public class EmployeeDesktop extends JFrame {
         viewParticularBill.setForeground(customColor);
         pt1.add(viewParticularBill);
         RoundedLabel titleLabel8_1 = new RoundedLabel("  View any particular Bill",  new Color(34, 34, 59), 50, 50);
-        titleLabel8_1.setBounds(4,0,390,40);
+        titleLabel8_1.setBounds(4,0,200,40);
         titleLabel8_1.setFont(new Font("Impact", Font.PLAIN, 24));
         titleLabel8_1.setForeground(customColor);
         viewParticularBill.add(titleLabel8_1);
@@ -254,7 +255,7 @@ public class EmployeeDesktop extends JFrame {
         addEmployeeLabel.setForeground(customColor);
         pt1.add(addEmployeeLabel);
         RoundedLabel titleLabel9_1 = new RoundedLabel("  Add Employee",  new Color(34, 34, 59), 50, 50);
-        titleLabel9_1.setBounds(4,0,390,40);
+        titleLabel9_1.setBounds(4,0,200,40);
         titleLabel9_1.setFont(new Font("Impact", Font.PLAIN, 24));
         titleLabel9_1.setForeground(customColor);
         addEmployeeLabel.add(titleLabel9_1);
@@ -274,7 +275,7 @@ public class EmployeeDesktop extends JFrame {
         submitFeedbackLabel.setForeground(customColor);
         pt1.add(submitFeedbackLabel);
         RoundedLabel titleLabel10_1 = new RoundedLabel("  Show All Bills",  new Color(34, 34, 59), 50, 50);
-        titleLabel10_1.setBounds(4,0,390,40);
+        titleLabel10_1.setBounds(4,0,200,40);
         titleLabel10_1.setFont(new Font("Impact", Font.PLAIN, 24));
         titleLabel10_1.setForeground(customColor);
         submitFeedbackLabel.add(titleLabel10_1);
@@ -290,7 +291,52 @@ public class EmployeeDesktop extends JFrame {
 
 
 
+        RoundedLabel allCustomerLabel =  new RoundedLabel(scaledOriginalIcon1,"Click Here!",  new Color(34, 34, 59), 20, 20);
+        allCustomerLabel.setPreferredSize(new Dimension(150, 75)); // Reduced size
+        allCustomerLabel.setFont(labelFont);
+        allCustomerLabel.setForeground(customColor);
+        pt1.add(allCustomerLabel);
+        RoundedLabel titleLabel11_1 = new RoundedLabel("  Show All Customer",  new Color(34, 34, 59), 50, 50);
+        titleLabel11_1.setBounds(4,0,200,40);
+        titleLabel11_1.setFont(new Font("Impact", Font.PLAIN, 24));
+        titleLabel11_1.setForeground(customColor);
+        allCustomerLabel.add(titleLabel11_1);
 
+        allCustomerLabel.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                dispose();
+                CustomerOperations co=new CustomerOperations(null);
+                try {
+                    co.showAllCustomers();
+                } catch (FileNotFoundException ex) {
+                    throw new RuntimeException(ex);
+                }
+
+            }
+        });
+
+
+        RoundedLabel addCustomer = new RoundedLabel(scaledOriginalIcon1,"Click here for New Customer", new Color(34, 34, 59), 20, 20);
+        addCustomer.setPreferredSize(new Dimension(150, 75)); // Reduced size
+
+        // addCustomer.setBounds(70, 330, 500, 250);
+        addCustomer.setFont(new Font("Arial", Font.PLAIN, 24));
+        addCustomer.setForeground(customColor); // Set the font color
+        RoundedLabel titleLabel12_1 = new RoundedLabel("  Add New Customer", new Color(34, 34, 59), 50, 50);
+        titleLabel12_1.setBounds(9,0,200,40);
+        titleLabel12_1.setFont(new Font("Impact", Font.PLAIN, 24));
+        titleLabel12_1.setForeground(customColor);
+        addCustomer.add(titleLabel12_1);
+        pt1.add(addCustomer);
+
+        addCustomer.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                dispose();
+                new CustomerInfoInput();
+            }
+        });
 
 
 
@@ -330,8 +376,20 @@ public class EmployeeDesktop extends JFrame {
         headerPanel.add(headerlabel1);
         headerPanel.add(headerlabel2);
         headerPanel.add(headerlabel3);
+        JScrollPane scrollPane = new JScrollPane(pt1);
+        scrollPane.setBounds(20, 50, 1360, 600); // Adjust size and position as needed
 
-        mainPanel.add(pt1); // Add rounded panel
+// Set scrollbar policies
+        scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
+        scrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER); // or AS_NEEDED if horizontal scrolling is desired
+
+// Optionally, customize scroll bar appearance
+        scrollPane.getVerticalScrollBar().setUnitIncrement(16); // Scroll speed for vertical scroll
+
+// Add the JScrollPane to the mainPanel
+        mainPanel.add(scrollPane);
+
+        mainPanel.add(scrollPane); // Add rounded panel
         mainPanel.add(footerPanel); // Add footer
         mainPanel.add(backgroundLabel); // Full background
 

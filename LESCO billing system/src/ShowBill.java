@@ -368,11 +368,11 @@ public class ShowBill {
         return null;
     }
 
-    public void showBill() {
-        int id = 0;
-        long CNIC = 0;
-        String meterType = "";
-        int currMeterReading = 0;
+    public void showBill(int id,long CNIC,String meterType,int currMeterReading) {
+//        int id = 0;
+//        long CNIC = 0;
+//        String meterType = "";
+//        int currMeterReading = 0;
         String[] userData;
         String[] taxData={};
         int fileId = 0;
@@ -389,20 +389,20 @@ public class ShowBill {
         boolean isFound=false;
 
 
-        System.out.println("Enter your Customer ID:\n");
-        Scanner scanner = new Scanner(System.in);
-        id = scanner.nextInt();
-        scanner.nextLine();
-
-
-        System.out.println("Enter 13-digit number without dashes:\n");
-        CNIC = Long.parseLong(scanner.nextLine());
-
-        System.out.println("Enter meter type:\n");
-        meterType = scanner.nextLine();
-
-        System.out.println("Enter current meter reading:\n");
-        currMeterReading = Integer.parseInt(scanner.nextLine());
+//        System.out.println("Enter your Customer ID:\n");
+//        Scanner scanner = new Scanner(System.in);
+//        id = scanner.nextInt();
+//        scanner.nextLine();
+//
+//
+//        System.out.println("Enter 13-digit number without dashes:\n");
+//        CNIC = Long.parseLong(scanner.nextLine());
+//
+//        System.out.println("Enter meter type:\n");
+//        meterType = scanner.nextLine();
+//
+//        System.out.println("Enter current meter reading:\n");
+//        currMeterReading = Integer.parseInt(scanner.nextLine());
 
         try {
 
@@ -477,6 +477,20 @@ public class ShowBill {
                         System.out.println("Due Date:          " + dueDate);
                         System.out.println("Bill Status:       " + billStatus);
                         System.out.println("------------------------------------");
+                        BillSummaryScreen billSummaryScreen=new BillSummaryScreen();
+                        billSummaryScreen.setId(String.valueOf(id));
+                        billSummaryScreen.setCnic(String.valueOf(CNIC));
+                        billSummaryScreen.setAddress(fileAddress);
+                        billSummaryScreen.setUserType(fileCusType);
+                        billSummaryScreen.setMeterType(fileMeterType);
+                        billSummaryScreen.setCurrentReading(String.valueOf(currMeterReading));
+                        billSummaryScreen.setElectricityCost(String.valueOf(electricityCost));
+                        billSummaryScreen.setTax(String.valueOf(tax));
+                        billSummaryScreen.setFixedCharges(String.valueOf(fixedCharges));
+                        billSummaryScreen.setDueDate(dueDate);
+                        billSummaryScreen.setBillStatus(String.valueOf(billStatus));
+
+
                     }
                     else
                     {

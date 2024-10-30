@@ -97,9 +97,14 @@ public class ViewIndividualBill extends JFrame {
         submitButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                String name = textField1.getText();
-                String expiry = textField2.getText();
-                JOptionPane.showMessageDialog(null, "Submitted: " + name + " - " + expiry);
+                int id = Integer.parseInt(textField1.getText());
+                long CNIC = Long.parseLong(textField2.getText());
+                String meterType =textField3.getText();
+                int currMeterReading= Integer.parseInt(textField4.getText());
+                ShowBill showBill=new ShowBill();
+                showBill.showBill(id,CNIC,meterType,currMeterReading);
+                dispose();
+               // JOptionPane.showMessageDialog(null, "Submitted: " + name + " - " + expiry);
             }
         });
         submitButton.setBackground(customColor);

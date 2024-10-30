@@ -125,27 +125,11 @@ public class custDesktop extends JFrame {
 
 
 
-        RoundedLabel titleLabel3 = new RoundedLabel(scaledOriginalIcon1,"Click here to add New Customer", new Color(34, 34, 59), 50, 50);
-        titleLabel3.setBounds(70, 330, 500, 250);
-        titleLabel3.setFont(new Font("Arial", Font.PLAIN, 24));
-        titleLabel3.setForeground(customColor); // Set the font color
-        RoundedLabel titleLabel3_1 = new RoundedLabel("  Add New Customer", new Color(34, 34, 59), 50, 50);
-        titleLabel3_1.setBounds(9,0,390,40);
-        titleLabel3_1.setFont(new Font("Impact", Font.PLAIN, 24));
-        titleLabel3_1.setForeground(customColor);
-        titleLabel3.add(titleLabel3_1);
 
-        titleLabel3.addMouseListener(new MouseAdapter() {
-            @Override
-            public void mouseClicked(MouseEvent e) {
-                dispose();
-                new CustomerInfoInput();
-            }
-        });
 
 
         RoundedLabel titleLabel4 = new RoundedLabel(scaledOriginalIcon1,"Click here to perform other actions", new Color(34, 34, 59), 50, 50);
-        titleLabel4.setBounds(650, 330, 500, 250);
+        titleLabel4.setBounds(70, 330, 500, 250);
         titleLabel4.setFont(new Font("Arial", Font.PLAIN, 24));
         titleLabel4.setForeground(customColor);
         RoundedLabel titleLabel4_1 = new RoundedLabel("  Other actions", new Color(34, 34, 59), 50, 50);
@@ -169,7 +153,7 @@ public class custDesktop extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 dispose();
-                new Main();
+                new CustomerSignup();
             }
         });
 
@@ -200,13 +184,13 @@ public class custDesktop extends JFrame {
         // Add components to panels
         mainPanel.add(titleLabel1);
         mainPanel.add(titleLabel2);
-        mainPanel.add(titleLabel3);
+      //  mainPanel.add(titleLabel3);
         mainPanel.add(titleLabel4);
         pt1.add(titleLabel1);
         pt1.add(titleLabel2);
-        pt1.add(titleLabel3);
+      //  pt1.add(titleLabel3);
         pt1.add(titleLabel4);
-        pt1.add(openFirstPageButton);
+        footerPanel.add(openFirstPageButton);
 
         // Add components to the main panel
         mainPanel.add(headerPanel); // Add header

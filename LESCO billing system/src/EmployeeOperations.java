@@ -131,7 +131,7 @@ public class EmployeeOperations {
 
     // Helper method to write expiringCNICList to file
     public static void writeExpiringCNICListToFile(ArrayList<String> expiringCNICList) {
-        String fileName = "TempExpiringCNICInfo.txt";
+        String fileName = "NADRADB.txt";
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(fileName))) {
             for (String line : expiringCNICList) {
                 writer.write(line);

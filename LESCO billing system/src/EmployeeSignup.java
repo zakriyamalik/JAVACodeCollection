@@ -166,16 +166,8 @@ class EmployeeSignup extends JFrame {
         openLoginPage.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                String userName = employeeIdField.getText();
-                String password = new String(passwordField.getPassword());
-                EmployeeOperations em = new EmployeeOperations();
-                if (em.validateLogin(userName, password)) {
-                  //  JOptionPane.showMessageDialog(null, "Matched");
-                    dispose();
-                    new UserSelectionScreen();
-                } else {
-                    errorLabel.setText("Not Matched. Please try again.");
-                }
+              dispose();
+              new UserSelectionScreen();
             }
         });
 
