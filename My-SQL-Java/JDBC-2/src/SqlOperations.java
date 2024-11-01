@@ -13,16 +13,13 @@ public class SqlOperations {
 
         try {
             // Load MySQL driver
-            Class.forName("com.mysql.cj.jdbc.Driver");
+         //   Class.forName("com.mysql.cj.jdbc.Driver");
             System.out.println("Driver loaded successfully!");
 
             // Establish connection
             System.out.println("Trying to connect to the database...");
             connection = DriverManager.getConnection(URL, USER, PASSWORD);
             System.out.println("Connected to the database successfully!");
-        } catch (ClassNotFoundException e) {
-            System.out.println("Driver not found! Ensure the MySQL connector JAR is added.");
-            e.printStackTrace();
         } catch (SQLException e) {
             System.out.println("Database connection or query failed.");
             e.printStackTrace();
