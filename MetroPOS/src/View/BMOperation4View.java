@@ -113,6 +113,6 @@ public class BMOperation4View extends JFrame {
     }
 
     public static void main(String[] args) {
-        SwingUtilities.invokeLater(() -> new BMOperation4View());
+        SwingUtilities.invokeLater(() -> new BMOperation4bView());
     }
 }

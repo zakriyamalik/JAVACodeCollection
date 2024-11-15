@@ -1,8 +1,9 @@
 package Model;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
+import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
+
 import Connection.ConnectionConfigurator;
 import com.mysql.cj.protocol.Message;
 
@@ -11,7 +12,7 @@ public class EmployeeDao {
     }
     public void insertEmployee(String name, String empNo, String email, String branchCode, String salary, String designation) {
 
-        String insertSQL = "INSERT INTO Employee (emp_no, name, email, branch_code, salary, designation) VALUES (?, ?, ?, ?, ?, ?)";
+        String insertSQL = "INSERT INTO employee (emp_no, name, email, branch_code, salary, designation) VALUES (?, ?, ?, ?, ?, ?)";
 
         try (Connection conn = ConnectionConfigurator.getConnection();
              PreparedStatement pstmt = conn.prepareStatement(insertSQL)) {
@@ -41,6 +42,73 @@ public class EmployeeDao {
         } catch (NumberFormatException e) {
             System.out.println("Error: Invalid salary format.");
             e.printStackTrace();
+        }
+    }
+    public List<Employee> getAllEmployees() {
+        List<Employee> employeeList = new ArrayList<>();
+        String query = "SELECT * FROM employee";
+
+        try (Connection conn = ConnectionConfigurator.getConnection();
+             Statement stmt = conn.createStatement();
+             ResultSet rs = stmt.executeQuery(query)) {
+
+            while (rs.next()) {
+                Employee employee = new Employee(
+                        rs.getInt("id"),
+                        rs.getString("emp_no"),
+                        rs.getString("name"),
+                        rs.getString("email"),
+                        rs.getString("branch_code"),
+                        rs.getBigDecimal("salary"),
+                        rs.getString("designation")
+                );
+                System.out.println(employee.name+"\n");
+                employeeList.add(employee);
+
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return employeeList;
+    }
+
+
+
+    public void updateEmployee(Employee employee) {
+        String query = "UPDATE employee SET name = ?, email = ?, branch_code = ?, salary = ?, designation = ? WHERE emp_no = ?";
+
+        try (Connection conn = ConnectionConfigurator.getConnection();
+             PreparedStatement pstmt = conn.prepareStatement(query)) {
+
+            pstmt.setString(1, employee.name);
+            pstmt.setString(2, employee.email);
+            pstmt.setString(3, employee.branchCode);
+            pstmt.setBigDecimal(4, new java.math.BigDecimal(employee.salary)); // Convert salary to BigDecimal
+            pstmt.setString(5, employee.designation);
+            pstmt.setString(6, employee.empNo);
+
+            int rowsUpdated = pstmt.executeUpdate();
+            if (rowsUpdated > 0) {
+                System.out.println("Employee record updated successfully.");
+            } else {
+                System.out.println("No record found with emp_no: " + employee.empNo);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public boolean deleteEmployee(String empNo) {
+
+        String query = "DELETE FROM employee WHERE emp_no = ?";
+        try (Connection conn = ConnectionConfigurator.getConnection();
+                PreparedStatement stmt = conn.prepareStatement(query)) {
+            stmt.setString(1, empNo);
+            int rowsAffected = stmt.executeUpdate();
+            return rowsAffected > 0;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
         }
     }
 }
