@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/MetroPOS.iml" filepath="$PROJECT_DIR$/MetroPOS.iml" />
+      <module fileurl="file://$PROJECT_DIR$/scd_projrct.iml" filepath="$PROJECT_DIR$/scd_projrct.iml" />
     </modules>
   </component>
 </project>
