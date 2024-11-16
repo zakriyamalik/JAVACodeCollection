@@ -167,7 +167,7 @@ public class BMDashboardView extends JFrame {
             public void mouseClicked(MouseEvent e) {
                 //JOptionPane.showMessageDialog(null, "Managing");
                 dispose();
-                new BMOperation4bView();
+                new BMOperation4View();
             }
         });
 

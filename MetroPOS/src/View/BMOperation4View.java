@@ -81,7 +81,7 @@ public class BMOperation4View extends JFrame {
         ManageEmployeeLabel.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                new loginView();
+               new BMOperation4bView();
                 dispose();
             }
         });
