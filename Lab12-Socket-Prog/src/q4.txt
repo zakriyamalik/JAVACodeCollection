@@ -1,0 +1,7 @@
+To handle multiple clients without blocking, Java servers use threading. A single-threaded server blocks while waiting for a connection or processing a client request, making it inefficient for multiple clients.
+
+Role of Threads:
+
+Concurrency:
+Non-Blocking I/O:
+Resource Management:
