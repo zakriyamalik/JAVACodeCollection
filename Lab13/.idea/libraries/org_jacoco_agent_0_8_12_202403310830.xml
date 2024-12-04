@@ -1,0 +1,14 @@
+<component name="libraryTable">
+  <library name="org.jacoco.agent-0.8.12.202403310830">
+    <CLASSES>
+      <root url="jar://$USER_HOME$/Documents/jacoco-0.8.12/lib/org.jacoco.agent-0.8.12.202403310830.jar!/" />
+      <root url="jar://$USER_HOME$/Documents/jacoco-0.8.12/lib/org.jacoco.ant-0.8.12.202403310830.jar!/" />
+      <root url="jar://$USER_HOME$/Documents/jacoco-0.8.12/lib/org.jacoco.core-0.8.12.202403310830.jar!/" />
+      <root url="jar://$USER_HOME$/Documents/jacoco-0.8.12/lib/org.jacoco.report-0.8.12.202403310830.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="file://$PROJECT_DIR$/src" />
+    </SOURCES>
+  </library>
+</component>
