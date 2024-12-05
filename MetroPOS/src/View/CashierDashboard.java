@@ -1,5 +1,6 @@
 package View;
 
+import Model.Sale;
 import View.CustomerElements.RoundedButton;
 import View.CustomerElements.RoundedLabel;
 
@@ -10,6 +11,8 @@ import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.geom.RoundRectangle2D;
+import java.util.ArrayList;
+import java.util.List;
 
 public class CashierDashboard extends JFrame {
     public CashierDashboard() {
@@ -126,7 +129,8 @@ public class CashierDashboard extends JFrame {
             public void mouseClicked(MouseEvent e) {
                 dispose();
                // JOptionPane.showMessageDialog(null, "Managing");
-                 new ReturnScreenView();
+
+                new ReturnScreenView();
             }
         });
 

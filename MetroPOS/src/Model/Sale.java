@@ -20,6 +20,10 @@ public class Sale {
         this.invoiceNumber = invoiceNumber;
     }
 
+    public Sale() {
+
+    }
+
     // Getters and Setters
     public int getSaleId() {
         return saleId;

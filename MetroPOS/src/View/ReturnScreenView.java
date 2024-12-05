@@ -1,5 +1,8 @@
 package View;
 
+import Controller.ReturnController;
+import Model.ReturnDao;
+import Model.Sale;
 import View.CustomerElements.RoundedButton;
 import View.CustomerElements.RoundedField;
 import View.CustomerElements.RoundedLabel;
@@ -8,6 +11,8 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
+import java.util.List;
 
 public class ReturnScreenView extends JFrame {
     public String invoiceNumber;
@@ -89,8 +94,11 @@ public class ReturnScreenView extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 invoiceNumber = fieldInvoice.getText();
-
-               // System.out.println("Submitted Invoice Number: " + invoiceNumber);
+//                List<Sale> salesList = new ArrayList<>();
+//                ReturnController returnController=new ReturnController();
+//               // returnController.redirect_get_sales(invoiceNumber);
+                new SaleTableView(invoiceNumber);
+                // System.out.println("Submitted Invoice Number: " + invoiceNumber);
                 dispose(); // Close current window
             }
         });
