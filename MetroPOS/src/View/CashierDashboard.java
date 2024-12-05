@@ -125,8 +125,8 @@ public class CashierDashboard extends JFrame {
             @Override
             public void mouseClicked(MouseEvent e) {
                 dispose();
-                JOptionPane.showMessageDialog(null, "Managing");
-                // new EmployeeOperation3_2();
+               // JOptionPane.showMessageDialog(null, "Managing");
+                 new ReturnScreenView();
             }
         });
 
