@@ -7,7 +7,16 @@ import java.util.List;
 
 public class SaleTableModel extends AbstractTableModel {
     private List<Sale> salesList;
-    private String[] columnNames = {"Sale ID", "Product ID", "Product Name", "Price", "Quantity", "Total Price", "Invoice Number"};
+    private String[] columnNames = {
+            "Sale ID",
+            "Product ID",
+            "Product Name",
+            "Price",
+            "Quantity",
+            "Total Price",
+            "Invoice Number",
+            "Branch ID"
+    };
 
     public SaleTableModel(List<Sale> salesList) {
         this.salesList = salesList;
@@ -39,6 +48,7 @@ public class SaleTableModel extends AbstractTableModel {
             case 4: return sale.getQuantity();
             case 5: return sale.getTotalPrice();
             case 6: return sale.getInvoiceNumber();
+            case 7: return sale.getBranchID(); // Added branchID handling
             default: return null;
         }
     }
@@ -60,6 +70,7 @@ public class SaleTableModel extends AbstractTableModel {
             case 4: sale.setQuantity((Integer) aValue); break;
             case 5: sale.setTotalPrice((Double) aValue); break;
             case 6: sale.setInvoiceNumber(Integer.parseInt((String) aValue)); break;
+            case 7: sale.setBranchID(Integer.parseInt((String) aValue)); break; // Added branchID handling
         }
         fireTableCellUpdated(rowIndex, columnIndex);
     }

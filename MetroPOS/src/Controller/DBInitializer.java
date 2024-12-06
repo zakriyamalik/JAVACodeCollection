@@ -52,7 +52,7 @@ public class DBInitializer {
     }
 
 
-    
+
 
     void makeSureEmployeeTableExists() throws SQLException {
         Connection conn = ConnectionConfigurator.getConnection();
@@ -100,14 +100,16 @@ public class DBInitializer {
     }
 
 
-    void makeSureInventoryTableExists() throws SQLException {
+    void makeSureInventoryTableExists() throws SQLException{
         String sql = "CREATE TABLE IF NOT EXISTS Inventory ("
                 + "    ProductID INT PRIMARY KEY AUTO_INCREMENT,"
                 + "    ProductName VARCHAR(100) NOT NULL,"
                 + "    ProductQuantity INT DEFAULT 0,"
                 + "    ProductCategory VARCHAR(50),"
                 + "    CostPrice INT DEFAULT 0,"
-                + "    SalePrice INT DEFAULT 0"
+                + "    SalePrice INT DEFAULT 0,"
+                + "    BranchID INT,"
+                + "    FOREIGN KEY (BranchID) REFERENCES Branch(branchID)"
                 + ");";
 
         try (Connection conn = ConnectionConfigurator.getConnection();
@@ -118,6 +120,8 @@ public class DBInitializer {
             throw new RuntimeException("Failed to create the Inventory table", e);
         }
     }
+
+
 
     void makeSureOrderTableExists() throws SQLException{
         String sql = "CREATE TABLE IF NOT EXISTS `Order` (" +
@@ -138,13 +142,17 @@ public class DBInitializer {
     }
 
     void makeSureInvoiceTableExists() throws SQLException {
-        String sql ="CREATE TABLE IF NOT EXISTS Invoice (" +
+        String sql = "CREATE TABLE IF NOT EXISTS Invoice (" +
                 "    InvoiceID INT PRIMARY KEY AUTO_INCREMENT," +
-                "    TotalBill DOUBLE," +
-                "    GST DOUBLE," +
-                "    AmountPaid DOUBLE," +
-                "    Balance DOUBLE" +
+                "    TotalBill DOUBLE NOT NULL," +
+                "    GST DOUBLE NOT NULL," +
+                "    AmountPaid DOUBLE NOT NULL," +
+                "    Balance DOUBLE NOT NULL," +
+                "    DateTime DATETIME NOT NULL," +
+                "    branchID INT," +
+                "    FOREIGN KEY (branchID) REFERENCES branch(branchID)" +
                 ");";
+
         try (Connection conn = ConnectionConfigurator.getConnection();
              PreparedStatement ps = conn.prepareStatement(sql)) {
             ps.execute();
@@ -153,6 +161,7 @@ public class DBInitializer {
             throw new RuntimeException("Failed to create the Invoice table", e);
         }
     }
+
 
     void makeSureSaleTableExists() throws SQLException {
         String sql = "CREATE TABLE IF NOT EXISTS Sale (" +
@@ -163,8 +172,10 @@ public class DBInitializer {
                 "    Quantity INT," +
                 "    TotalPrice DECIMAL(10, 2)," +
                 "    InvoiceNumber INT," +
+                "    branchID INT," +
                 "    FOREIGN KEY (ProdId) REFERENCES Inventory(ProductID)," +
-                "    FOREIGN KEY (InvoiceNumber) REFERENCES Invoice(InvoiceID)" +
+                "    FOREIGN KEY (InvoiceNumber) REFERENCES Invoice(InvoiceID)," +
+                "    FOREIGN KEY (branchID) REFERENCES branch(branchID)" +
                 ");";
 
         try (Connection conn = ConnectionConfigurator.getConnection();
@@ -177,6 +188,6 @@ public class DBInitializer {
     }
 
 
-}
 
+}
 
