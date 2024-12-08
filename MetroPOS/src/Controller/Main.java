@@ -1,13 +1,17 @@
 package Controller;
+import Connection.ConnectionConfigurator;
 import Model.*;
 import View.*;
 
 
+import javax.swing.*;
 import java.sql.SQLException;
 
 public class Main {
     public static void main(String[] args) throws RuntimeException {
-      
+
+
+
         try {
             DBInitializer in=new DBInitializer();
 
@@ -16,7 +20,7 @@ public class Main {
         }
         new splashView();
 
-        
+
 
         // new CreateBranchView();
 //new BranchManagementView();
@@ -31,7 +35,7 @@ public class Main {
 //        InventoryDAO.insertDataIntoInventoryDb("shampoo",12,"Cosmetic"
 //                ,1200,1300,1);
 
-        //new ManageInventoryView();
+
 
 
 //        VendorDAO.insertVendor("Ali","03338189990","03338164142","ali@gmail.com"
@@ -41,6 +45,17 @@ public class Main {
 
  //   new ManageOrderView();
 
+
+//    new ManageCategoryView();
+
+      //new SearchInventoryView();
+       // new SearchOrderView();
+
     //new AddCategoryView();
+
+//        new ReportView();
+
+
+
     }
 }
