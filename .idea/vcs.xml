@@ -2,7 +2,7 @@
 <project version="4">
   <component name="VcsDirectoryMappings">
     <mapping directory="" vcs="Git" />
-    <mapping directory="$PROJECT_DIR$/Assignment3-Client_server/Assignment1" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/Client-Server-Architecture/Assignment3-Client/Assignment1" vcs="Git" />
     <mapping directory="$PROJECT_DIR$/Testing-LescoBillingSystem" vcs="Git" />
   </component>
 </project>
