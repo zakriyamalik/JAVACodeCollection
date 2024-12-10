@@ -48,7 +48,7 @@ public class SADashboardView extends JFrame {
 
         headerlabel0.setBounds(0, 30, 1400, 40); // Centered title
         headerlabel0.setFont(new Font("Impact", Font.PLAIN, 24));
-        Color customColor = new Color(121, 87, 87); // RGB for #795757
+        Color customColor =  Color.decode("#cccccc");// RGB for #795757
         headerlabel0.setForeground(customColor); // Set font color
         headerlabel1.setForeground(customColor);
         headerlabel2.setForeground(customColor);
@@ -110,8 +110,8 @@ public class SADashboardView extends JFrame {
             @Override
             public void mouseClicked(MouseEvent e) {
                 dispose();
-                JOptionPane.showMessageDialog(null, "Managing");
-                //new EmployeeOperation3_1();
+                new BranchManagementView();
+
             }
         });
 
@@ -132,8 +132,7 @@ public class SADashboardView extends JFrame {
             @Override
             public void mouseClicked(MouseEvent e) {
                 dispose();
-                JOptionPane.showMessageDialog(null, "Managing");
-                // new EmployeeOperation3_2();
+                new BranchManagementView();
             }
         });
 
@@ -199,7 +198,7 @@ public class SADashboardView extends JFrame {
         titleLabel5.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                //git new ReportView();
+                new ReportView();
             }
         });
 
@@ -268,9 +267,8 @@ public class SADashboardView extends JFrame {
 
 
 
-
         openFirstPageButton.setBackground(customColor);
-        openFirstPageButton.setForeground(Color.WHITE);
+        openFirstPageButton.setForeground(Color.decode("#102542"));
         openFirstPageButton.setFont(new Font("Impact", Font.PLAIN, 16));
         openFirstPageButton.setToolTipText("Click here to return!");
 

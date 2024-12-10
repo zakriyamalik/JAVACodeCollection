@@ -1,8 +1,7 @@
 package View;
 
-import Connection.InternetConnectionChecker;
-import Controller.LoginController;
 import Controller.PayController;
+import Model.LoggedEmp;
 import View.CustomerElements.RoundedButton;
 
 import javax.swing.*;
@@ -10,16 +9,13 @@ import java.awt.*;
 import java.awt.event.FocusAdapter;
 import java.awt.event.FocusEvent;
 import java.awt.geom.RoundRectangle2D;
-import java.io.BufferedWriter;
-import java.io.FileWriter;
-import java.io.IOException;
 import java.math.BigDecimal;
 import java.sql.SQLException;
+import java.util.Objects;
 
-    class PayrollGeneration extends JFrame {
+class PayrollGeneration extends JFrame {
        // LoginController loginController = new LoginController();
         PayController payController=new PayController();
-        private InternetConnectionChecker icc = new InternetConnectionChecker();
 
         public PayrollGeneration(String BMbranch) {
             // Setup frame
@@ -87,7 +83,7 @@ import java.sql.SQLException;
             customerIdField.setText("Enter User Name:");
 
             // Password Field
-            JLabel passwordLabel = new JLabel("Password");
+            JLabel passwordLabel = new JLabel("Employee ID");
             passwordLabel.setFont(new Font("Arial", Font.PLAIN, 16));
             passwordLabel.setForeground(Color.BLACK);
             passwordLabel.setBounds(439, 210, 150, 30);
@@ -95,7 +91,7 @@ import java.sql.SQLException;
             final JTextField passwordField = new JTextField();
             passwordField.setBounds(439, 240, 150, 32);
             passwordField.setForeground(Color.GRAY);
-            passwordField.setText("Enter Password");
+            passwordField.setText("Enter Employee ID");
 
             // Designation Dropdown
             JLabel designationlb = new JLabel("Designation:");
@@ -151,7 +147,7 @@ import java.sql.SQLException;
             passwordField.addFocusListener(new FocusAdapter() {
                 @Override
                 public void focusGained(FocusEvent e) {
-                    if (passwordField.getText().equals("Enter Password")) {
+                    if (passwordField.getText().equals("Enter Employee ID")) {
                         passwordField.setText("");
                         passwordField.setForeground(Color.BLACK);
                     }
@@ -160,7 +156,7 @@ import java.sql.SQLException;
                 @Override
                 public void focusLost(FocusEvent e) {
                     if (passwordField.getText().isEmpty()) {
-                        passwordField.setText("Enter Password");
+                        passwordField.setText("Enter Employee ID");
                         passwordField.setForeground(Color.GRAY);
                     }
                 }
@@ -194,8 +190,7 @@ import java.sql.SQLException;
                 String designation = (String) designationTypeComboBox.getSelectedItem();
                 String branch = branchField.getText();
 
-                boolean flag = icc.startChecking();
-                if (flag) {
+
                     try {
                         if (payController.redirect_validateUser(userName, password, designation, branch)) {
                             if(!payController.redirect_getStatus(userName,password,designation,branch))
@@ -207,16 +202,32 @@ import java.sql.SQLException;
                             {
                                 JOptionPane.showMessageDialog(null, "Already Paid");
                             }
-                            dispose();
+                            dispose();//"Branch Manager", "Data Entry Operator", "Cashier"
+                            LoggedEmp loggedEmp=LoggedEmp.getInstance();
+                            String logged=loggedEmp.getDesignation();
+
+
+                            if(Objects.equals(logged, "Super Admin"))
+                            {
+                                new SADashboardView();
+                            } else if (Objects.equals(logged, "Branch Manager")) {
+                                new BMDashboardView();
+                            } else if (Objects.equals(logged, "Data Entry Operator")) {
+                                new DEODashboardView();
+                            } else if (Objects.equals(logged, "Cashier")) {
+                                new CashierDashboard();
+                            }
+                            else
+                            {
+                                System.out.println("Wrong Designation");
+                            }
                         } else {
                             errorLabel.setVisible(true);
                         }
                     } catch (SQLException ex) {
                         throw new RuntimeException(ex);
                     }
-                } else {
-                  //  storeLoginCredentials(userName, password, designation);
-                }
+
             });
 
             submitBtn.setBackground(customColor);

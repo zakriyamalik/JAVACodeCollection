@@ -1,7 +1,5 @@
 package View;
 
-import Connection.ConnectionConfigurator;
-import Connection.InternetConnectionChecker;
 import Controller.LoginController;
 import View.CustomerElements.RoundedButton;
 
@@ -9,14 +7,11 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 import java.awt.geom.RoundRectangle2D;
-import java.io.BufferedWriter;
-import java.io.FileWriter;
-import java.io.IOException;
 import java.sql.SQLException;
+import java.util.Objects;
 
-class loginView extends JFrame {
+public class loginView extends JFrame {
     LoginController loginController = new LoginController();
-    private InternetConnectionChecker icc = new InternetConnectionChecker();
 
     public loginView(String desig) {
         // Setup frame
@@ -100,12 +95,11 @@ class loginView extends JFrame {
         designationlb.setFont(new Font("Arial", Font.PLAIN, 16));
         designationlb.setForeground(Color.BLACK);
 
-        JTextField designationTypes =new JTextField();
-
-        designationTypes.setBounds(439, 330, 150, 32);
-        designationTypes.setFont(new Font("Arial", Font.PLAIN, 14));
-        designationTypes.setForeground(customColor);
-        designationTypes.setText(desig);
+        JTextField designationTypeComboBox = new JTextField();
+        designationTypeComboBox.setBounds(439, 330, 150, 40);
+        designationTypeComboBox.setFont(new Font("Arial", Font.PLAIN, 14));
+        designationTypeComboBox.setForeground(customColor);
+        designationTypeComboBox.setText(desig);
 
         // Branch Field
         JLabel branchLabel = new JLabel("Branch");
@@ -179,19 +173,20 @@ class loginView extends JFrame {
                 }
             }
         });
-
-        designationTypes.addActionListener(e -> {
-            String selectedDesignation = (String) designationTypes.getText();
-            if ("Super Admin".equals(selectedDesignation)) {
-                branchField.setEnabled(false); // Disable Branch Field
-                branchField.setText("N/A");   // Set default text
-            } else {
-                branchField.setEnabled(true); // Enable Branch Field
-                branchField.setText("");      // Clear the field
+        designationTypeComboBox.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                String selectedDesignation = (String) designationTypeComboBox.getText();
+                if ("Super Admin".equals(selectedDesignation)) {
+                    branchField.setEnabled(false); // Disable Branch Field
+                    branchField.setText("N/A");   // Set default text
+                } else {
+                    branchField.setEnabled(true); // Enable Branch Field
+                    branchField.setText("");      // Clear the field
+                }
             }
         });
-
-        if ("Super Admin".equals(designationTypes.getText())) {
+        if ("Super Admin".equals(designationTypeComboBox.getText())) {
             branchField.setEnabled(false); // Disable if Super Admin is selected by default
             branchField.setText("N/A");
         } else {
@@ -201,41 +196,64 @@ class loginView extends JFrame {
         // Buttons
         RoundedButton submitBtn = new RoundedButton("Submit");
         submitBtn.setBounds(416, 390, 110, 32);
-        submitBtn.addActionListener(e -> {
-            String userName = customerIdField.getText();
-            String password = passwordField.getText();
-            String designation = (String) designationTypes.getText();
-            String branch = branchField.getText();
-
-            boolean flag = icc.startChecking();
-            if (flag) {
-                try {
-                    if (loginController.redirect_validateUser(userName, password, designation, branch)) {
-                        loginController.redirect_set_credientials(userName, password, designation, branch);
-                        if (designation.equals("Super Admin")) {
-                            new SADashboardView();
-                        } else if (designation.equals("Branch Manager")) {
-                            new BMDashboardView();
-                        } else if (designation.equals("Data Entry Operator")) {
-                            new DEODashboardView();
-                        } else if (designation.equals("Cashier")) {
-                            new CashierDashboard();
+        submitBtn.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                String userName = customerIdField.getText();
+                String password = passwordField.getText();
+                String designation = (String) designationTypeComboBox.getText();
+                String branch = branchField.getText();
+                if (Objects.equals(designation, "Super Admin")) {
+                    System.out.println("In super Admin\n");
+                    try {
+                        if (loginController.redirect_validateUserSA(userName, password, designation)) {
+                            branch="-1";
+                            loginController.redirect_set_credientials(userName, password, designation, branch);
+                            if (designation.equals("Super Admin")) {
+                                new SADashboardView();
+                            } else if (designation.equals("Branch Manager")) {
+                                new BMDashboardView();
+                            } else if (designation.equals("Data Entry Operator")) {
+                                new DEODashboardView();
+                            } else if (designation.equals("Cashier")) {
+                                new CashierDashboard();
+                            }
+                            dispose();
+                        } else {
+                            errorLabel.setVisible(true);
                         }
-                        dispose();
-                    } else {
-                        errorLabel.setVisible(true);
+                    } catch (SQLException ex) {
+                        throw new RuntimeException(ex);
                     }
-                } catch (SQLException ex) {
-                    throw new RuntimeException(ex);
+                } else {
+                    System.out.println("In Else super Admin\n");
+                    try {
+                        if (loginController.redirect_validateUser(userName, password, designation, branch)) {
+                            loginController.redirect_set_credientials(userName, password, designation, branch);
+                            if (designation.equals("Super Admin")) {
+                                new SADashboardView();
+                            } else if (designation.equals("Branch Manager")) {
+                                new BMDashboardView();
+                            } else if (designation.equals("Data Entry Operator")) {
+                                new DEODashboardView();
+                            } else if (designation.equals("Cashier")) {
+                                new CashierDashboard();
+                            }
+                            dispose();
+                        } else {
+                            errorLabel.setVisible(true);
+                        }
+                    } catch (SQLException ex) {
+                        throw new RuntimeException(ex);
+                    }
                 }
-            } else {
-                storeLoginCredentials(userName, password, designation);
-            }
-        });
+        }});
+
 
         submitBtn.setBackground(customColor);
         submitBtn.setForeground(Color.WHITE);
         submitBtn.setFont(new Font("Impact", Font.PLAIN, 16));
+        submitBtn.setVisible(true);
 
         RoundedButton backBtn = new RoundedButton("Back");
         backBtn.setBounds(295, 390, 110, 32);
@@ -247,6 +265,7 @@ class loginView extends JFrame {
         backBtn.setBackground(customColor);
         backBtn.setForeground(Color.WHITE);
         backBtn.setFont(new Font("Impact", Font.PLAIN, 16));
+        backBtn.setVisible(true);
 
         // Add components to the panel
         mainPanel.add(customerIdLabel);
@@ -254,15 +273,12 @@ class loginView extends JFrame {
         mainPanel.add(passwordLabel);
         mainPanel.add(passwordField);
         mainPanel.add(designationlb);
-        mainPanel.add(designationTypes);
+        mainPanel.add(designationTypeComboBox);
         mainPanel.add(branchLabel);
         mainPanel.add(branchField);
         mainPanel.add(errorLabel);
-        mainPanel.add(pt1);
         pt1.add(backBtn);
         pt1.add(submitBtn);
-        pt1.setComponentZOrder(backBtn, 0);
-        pt1.setComponentZOrder(submitBtn, 0);
         pt1.add(backgroundLabel1);
         mainPanel.add(pt1);
         pt1.add(titleLabel);
@@ -272,27 +288,8 @@ class loginView extends JFrame {
         setVisible(true);
     }
 
-    void storeLoginCredentials(String username, String password, String designation) {
-        BufferedWriter bw = null;
-        String data = username + "," + password + "," + designation;
-        try {
-            bw = new BufferedWriter(new FileWriter("Login.txt", true));
-            bw.write(data);
-            bw.newLine();
-        } catch (IOException e) {
-            e.printStackTrace();
-        } finally {
-            try {
-                if (bw != null) {
-                    bw.close();
-                }
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
-    }
-
     public static void main(String[] args) {
-        new loginView("Branch Manager");
+
+        new loginView("Super Admin");
     }
 }
