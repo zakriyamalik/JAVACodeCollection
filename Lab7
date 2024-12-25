@@ -1,0 +1,39 @@
+Creating a Java software based on: Login and Dashboard GUI Application with Multiple Layout Manager.
+
+Total parts: 3
+
+OBJECTIVE:
+Design and implement a small Java Swing application using various layout managers to create a responsive and visually appealing login form and dashboard. You will use `Null Layout`, `FlowLayout`, `GridLayout`, `BorderLayout`, and `JLayeredPane` to position and organize the components. The GUI should include `JLabel`, `JTextField`, `JPasswordField`, and `JButton`.
+
+
+Part 1: Create the Login Screen.
+
+1. LOGIN FRAME
+Create a JFrame titled "Login" using a `BorderLayout` to organize the login form components and buttons.
+
+2. LOGIN FORM
+Add a JPanel in the center of the frame with a `GridLayout` (2 rows and 2 columns) for the login fields:
+Username: Add a `JLabel` for "Username" and a `JTextField` for entering the username.
+Password: Add a `JLabel` for "Password" and a `JPasswordField` for entering the password.
+
+3. LOGIN BUTTON PANEL
+Add a JPanel at the bottom of the frame using `FlowLayout` with a "Login" `JButton`.
+4. POSITIONING
+Use `BorderLayout` to position the form in the center and the login button at the bottom.
+
+Part 2: Create the Dashboard Screen.
+
+1. DASHBOARD FRAME
+After a successful login (you can simulate this), hide the login screen and show a new `JFrame` for the dashboard with a title "Dashboard".
+2. DASHBOARD LAYOUT
+Use `BorderLayout` for the dashboard layout.
+North: Create a `JPanel` using `FlowLayout` to add a `JLabel` for "Welcome, [Username]".
+Center: Use `GridLayout` (2 rows and 2 columns) to place four `JButtons` (e.g., "Profile", "Settings", "Messages", "Logout").
+East: A small status panel with a `JLabel` for status messages or notifications using a `FlowLayout`.
+Part 3: Using `JLayeredPane` for Notifications.
+
+1. LAYERED PANE
+Implement a `JLayeredPane` on the dashboard that will show a small notification dialog (e.g., "New Message!") as an overlay when a certain button (e.g., "Messages") is clicked.
+2. OVERLAY PANEL
+Design a JPanel with a `Null Layout` placed on the `JLayeredPane` to appear as an overlay when triggered.
+Add a `JLabel` to display the notification message and a `JButton` to close the notification.
