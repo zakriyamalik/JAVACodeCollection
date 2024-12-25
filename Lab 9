@@ -1,0 +1,5 @@
+A minor update in Manual:
+
+Create a EMPLOYE CLASS that takes ssn, age, first name , last name.
+EMPLOYE CLASS will be serialize and store data in file.
+Create an other class, Record that search based on  ssn, age, first name and last name. If more than one occurrences show all  occurrences. Also allow user to show all records.
