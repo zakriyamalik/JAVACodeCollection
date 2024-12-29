@@ -4,6 +4,5 @@
     <mapping directory="" vcs="Git" />
     <mapping directory="$PROJECT_DIR$/LESCO-Client/Assignment1" vcs="Git" />
     <mapping directory="$PROJECT_DIR$/LESCO-Server" vcs="Git" />
-    <mapping directory="$PROJECT_DIR$/Testing-LescoBillingSystem" vcs="Git" />
   </component>
 </project>
